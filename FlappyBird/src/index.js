@@ -19,7 +19,7 @@ view.append(game_view);
 
 function gameControlClick(e) {
     console.log(e);
-  
+    let v;
     switch (e.target.id) {
         case 'game':
             statisticsController.stop();
@@ -36,17 +36,9 @@ function gameControlClick(e) {
 }
 
 statisticsController.run();
-window.addEventListener('game', () => {
-    gameController.getPipes();
-});
 
 
 window.addEventListener('resize', () => {
     gameController.resizeUi();
     statisticsController.resizeUi();
 });
-
-
-
-
-

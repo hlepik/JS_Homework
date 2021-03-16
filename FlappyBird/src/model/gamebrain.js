@@ -1,21 +1,19 @@
-class GameScore {
-    constructor() {
-        this.name = '';
-        this.score = 0;
-    }
-}
 
 
 export default class GameBrain {
 
+    constructor() {
+    
+        this.storage = window.localStorage;
+       
 
-
-    getGameBoard() {
-        return this.board;
     }
 
 
+    getGameBoard() {
+
+        return this.board;
+    }
+
 }
-
-
 
