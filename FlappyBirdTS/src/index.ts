@@ -1,25 +1,33 @@
-import mainView from './views/mainview.js';
-import controlView from './views/controlview.js';
-import gameView from './views/gameview.js';
+import GameController from "./controllers/game-controller";
+import StatisticsController from "./controllers/statistics-controller";
+import GameBrain from "./model/gamebrain";
+import controlView from "./views/controlview";
 
-import GameBrain from './model/gamebrain.js';
-import GameController from './controllers/game-controller.js';
-import StatisticsController from './controllers/statistics-controller.js';
+import gameView from "./views/gameview";
+import mainView from "./views/mainview";
+
+
+
 
 let brain = new GameBrain();
+
 let game_view = gameView();
 let gameController = new GameController(brain, game_view);
-let statisticsController = new StatisticsController(brain, game_view);
+
+let statisticsController = new StatisticsController(game_view);
 
 let view = mainView();
 document.body.append(view);
 let ctrl_view = controlView(gameControlClick);
+
 view.append(ctrl_view);
 view.append(game_view);
 
-function gameControlClick(e) {
+
+function gameControlClick(e: Event | any) {
     console.log(e);
-    let v;
+  
+
     switch (e.target.id) {
         case 'game':
             statisticsController.stop();

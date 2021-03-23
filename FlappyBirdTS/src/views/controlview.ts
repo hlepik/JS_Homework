@@ -1,19 +1,16 @@
-export default function mainView(eventHandler) {
+export default function controlView(eventHandler: EventListener) {
 
 
     let control = document.createElement('div');
     control.id = 'control';
   
-
     let statisticsButton = document.createElement('button');
     statisticsButton.id = 'statistics';
     statisticsButton.style.color = '#FF1493';
     statisticsButton.style.fontSize= '1rem';
     statisticsButton.innerText='Statistics';
 
-
-
-    let gameButton = document.createElement('button');
+    let gameButton = document.createElement('button') as HTMLElement;
     gameButton.id = 'game';
     gameButton.style.color = '#FF1493';
     gameButton.style.fontSize= '1rem';

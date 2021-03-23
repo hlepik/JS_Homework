@@ -3,17 +3,25 @@ import GameBrain from "../model/gamebrain";
 
 export default class StatisticsController {
 
-    constructor(model, viewContainer) {
+    isRunning: Boolean;
+    viewContainer: HTMLElement;
+    brain: Object;
+    storage: any;
+
+    constructor(viewContainer: HTMLElement) {
         this.viewContainer = viewContainer;
-        this.model = model;
+  
         this.isRunning = false;
         this.brain = new GameBrain();
+
+        this.storage = window.localStorage;
         
     }
+  
 
-    run(){
+    run(): void{
 
-        const button = document.querySelector('#game');
+        const button = document.querySelector('#game') as HTMLElement | any;
         button.disabled = false;
 
         this.isRunning = true;
@@ -24,22 +32,22 @@ export default class StatisticsController {
         const score = urlParams.get('score');
 
         if(name != null){
-            this.brain.storage.setItem(name, score);
+            this.storage.setItem(name, score);
         }
 
-        this.viewContainer.append(this.getBoardHtml(this.viewContainer));
+        this.viewContainer.append(this.getBoardHtml());
 
     }
    
 
-    stop(){
+    stop(): void{
         this.isRunning = false;
     }
     resizeUi(){
         if (this.isRunning){
     
             this.viewContainer.innerHTML = '';
-            this.viewContainer.append(this.getBoardHtml(this.viewContainer));
+            this.viewContainer.append(this.getBoardHtml());
         
         }
     }
@@ -93,11 +101,11 @@ export default class StatisticsController {
         table.append(tr);
         let counter = 1;
 
-        console.log(this.brain.storage + "storage")
-        for (let index = 0; index < this.brain.storage.length; index++) {
+     
+        for (let index = 0; index < this.storage.length; index++) {
          
             let tr2 = document.createElement("tr");
-            let key = localStorage.key(index);
+            let key = localStorage.key(index) as string;
             let value = localStorage.getItem(key);
             let col = document.createElement("td");
             col.innerText = counter + ".";
@@ -109,9 +117,9 @@ export default class StatisticsController {
             col2.style.fontSize = "20px";
             col2.style.color = "#43094E";
             col2.style.paddingLeft = '2rem';
-            // col2.style.textAlign = 'center';
+
             let col3 = document.createElement("td");
-            col3.innerText = value;
+            col3.innerText = value as string;
             col3.style.fontSize = "20px";
             col3.style.color = "#43094E";
             col3.style.textAlign = 'center';

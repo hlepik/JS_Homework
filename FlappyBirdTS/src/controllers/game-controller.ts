@@ -1,22 +1,36 @@
+import { InternalSymbolName } from "typescript";
+import GameBrain from "../model/gamebrain";
+
 
 export default class GameController {
 
-    constructor(model, viewContainer) {
+    isRunning: Boolean;
+    score: number;
+    isGameOver: Boolean;
+    gravity: number;
+    birdHeight: number;
+    birdPosition: number;
+    birdWidth: number;
+    birdInnerHeight: number;
+    model: any;
+    viewContainer : HTMLDivElement;
+    timerIdPipes: any;
+    gameTimerId: any;
+
+    constructor(model: GameBrain, viewContainer: HTMLDivElement) {
         this.viewContainer = viewContainer;
         this.model = model;
-        this.isRunning = false;
+        this.isRunning= false;
         this.score = 0;
         this.isGameOver = false;
         this.gravity = 16;
-        this.gameTimerId;
         this.timerIdPipes;
+        this.gameTimerId;
         this.birdHeight = Math.ceil(window.innerHeight / 3);
         this.birdPosition = Math.ceil(window.innerWidth / 3);
         this.birdWidth = Math.ceil(window.innerWidth / 20);
         this.birdHeight = Math.ceil(window.innerHeight / 3);
         this.birdInnerHeight = Math.ceil(window.innerHeight / 20);
-     
-      
     }
 
     
@@ -26,19 +40,24 @@ export default class GameController {
         this.viewContainer.innerHTML = '';
         console.log(this);
 
-        this.viewContainer.append(this.getBoardHtml(this.model));
+        this.viewContainer.append(this.getBoardHtml());
 
-        let startButton = document.getElementById('startButton');
-    
+        let startButton = document.getElementById('startButton') as HTMLElement;
+ 
 
         startButton.addEventListener('click', () => {
+            const statButton = document.querySelector('#statistics') as HTMLInputElement;
+            statButton.disabled = true;
+            const button = document.querySelector('#game') as HTMLInputElement;
+            button.disabled = true;
          
-           
-            let sky = document.getElementById('sky');
+            this.isRunning = true;
+            this.isGameOver = false;
+            let sky = document.getElementById('sky') as HTMLDivElement;
             sky.removeChild(startButton);
 
 
-            this.gameTimerId = setInterval( () => {
+            this.gameTimerId = window.setInterval( () => {
                 this.startGame();
               }, 100);
 
@@ -47,16 +66,24 @@ export default class GameController {
                 this.Pipes();
             
             }, 3500);
+
+            document.addEventListener('keyup', () => {
+                this.jump();
+          
+            });
+
+         
           
         });
-        if(this.isGameOver){
-            startButton.removeEventListener();
-        }
+  
 
 
-        document.addEventListener('keyup', () => {
-            this.jump();
-        });
+        // if(this.isGameOver){
+        //     let listener: any;
+        //     startButton.removeEventListener('click', listener);
+        // }
+
+       
        
     }
     stop(){
@@ -66,15 +93,13 @@ export default class GameController {
     resizeUi(){
         if (this.isRunning){
             this.viewContainer.innerHTML = '';
-            this.viewContainer.append(this.getBoardHtml(this.model));
+            this.viewContainer.append(this.getBoardHtml());
         
         }
     }
 
-    getBoardHtml() {
+    getBoardHtml(){
 
-        const button = document.querySelector('#game');
-        button.disabled = true;
 
         let content = document.createElement('div');
         content.id = "gameboard";
@@ -104,7 +129,7 @@ export default class GameController {
         edge.style.minWidth  = window.innerWidth + 'px';
         edge.style.minHeight= '15px';
         edge.style.background = '#4D1357';
-        edge.style.zIndex = 1;
+        edge.style.zIndex = "1";
         edge.style.bottom = '0px';
         edge.style.position = 'absolute';
 
@@ -159,24 +184,24 @@ export default class GameController {
 
     startGame() {
         
-        let bird  = document.getElementById('bird');
+        let bird  = document.getElementById('bird')as HTMLDivElement;
 
         this.birdHeight -= this.gravity
         bird.style.bottom = this.birdHeight + 'px'
         bird.style.left = this.birdPosition + 'px'
-
         if(this.birdHeight <= 8){
             this.gameOver();
         }
+
     
     }
         
           
     jump() {
 
-        let bird = document.getElementById('bird');
+        let bird = document.getElementById('bird') as HTMLDivElement;
         if(this.birdHeight < window.innerHeight - 110 && !this.isGameOver){
-            this.birdHeight += 70
+            this.birdHeight += 50
             bird.style.bottom = this.birdHeight + 'px'
         } 
     }
@@ -223,9 +248,9 @@ export default class GameController {
         topPipe.style.borderTop = '0px';
 
 
-        let sky = document.getElementById('sky');
+        let sky = document.getElementById('sky') as HTMLDivElement;
 
-        let bird = document.getElementById('bird');
+        let bird = document.getElementById('bird') as HTMLDivElement;
     
 
         if(!this.isGameOver){
@@ -251,7 +276,7 @@ export default class GameController {
             
                 this.score += 1;
              
-                let gameScore = document.getElementById('gameScore');
+                let gameScore = document.getElementById('gameScore') as HTMLDivElement;
                 gameScore.innerHTML = "Score: " + this.score;
                 sky.append(gameScore);
                 
@@ -272,37 +297,50 @@ export default class GameController {
     
     gameOver() {
     
+        this.isGameOver = true;
+
         clearInterval(this.gameTimerId);
         clearInterval(this.timerIdPipes);
-        this.isGameOver = true;
-        document.removeEventListener('keyup', control);
-        setTimeout(this.textGameOver(), 100);
+
+        if(this.score > 0){
+            this.textGameOver();
+        }else{
+            const statButton = document.querySelector('#statistics') as HTMLInputElement;
+            statButton.disabled = false;
+            const button = document.querySelector('#game') as HTMLInputElement;
+            button.disabled = false;
+            this.birdHeight = Math.ceil(window.innerHeight / 3);
+            this.run();
+
+        }
+  
+
     }
     
 
-    textGameOver(){
+    textGameOver(): void{
 
-        let sky = document.getElementById('sky');
+        let sky = document.getElementById('sky') as HTMLDivElement;
         let text = document.createElement('h1');
         sky.appendChild(text);
         
-        text.innerHTML = "Game Over"
+        text.innerHTML = "Game Over" as string;
         text.style.color = '#FFFFFF'
         text.style.left= (window.innerWidth / 2)- 85 + 'px';
         text.style.position = 'absolute';
         text.style.top = (window.innerHeight / 2) - 50 + 'px';
 
   
-        let nameForm = document.getElementById('form');
+        let nameForm = document.getElementById('form') as HTMLDivElement;
     
         nameForm.style.display = "block";
         nameForm.style.top = (window.innerHeight / 2) + 20 + 'px';
         nameForm.style.left= (window.innerWidth / 2) - 80 + 'px';
         nameForm.style.position = 'absolute';
-        nameForm.style.zIndex = 1;
+        nameForm.style.zIndex = '1';
 
-        let score = document.getElementById('score');
-        score.value = this.score;
+        let score = document.getElementById('score') as HTMLDivElement | any;
+        score.value = this.score ;
 
       
         sky.append(nameForm);
