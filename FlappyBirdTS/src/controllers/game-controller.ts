@@ -42,7 +42,8 @@ export default class GameController {
 
         this.viewContainer.append(this.getBoardHtml());
 
-        let startButton = document.getElementById('startButton') as HTMLElement;
+     
+        let startButton = document.getElementById('startButton') as HTMLDivElement;
  
 
         startButton.addEventListener('click', () => {
@@ -53,7 +54,7 @@ export default class GameController {
          
             this.isRunning = true;
             this.isGameOver = false;
-            let sky = document.getElementById('sky') as HTMLDivElement;
+            var sky =  document.getElementById('sky') as HTMLDivElement;
             sky.removeChild(startButton);
 
 
