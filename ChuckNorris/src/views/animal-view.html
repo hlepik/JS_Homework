@@ -1,17 +1,36 @@
-<h1>Animal jokes</h1>
 
-<table class="table">
+
+<h1 style="background-color:greenyellow;">Animal jokes</h1>
+
+<table class="table" id="animal">
    
-    <tbody>
+    <tbody style="background-color:powderblue;">
      
-        <tr repeat.for="item of data">
-            <td>
-                ${item.value}
+ 
+        <tr repeat.for="item of jokes">
 
-            </td>
+            
+            <td style="background-color:rgb(102, 179, 67);"  if.bind="$index<data.length">${item.value}</td>
+       
+            <td style="background-color:rgb(67, 97, 179);"  if.bind="$index>data.length">${item.value}</td>
         </tr>
 
-        
 
     </tbody>
+
+    <div class="row">
+        <div class="column">
+          <img src="src/norris2.png" alt="N" width="240" height="200">
+        </div>
+        <div class="column">
+          <img src="src/norris2.png" alt="N" width="240" height="200">
+        </div>
+        <div class="column">
+          <img src="src/norris2.png" alt="N" width="240" height="200">
+        </div>
+        <div class="column">
+            <img src="src/norris2.png" alt="N" width="240" height="200">
+          </div>
+
+      </div>
 </table>

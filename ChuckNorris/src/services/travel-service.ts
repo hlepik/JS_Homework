@@ -1,37 +1,32 @@
-import { IAnimal } from './../domain/IAnimal';
-import { all, HttpClient, inject } from "aurelia";
+import { ITravel } from '../domain/ITravel';
+import { HttpClient, inject } from "aurelia";
 import { data } from 'jquery';
-import { AnimalView } from '../views/animal-view';
 
 @inject()
-export class AnimalService{
-
-
+export class TravelService{
 
     constructor(private httpClient: HttpClient) {
-  
-    
+
     }
 
+    async getAll(allJokes): Promise<ITravel[]> {
 
-    async getAll(allJokes): Promise<IAnimal[]> {
 
         let count = 0;
         let jokes = [];
         let idList = [];
         let requestCount = 0;
-   
-    
+
         while(count < 5){
             requestCount++;
             const response = await this.httpClient
             .get("https://api.chucknorris.io/jokes/random?category=animal", { cache: "no-store" });
             console.log(response + 'response');
-            if (!response.ok) {
+           if (!response.ok) {
             
                 return [];
             }
-            const data = (await response.json()) as IAnimal[];
+            const data = (await response.json()) as ITravel[];
 
             let dataId;
             for (const key in data) {
@@ -75,11 +70,8 @@ export class AnimalService{
             if(count === 5 || requestCount === 15){
                 return jokes;
             }
-            
-  
         }
     
-    
+  
     }
-    
 }

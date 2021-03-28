@@ -1,1 +1,22 @@
-fashion
+<h1 style="color: hotpink;" id='fashion'>Fashion jokes</h1>
+
+
+
+
+<table class="table table-striped" id='fashionText'>
+
+    <tbody >
+        <img  src="src/norris.png" alt="pilt" class="center" width="300" height="200">
+
+        <tr repeat.for="item of jokes">
+            <td>
+                <div style="color: rgb(233, 33, 183);"  if.bind="$index<data.length">${item.value}</div>
+       
+                <td style="color: rgb(100, 16, 100);"  if.bind="$index>data.length">${item.value}</td>
+
+            </td>
+        </tr>
+
+
+    </tbody>
+</table>

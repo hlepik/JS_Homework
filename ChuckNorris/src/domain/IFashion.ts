@@ -1,4 +1,9 @@
 export interface IFashion {
+    categories: [];
+    created_at: string;
+    icon_url: string;
     id: string;
-    fashionValue: string;
+    updated_at: string;
+    url: string;
+    value: string;
 } 

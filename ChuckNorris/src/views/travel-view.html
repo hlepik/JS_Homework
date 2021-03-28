@@ -1,1 +1,19 @@
-travel
+<h1 id="travel">Travel jokes</h1>
+
+<table id="travel" class="table table-borderless" >
+   
+    <tbody>
+     
+        <tr repeat.for="item of jokes">
+            <td>
+                <td style="color: indigo;"  if.bind="$index<data.length">${item.value}</td>
+       
+                <td style="color: lightcoral;"  if.bind="$index>data.length">${item.value}</td>
+
+            </td>
+        </tr>
+
+        
+
+    </tbody>
+</table>

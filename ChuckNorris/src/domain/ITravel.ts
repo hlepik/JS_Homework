@@ -1,4 +1,9 @@
 export interface ITravel {
+    categories: [];
+    created_at: string;
+    icon_url: string;
     id: string;
-    travelValue: string;
+    updated_at: string;
+    url: string;
+    value: string;
 } 

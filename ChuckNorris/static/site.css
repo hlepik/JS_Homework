@@ -1,0 +1,50 @@
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100;
+
+  }
+
+  h1{
+    text-align: center;
+
+  }
+  #fashionText{
+    text-align: center;
+    font-family: fantasy;
+  }
+
+  #image{
+    opacity: 50;
+  }
+
+ #animal{
+    text-align: center;
+    font-weight: bold;
+ }
+  #travel{
+      color: rgb(21, 162, 180);
+      font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+      text-align: center;
+      background-color: rgb(247, 216, 213);
+  }
+
+  .link-info{
+      padding-left: 3rem;
+      padding-top: 5rem;
+      font-size: 2rem;
+      color: rgb(228, 60, 228);
+  }
+  .link-primary{
+    padding-left: 3rem;
+    padding-top: 5rem;
+    font-size: 2rem;
+    color: rgb(0, 2, 128);
+}
+.link-success{
+    padding-left: 3rem;
+    padding-top: 5rem;
+    font-size: 2rem;
+    color: rgb(21, 162, 180);
+}
