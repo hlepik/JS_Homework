@@ -21,7 +21,6 @@ export class AnimalService{
         let idList = [];
         let requestCount = 0;
    
-    
         while(count < 5){
             requestCount++;
             const response = await this.httpClient
@@ -48,9 +47,7 @@ export class AnimalService{
                 for (var prop in obj) {
                     if(prop === "id"){
                         if(obj[prop] === dataId){
-                            hasDuplicate = true;
-
-                            
+                            hasDuplicate = true;    
                         }
                     }
                 }

@@ -1,0 +1,23 @@
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            
+        </tr>
+    </thead>
+    <tbody>
+
+        <tr repeat.for="item of data">
+            <td>
+                ${item.name}
+            </td>
+           
+            <td>
+                <a href="#" load="/picture-details(${item.id},${item.id})">Details</a>
+            </td>
+        </tr>
+
+    </tbody>
+</table>

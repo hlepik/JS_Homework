@@ -1,0 +1,135 @@
+<import from="./views/home/home-index.html" />
+
+
+<import from="./views/Product/product-index" />
+<import from="./views/Product/product-details" />
+
+<import from="./views/Booking/booking-index" />
+<import from="./views/Booking/booking-details" />
+
+<import from="./views/Category/category-index" />
+<import from="./views/Category/category-details" />
+
+<import from="./views/City/city-index" />
+<import from="./views/City/city-details" />
+
+<import from="./views/Condition/condition-index" />
+<import from="./views/Condition/condition-details" />
+
+<import from="./views/County/county-index" />
+<import from="./views/County/county-details" />
+
+<!-- <import from="./views/MessageForm/messageForm-index" />
+<import from="./views/MessageForm/messageForm-details" /> -->
+
+<!-- <import from="./views/UserMessages/userMessages-index" />
+<import from="./views/UserMessages/userMessages-details" /> -->
+
+<import from="./views/Picture/picture-index" />
+<import from="./views/Picture/picture-details" />
+
+<!-- <import from="./views/ProductMaterial/productMaterial-index" />
+<import from="./views/ProductMaterial/productMaterial-details" /> -->
+
+<import from="./views/Unit/unit-index" />
+<import from="./views/Unit/unit-details" />
+
+<!-- <import from="./views/UserBookedProducts/userBookedProducts-index" />
+<import from="./views/UserBookedProducts/userBookedProducts-details" /> -->
+
+<!-- import viewmodel based view - dont use extension-->
+<import from="./views/register/register-form"/>
+<import from="./views/identity/identity-login" />
+
+
+<header>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <div class="container">
+            <a class="navbar-brand" load="home-index">WebApp</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                <ul class="navbar-nav flex-grow-1">
+                
+                    <li class="nav-item">
+                    <a class="nav-link text-dark" load="booking-index">Find a product</a>
+                    </li>
+
+                
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-dark" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Kasutaja valikud
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+                                <a class="nav-link text-dark" load="messageForm-index">Send Message</a>
+                                    <a class="nav-link text-dark" load="userBookedProduct-index">My Bookings</a>
+                                    <a class="nav-link text-dark" load="userMessage-index">New Messages</a>
+
+                            </div>
+                        </li>
+                  
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-dark"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            My Product
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                             <a class="nav-link text-dark" load="product-index">My Products</a>
+
+                            <a class="nav-link text-dark" load="productMaterial-index">Product Materials</a>
+                            <a class="nav-link text-dark"  load="picture-index">Pictures</a>
+
+                        </div>
+                    </li>
+
+                    
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-dark" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Search
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                         <a class="nav-link text-dark" load="category-index">Categories</a>
+                            <a class="nav-link text-dark"  load="material-index">Materials</a>
+                            <a class="nav-link text-dark" load="city-index">Cities</a>
+                            <a class="nav-link text-dark" load="county-index">Counties</a>
+                             <a class="nav-link text-dark" load="condition-index">Condition</a>
+                            <a class="nav-link text-dark" load="unit-index">Units</a>
+
+                        </div>
+                    </li>
+                      
+                </ul>
+                <ul class="navbar-nav">
+                    <li show.bind="state.token == null" class="nav-item">
+                        <a class="nav-link text-dark" load="register-form" >Register</a>
+                    </li>
+                    <li show.bind="state.token == null" class="nav-item">
+                        <a class="nav-link text-dark" load="identity-login">Login</a>
+                    </li>
+                    <li show.bind="state.token != null" class="nav-item">
+                        <a class="nav-link text-dark" click.delegate="logOut($event)">Logout</a>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+    </nav>
+</header>
+
+
+<div class="container">
+    <main role="main" class="pb-3">
+
+        <au-viewport default="home-index" name="my-app"></au-viewport>
+
+    </main>
+</div>
+
+<footer class="border-top footer text-muted">
+    <div class="container">
+        &copy; 2021 - WebApp - <a href="/Home/Privacy">Privacy</a>
+    </div>
+</footer>
+
