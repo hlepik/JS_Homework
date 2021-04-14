@@ -4,14 +4,14 @@ import { AppState } from "../../state/app-state";
 import { IJwt } from "../../types/IJwt";
 
 export class IdentityLogin {
-
   //AccountService
 
     private service: AccountService =
-        new AccountService("https://localhost:5001/api/v1/Account/Login", this.httpClient);
+        new AccountService("https://localhost:5001/api/v1/Account/login", this.httpClient);
 
     private email: string = "";
     private password: string = "";
+    private errorMessage: string;
 
     constructor(
         @IRouter private router: IRouter,
@@ -24,6 +24,8 @@ export class IdentityLogin {
         event.preventDefault();
         event.stopPropagation();
 
+        console.log(this.email, this.password);
+
         let response = await this.service.login(this.email, this.password);
         console.log(response);
 
@@ -33,9 +35,12 @@ export class IdentityLogin {
             this.state.lastname = (response.data as IJwt).lastname;
 
             await this.router.load('/home-index');
+        }else{
+            this.errorMessage = "Username or password incorrect!"
         }
         
 
     }
 
 }
+

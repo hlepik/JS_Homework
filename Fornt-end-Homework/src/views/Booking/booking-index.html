@@ -7,6 +7,7 @@
             <th>Location</th> 
             <th>Pictures</th> 
             <th>Is booked?</th> 
+            <th>Date Added</th> 
         </tr>
     </thead>
     <tbody>
@@ -19,14 +20,18 @@
                 ${item.location}
             </td>
             <td>
+               
                 ${item.pictures}
             </td>
             <td>
                 ${item.isBooked}
             </td>
+            <td>
+                ${item.dateAdded}
+            </td>
            
             <td>
-                <a load="/booking-detail(${item.id})">Details</a> 
+                <a load="/booking-details(${item.id})">Details</a> 
             </td>
         </tr>
 

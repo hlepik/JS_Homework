@@ -2,16 +2,17 @@
 import { BaseService } from '../../services/base-service';
 import { IProduct } from "../../domain/IProduct";
 import { HttpClient } from "aurelia";
+import { AppState } from "../../state/app-state";
 
 export class ProductIndex {
 
     private service: BaseService<IProduct> = 
-        new BaseService<IProduct>("https://localhost:5001/api/v1/Product", this.httpClient);
+        new BaseService<IProduct>("https://localhost:5001/api/v1/Products", this.httpClient, this.state.token);
 
     
     private data: IProduct[] = [];
 
-    constructor(protected httpClient: HttpClient){
+    constructor(protected httpClient: HttpClient, private state: AppState,){
 
     }
 
@@ -19,8 +20,11 @@ export class ProductIndex {
         console.log("attached");
 
         let response = await this.service.getAll();
+    
         if (response.data) {
+        
             this.data = response.data;
+            
         }
     }
 }

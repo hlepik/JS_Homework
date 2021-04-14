@@ -20,7 +20,6 @@ export class AccountService {
 
             const response = await this.httpClient.post(url, bodyStr , { cache: "no-store" });
 
-        
             console.log(response);
 
             if (response.ok) {
@@ -30,10 +29,10 @@ export class AccountService {
                     data: data,
                 };
             }
-            // TODO: why cant i do this?
+
             const data = (await response.json()) as IMessage;
 
-    
+        
             return {
                 statusCode: response.status,
                 errorMessage: response.statusText + ' ' + data.messages.join(' '),
@@ -44,43 +43,41 @@ export class AccountService {
                 errorMessage: JSON.stringify(reason),
             };
         }
-
     }
 
-    // async register(email: string, password: string, firstName: string, lastName: string):  Promise<IFetchResponse<IJwt | IMessage>>{
+    async register(email: string, password: string, firstName: string, lastName: string):  Promise<IFetchResponse<IJwt | IMessage>>{
      
      
-    //     let url = this.apiEndpointUrl;
-    //     try {
-
-    //         let body = {email, password};
-    //         let bodyStr = JSON.stringify(body);
-    //         console.log(bodyStr);
-
-    //         const response = await this.httpClient.post(url, bodyStr , { cache: "no-store" });
-
+        let url = this.apiEndpointUrl;
         
-    //         console.log(response);
-    //         if (response.ok) {
-    //             const data = (await response.json()) as IJwt;
-    //             return {
-    //                 statusCode: response.status,
-    //                 data: data,
-    //             }
-    //         }
-    //         return {
-    //             statusCode: response.status,
-    //             errorMessage: response.statusText
-    //         }
-    //     }
-    //     catch (reason) {
-    //         return {
-    //             statusCode: 0,
-    //             errorMessage: JSON.stringify(reason)
-    //         }
+        try {
+            let body = {email, password, firstName, lastName};
+            let bodyStr = JSON.stringify(body);
+            console.log(bodyStr);
 
-    //     }
-    // }
+            const response = await this.httpClient.post(url, bodyStr , { cache: "no-store" });
+
+            console.log(response);
+            if (response.ok) {
+                const data = (await response.json()) as IJwt;
+                return {
+                    statusCode: response.status,
+                    data: data,
+                }
+            }
+            return {
+                statusCode: response.status,
+                errorMessage: response.statusText
+            }
+        }
+        catch (reason) {
+            return {
+                statusCode: 0,
+                errorMessage: JSON.stringify(reason)
+            }
+
+        }
+    }
 
 
 }

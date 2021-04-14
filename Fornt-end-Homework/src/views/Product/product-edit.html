@@ -1,0 +1,64 @@
+<h1>Edit</h1>
+<h2>Product</h2>
+
+<div class="row">
+    <div class="col-md-4">
+        <form submit.trigger="onSubmit($event)">          
+            <div class="form-group">
+                <label class="control-label" for="Recipe_Name">Name</label>
+                <input class="form-control" type="text" id="Recipe_Name"  name="Recipe.Name" value.bind="_recipe.name" />
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="Recipe_Description">Description</label>
+                <input class="form-control" type="text" id="Recipe_Description" name="Recipe.Description" value.bind="_recipe.description" />
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" type="checkbox" checked="_recipe.checked" value="true" id="Recipe_Checked" name="Recipe.Checked" checked.bind="_recipe.checked" /> Checked
+                </label>
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="Recipe_Popularity">Popularity</label>
+                <input class="form-control" type="number" id="Recipe_Popularity" name="Recipe.Popularity" value.bind="_recipe.popularity" />
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="Recipe_RecipeType">RecipeType</label>
+                <select class="form-control" id="Recipe_RecipeType" name="Recipe.RecipeType">
+                    <option selected="selected">BaseRecipe</option>
+                    <option>RecipeFromBook</option>
+                    <option>UserRecipe</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="Recipe_DietType">DietType</label>
+                <select class="form-control" id="Recipe_DietType" name="Recipe.DietType">
+                    <option selected="selected">Omnivore</option>
+                    <option>Vegetarian</option>
+                    <option>Vegan</option>
+                </select>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" type="checkbox" checked="_recipe.isPrivate" id="Recipe_IsPrivate" value="true" name="Recipe.IsPrivate" checked.bind="_recipe.isPrivate" /> IsPrivate
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" type="checkbox" checked="_recipe.isPaid" id="Recipe_IsPaid" value="true" name="Recipe.IsPaid" checked.bind="_recipe.isPaid" /> IsPaid
+                </label>
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="Recipe_TotalPrice">TotalPrice</label>
+                <input class="form-control" type="number" id="Recipe_TotalPrice" name="Recipe.TotalPrice" value.bind="_recipe.totalPrice" />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a load="/product-index">Back to List</a>
+</div>
+

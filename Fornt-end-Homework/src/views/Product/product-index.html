@@ -1,20 +1,69 @@
 
+
+<h1>My Products</h1>
+
+<a load="/product-create">Create new</a> 
 <table class="table">
     <thead>
         <tr>
             <th>Description</th>
-            
+            <th>Color</th>
+            <th>Has trasport</th>
+            <th>Is Booked?</th>
+            <th>Location</th>
+            <th>Size</th>
+            <th>Condition</th>
+            <th>Material</th>
         </tr>
     </thead>
     <tbody>
 
         <tr repeat.for="item of data">
             <td>
-                ${item.value}
+                ${item.description}
+            </td>
+            <td>
+            <a if.bind="item.color != undefined">
+                ${item.color}
+            </td>
+            <td >
+                <input type="checkbox" checked.bind="item.hasTransport" />              
+            </td>
+            <td>
+                <input type="checkbox" checked.bind="item.isBooked" />   
+            </td>
+            <td>
+                ${item.county}
+                <br>
+                <a if.bind="item.city != undefined">
+                ${item.city}
+                <br>
+                <a if.bind="item.locationDescription != undefined">
+                ${item.locationDescription}
+            </td>
+            <td>
+                <a if.bind="item.width != undefined">
+                Width:&nbsp${item.width}${item.unit}
+                <br>
+                <a if.bind="item.height != undefined">
+                Height:&nbsp${item.height}${item.unit}
+                <br>
+                <a if.bind="item.depth != undefined">
+                Depth:&nbsp${item.depth}${item.unit}
+              
+            </td>
+            <td>
+                <a if.bind="item.condition != undefined">
+                ${item.condition}
+            </td>
+            <td>
+                ${item.material}
             </td>
            
             <td>
-                <a href="#" load="/product-details(${item.id},${item.id})">Details</a>
+                <a load="/product-edit(${item.id})">Edit</a> |
+                <a load="./../product-details(${item.id})">Details</a> |
+                <a load="/product-delete(${item.id})">Delete</a>
             </td>
         </tr>
 
