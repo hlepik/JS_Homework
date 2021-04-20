@@ -1,5 +1,5 @@
 export interface ICondition {
 
     id: string;
-    name: string;
+    description: string;
 } 

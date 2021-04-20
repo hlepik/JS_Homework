@@ -29,6 +29,7 @@ export class IdentityLogin {
         let response = await this.service.login(this.email, this.password);
         console.log(response);
 
+        console.log('siin')
         if (response.statusCode == 200 && response.data ) {
             this.state.token = (response.data as IJwt).token;
             this.state.firstname = (response.data as IJwt).firstname;
@@ -36,7 +37,7 @@ export class IdentityLogin {
 
             await this.router.load('/home-index');
         }else{
-            this.errorMessage = "Username or password incorrect!"
+            this.errorMessage = response.errorMessage;
         }
         
 

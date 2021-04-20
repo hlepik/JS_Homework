@@ -11,11 +11,11 @@
 
         <tr repeat.for="item of data">
             <td>
-                ${item.name}
+                ${data.description}
             </td>
            
             <td>
-                <a href="#" load="/condition-details(${item.id},${item.id})">Details</a>
+                <a load="/condition-details(${item.id})">Details</a>
             </td>
         </tr>
 

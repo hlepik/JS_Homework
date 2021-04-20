@@ -6,7 +6,7 @@ import { HttpClient } from "aurelia";
 export class CountyIndex {
 
     private service: BaseService<ICounty> = 
-        new BaseService<ICounty>("https://localhost:5001/api/v1/County", this.httpClient);
+        new BaseService<ICounty>("https://localhost:5001/api/v1/Counties", this.httpClient);
 
     
     private data: ICounty[] = [];

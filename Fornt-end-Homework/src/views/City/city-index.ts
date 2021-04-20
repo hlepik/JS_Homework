@@ -2,16 +2,17 @@
 import { BaseService } from '../../services/base-service';
 import { ICity } from "../../domain/ICity";
 import { HttpClient } from "aurelia";
+import { AppState } from "../../state/app-state";
 
 export class CityIndex {
 
     private service: BaseService<ICity> = 
-        new BaseService<ICity>("https://localhost:5001/api/v1/City", this.httpClient);
+        new BaseService<ICity>("https://localhost:5001/api/v1/Cities", this.httpClient, this.state.token);
 
     
     private data: ICity[] = [];
 
-    constructor(protected httpClient: HttpClient){
+    constructor(protected httpClient: HttpClient, private state: AppState){
 
     }
 

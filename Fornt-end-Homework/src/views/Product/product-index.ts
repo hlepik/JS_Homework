@@ -4,6 +4,7 @@ import { IProduct } from "../../domain/IProduct";
 import { HttpClient } from "aurelia";
 import { AppState } from "../../state/app-state";
 
+
 export class ProductIndex {
 
     private service: BaseService<IProduct> = 
@@ -12,7 +13,8 @@ export class ProductIndex {
     
     private data: IProduct[] = [];
 
-    constructor(protected httpClient: HttpClient, private state: AppState,){
+
+    constructor(protected httpClient: HttpClient, private state: AppState){
 
     }
 

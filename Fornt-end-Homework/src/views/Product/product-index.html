@@ -25,12 +25,13 @@
             <td>
             <a if.bind="item.color != undefined">
                 ${item.color}
+            </a>
             </td>
             <td >
-                <input type="checkbox" checked.bind="item.hasTransport" />              
+                <input type="checkbox" checked.bind="item.hasTransport" disabled.bind="item.hasTransport"/>              
             </td>
             <td>
-                <input type="checkbox" checked.bind="item.isBooked" />   
+                <input id="checkBox" type="checkbox" checked.bind="item.isBooked"  disabled.bind="item.isBooked"/>   
             </td>
             <td>
                 ${item.county}
@@ -62,7 +63,7 @@
            
             <td>
                 <a load="/product-edit(${item.id})">Edit</a> |
-                <a load="./../product-details(${item.id})">Details</a> |
+                <a load="/product-details(${item.id})">Details</a> |
                 <a load="/product-delete(${item.id})">Delete</a>
             </td>
         </tr>

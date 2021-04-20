@@ -20,31 +20,49 @@
             Product Age
         </dt>
         <dd class="col-sm-8">
-            ${data.productAge}
+
+            <a if.bind="data.productAge != null">
+                ${data.productAge}
+            </a>
+        </dd>
+        <dt class="col-sm-4">
+            Is Booked?
+        </dt>
+        <dd class="col-sm-8">
+            <input id="checkBox" type="checkbox" checked.bind="data.isBooked"  disabled.bind="data.isBooked"/>   
         </dd>
         <dt class="col-sm-4">
             Has Transport?
         </dt>
         <dd class="col-sm-8">
-            ${data.hasTransport}
+            <input id="checkBox" type="checkbox" checked.bind="data.hasTransport"  disabled.bind="data.hasTransport"/>   
         </dd>
         <dt class="col-sm-4">
             Height
         </dt>
         <dd class="col-sm-8">
-            ${data.height}
+          
+            <a if.bind="data.height != null">
+                ${data.height}
+            </a>
         </dd>
         <dt class="col-sm-4">
             Width
         </dt>
         <dd class="col-sm-8">
-            ${data.width}
+    
+            <a if.bind="data.width != null">
+                ${data.width}
+            </a>
         </dd>
         <dt class="col-sm-4">
             Depth
         </dt>
         <dd class="col-sm-8">
-            ${data.depth}
+        
+            <a if.bind="data.depth != null">
+                ${data.depth}
+            </a>
         </dd>
         <dt class="col-sm-4">
             County
@@ -56,18 +74,27 @@
             Category
         </dt>
         <dd class="col-sm-8">
-            ${data.category}
+
+            <a if.bind="data.category != null">
+                ${data.category}
+            </a>
         </dd>
         <dt class="col-sm-4">
            City
         </dt>
         <dd class="col-sm-8">
-            ${data.city}
+
+            <a if.bind="data.city != null">
+                ${data.city}
+            </a>
         </dd>
         
     </dl>
 </div>
 <div>
-    <a load="/booking-index">Delete</a> |
-    <a load="/booking-index">Back to List</a>
+    <div class="form-group">
+        <input type="submit" click.delegate="deleteClicked($event)" value="Delete" class="btn btn-danger"  />|
+   
+   
+    <a load="/product-index">Back to List</a>
 </div>

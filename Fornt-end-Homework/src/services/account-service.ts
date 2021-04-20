@@ -57,7 +57,6 @@ export class AccountService {
 
             const response = await this.httpClient.post(url, bodyStr , { cache: "no-store" });
 
-            console.log(response);
             if (response.ok) {
                 const data = (await response.json()) as IJwt;
                 return {
@@ -65,17 +64,17 @@ export class AccountService {
                     data: data,
                 }
             }
+            const data = (await response.json()) as IMessage;
             return {
                 statusCode: response.status,
-                errorMessage: response.statusText
-            }
-        }
-        catch (reason) {
+                errorMessage: response.statusText + ' ' + data.messages.join(' '),
+            };
+        } catch (reason) {
             return {
                 statusCode: 0,
-                errorMessage: JSON.stringify(reason)
-            }
-
+                errorMessage: JSON.stringify(reason),
+            };
+        
         }
     }
 

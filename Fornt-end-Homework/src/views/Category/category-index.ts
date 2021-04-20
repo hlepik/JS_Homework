@@ -6,7 +6,7 @@ import { HttpClient } from "aurelia";
 export class CategoryIndex {
 
     private service: BaseService<ICategory> = 
-        new BaseService<ICategory>("https://localhost:5001/api/v1/Category", this.httpClient);
+        new BaseService<ICategory>("https://localhost:5001/api/v1/Categories", this.httpClient);
 
     
     private data: ICategory[] = [];

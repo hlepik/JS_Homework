@@ -1,3 +1,93 @@
-<h1>Create</h1>
+<h1>Edit</h1>
+<h2>Product</h2>
 
-<h4>Product</h4>
+<div class="row">
+    <div class="col-md-4">
+        <form >          
+        
+            <div class="form-group">
+                <label >Description</label>
+                <input class="form-control" type="text"  value.bind="description" />
+            </div>
+            <div class="form-group">
+                <label >Color</label>
+                <input class="form-control" type="text"  value.bind="color" />
+            </div>
+            <div class="form-group">
+                <label >Product Age</label>
+                <input class="form-control" type="number" min="0" value.bind="productAge" />
+            </div>
+            <div class="form-group">
+                <label >Is Booked?
+                <input class="form-control"  type="checkbox" checked.bind="isBooked" />   
+             
+            </label>
+            </div>
+            <div class="form-group">
+                <label >Has Transport?
+                <input class="form-control" type="checkbox"  checked.bind="hasTransport" />
+            </label>
+            </div>
+            <div class="form-group">
+                <label >Height</label>
+                <input class="form-control" type="number" min="0" value.bind="height" />
+            </div>
+            <div class="form-group">
+                <label >Width</label>
+                <input class="form-control" type="number" min="0" value.bind="width" />
+            </div>
+            <div class="form-group">
+                <label >Depth</label>
+                <input class="form-control" type="number" min="0" value.bind="depth" />
+            </div>
+
+            <div class="form-group">
+                <label>Unit</label>
+                <select value.bind="unit" class="form-control" >
+                    <option value="">--- Please select ---</option>
+                    <option repeat.for="unit of units">${unit.name}</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>County</label>
+                <select value.bind="county" class="form-control" >
+                    <option value="">--- Please select ---</option>
+                    <option repeat.for="county of counties">${county.name}</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>City</label>
+                <select value.bind="city" class="form-control" >
+                    <option value="">--- Please select ---</option>
+                    <option repeat.for="city of cities">${city.name}</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Category</label>
+                <select value.bind="category" class="form-control" >
+                    <option value="">--- Please select ---</option>
+                    <option repeat.for="category of categories">${category.name}</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Condition</label>
+                <select value.bind="condition" class="form-control" >
+                    <option value="">--- Please select ---</option>
+                    <option repeat.for="condition of conditions">${condition.description}</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label >Location description</label>
+                <input class="form-control" type="text"  value.bind="locationDescription" />
+            </div>
+            
+            <div class="form-group">
+                <input click.delegate="createClicked($event)" type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a load="/product-index">Back to List</a>
+</div>

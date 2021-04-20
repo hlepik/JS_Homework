@@ -2,16 +2,17 @@
 import { BaseService } from '../../services/base-service';
 import { ICondition } from "../../domain/ICondition";
 import { HttpClient } from "aurelia";
+import { AppState } from "../../state/app-state";
 
 export class ConditionIndex {
 
     private service: BaseService<ICondition> = 
-        new BaseService<ICondition>("https://localhost:5001/api/v1/Condition", this.httpClient);
+        new BaseService<ICondition>("https://localhost:5001/api/v1/Conditions", this.httpClient, this.state.token);
 
     
     private data: ICondition[] = [];
 
-    constructor(protected httpClient: HttpClient){
+    constructor(protected httpClient: HttpClient, private state: AppState){
 
     }
 

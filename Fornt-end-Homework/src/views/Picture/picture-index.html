@@ -2,8 +2,10 @@
 
 <table class="table">
     <thead>
+        <a load="/picture-create">Create new</a> 
         <tr>
-            <th>Name</th>
+            <th>Url</th>
+            <th>Product</th>
             
         </tr>
     </thead>
@@ -11,11 +13,17 @@
 
         <tr repeat.for="item of data">
             <td>
-                ${item.name}
+                ${item.url}
+            </td>
+            <td>
+                ${item.productName}
+
             </td>
            
             <td>
-                <a href="#" load="/picture-details(${item.id},${item.id})">Details</a>
+                <a load="/picture-edit(${item.id})">Edit</a> |
+                <a load="/picture-details(${item.id})">Details</a> |
+                <a load="/picture-delete(${item.id})">Delete</a> 
             </td>
         </tr>
 

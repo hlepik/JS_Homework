@@ -11,7 +11,9 @@
             ${data.description}
         </dd>
         <dt class="col-sm-4">
+            <a if.bind="data.color != undefined">
             Color
+            </a>
         </dt>
         <dd class="col-sm-8">
             ${data.color}
@@ -20,31 +22,41 @@
             Product Age
         </dt>
         <dd class="col-sm-8">
+            <a if.bind="data.productAge != undefined">
             ${data.productAge}
+        </a>
+        </a>
         </dd>
         <dt class="col-sm-4">
             Has Transport?
         </dt>
         <dd class="col-sm-8">
-            ${data.hasTransport}
+            <input type="checkbox" checked.bind="datahasTransport" />  
         </dd>
         <dt class="col-sm-4">
             Height
         </dt>
         <dd class="col-sm-8">
+            <a if.bind="data.height != undefined">
             ${data.height}
+        </a>
         </dd>
         <dt class="col-sm-4">
             Width
         </dt>
         <dd class="col-sm-8">
+            <a if.bind="data.width != undefined">
             ${data.width}
+        </a>
         </dd>
         <dt class="col-sm-4">
+
             Depth
         </dt>
         <dd class="col-sm-8">
+            <a if.bind="data.depth != undefined">
             ${data.depth}
+        </a>
         </dd>
         <dt class="col-sm-4">
             County
@@ -62,7 +74,9 @@
            City
         </dt>
         <dd class="col-sm-8">
+            <a if.bind="data.city != undefined">
             ${data.city}
+        </a>
         </dd>
         
     </dl>

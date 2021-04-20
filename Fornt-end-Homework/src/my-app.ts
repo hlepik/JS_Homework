@@ -1,6 +1,7 @@
 import { IRouter } from "aurelia";
 import { AppState } from "./state/app-state";
 
+
 export class MyApp {
   constructor(
     @IRouter private router: IRouter,

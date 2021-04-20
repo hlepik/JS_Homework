@@ -3,7 +3,7 @@ import { IProduct } from "../../domain/IProduct";
 import { BaseService } from "../../services/base-service";
 import { AppState } from "../../state/app-state";
 
-export class ProductDetail implements IRouteViewModel  {
+export class ProductDetails implements IRouteViewModel  {
 
 
     private service: BaseService<IProduct> =
@@ -23,8 +23,6 @@ export class ProductDetail implements IRouteViewModel  {
     async load(parameters){
         console.log("load", parameters);
 
-        
-
         let response = await this.service.get(parameters[0]);
         console.log(response);
         if (response.data) {
@@ -33,4 +31,3 @@ export class ProductDetail implements IRouteViewModel  {
         
     }
 }
-

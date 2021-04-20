@@ -10,7 +10,7 @@
 
             <div class="form-group">
                 <label for="Input_FirstName">First Name</label>
-                <input class="form-control" type="text"  maxlength="128" value.bind="firstname" required/>
+                <input class="form-control" type="text" maxlength="128" value.bind="firstname"/>
             </div>
             <div class="form-group">
                 <label for="Input_LastName">Last Name</label>
@@ -23,11 +23,11 @@
             
             <div class="form-group">
                 <label for="Input_Password">Password</label>
-                <input class="form-control" type="password" id="Input_Password" maxlength="100" name="Input_Password" value.bind="password"/>
+                <input class="form-control" type="password" id="Input_Password" maxlength="100" value.bind="password"/>
             </div>
             <div class="form-group">
-                <label for="Input_Password">Confirm Password</label>
-                <input class="form-control" type="password" id="Input_Password" maxlength="100" name="Input_Password" value.bind="confirmpassword"/>
+                <label for="Confirm_Password">Confirm Password</label>
+                <input class="form-control" type="password" id="Confirm_Password" maxlength="100" value.bind="confirmpassword"/>
             </div>
            
             <button type="submit" click.delegate="registerClicked($event)" class="btn btn-primary">Register</button>

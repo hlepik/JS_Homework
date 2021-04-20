@@ -1,17 +1,18 @@
 
 import { BaseService } from '../../services/base-service';
-import { IPicture } from "../../domain/IPicture";
+import { IPictureEdit } from "../../domain/IPictureEdit";
 import { HttpClient } from "aurelia";
+import { AppState } from "../../state/app-state";
 
 export class PictureIndex {
 
-    private service: BaseService<IPicture> = 
-        new BaseService<IPicture>("https://localhost:5001/api/v1/Picture", this.httpClient);
+    private service: BaseService<IPictureEdit> = 
+        new BaseService<IPictureEdit>("https://localhost:5001/api/v1/Pictures", this.httpClient, this.state.token);
 
     
-    private data: IPicture[] = [];
+    private data: IPictureEdit[] = [];
 
-    constructor(protected httpClient: HttpClient){
+    constructor(protected httpClient: HttpClient, private state: AppState){
 
     }
 

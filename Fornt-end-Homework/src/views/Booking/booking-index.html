@@ -23,9 +23,11 @@
                
                 ${item.pictures}
             </td>
+          
             <td>
-                ${item.isBooked}
+                <input id="checkBox" type="checkbox" checked.bind="item.isBooked"  disabled.bind="item.isBooked"/>   
             </td>
+        
             <td>
                 ${item.dateAdded}
             </td>

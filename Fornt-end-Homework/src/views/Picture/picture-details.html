@@ -1,3 +1,28 @@
-<h4>Details</h4>
+<h1>Details</h1>
 
-${data}
+<div>
+    <h4>Picture</h4>
+    <hr/>
+    <dl class="row">
+        <dt class="col-sm-4">
+            Url
+        </dt>
+        <dd class="col-sm-8">
+            ${data.url}
+        </dd>
+       
+        <dt class="col-sm-4">
+            Product
+        </dt>
+        <dd class="col-sm-8">
+            ${data.productName}
+        </dd>
+       
+        
+    </dl>
+</div>
+<div>
+    <a load="/picture-edit(${data.id})">Edit</a> |
+    <a load="/picture-index">Back to List</a>
+</div>
+

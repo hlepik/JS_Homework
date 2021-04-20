@@ -1,0 +1,32 @@
+<h1>Create</h1>
+<h2>Picture</h2>
+
+<div class="row">
+    <div class="col-md-4">
+        <form >          
+            <h4 if.bind="errorMessage != null" style=color:crimson>${errorMessage}</h4>
+
+            <div class="form-group">
+                <label >Url</label>
+                <input class="form-control" type="text" value.bind="data.url" />
+            </div>
+        
+            <div class="form-group">
+                <label>Product</label>
+                <select  value.bind="data.productId" class="form-control" >
+                    <option value="">--- Please select ---</option>
+                    <option model.bind="product.id" repeat.for="product of products">${product.description}</option>
+                </select >
+            </div>
+           
+            
+            <div class="form-group">
+                <input  click.delegate="createClicked($event)" type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a load="/picture-index">Back to List</a>
+</div>

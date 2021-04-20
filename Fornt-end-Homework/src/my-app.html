@@ -6,7 +6,14 @@
 <import from="./views/Product/product-edit" />
 <import from="./views/Product/product-create" />
 <import from="./views/Product/product-delete" />
+<import from="./views/Product/product-router.html" />
 
+<import from="./views/Picture/picture-index" />
+<import from="./views/Picture/picture-edit" />
+<import from="./views/Picture/picture-details" />
+<import from="./views/Picture/picture-create" />
+<import from="./views/Picture/picture-delete" />
+<import from="./views/Picture/picture-router.html"/>
 
 <import from="./views/Booking/booking-index" />
 <import from="./views/Booking/booking-details" />
@@ -17,6 +24,10 @@
 
 <import from="./views/City/city-index" />
 <import from="./views/City/city-details" />
+<import from="./views/City/city-edit" />
+<import from="./views/City/city-create" />
+<import from="./views/City/city-delete" />
+<import from="./views/City/city-router.html" />
 
 <import from="./views/Condition/condition-index" />
 <import from="./views/Condition/condition-details" />
@@ -30,8 +41,7 @@
 <import from="./views/UserMessages/userMessages-index" />
 <import from="./views/UserMessages/userMessages-details" />
 
-<import from="./views/Picture/picture-index" />
-<import from="./views/Picture/picture-details" />
+
 
 <import from="./views/ProductMaterial/productMaterial-index" />
 <import from="./views/ProductMaterial/productMaterial-details" />
@@ -64,20 +74,19 @@
 
                 
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-dark" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Kasutaja valikud
+                            <a show.bind="state.token != null" class="nav-link dropdown-toggle text-dark" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                My Messages
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
 
                                 <a class="nav-link text-dark" load="messageForm-index">Send Message</a>
-                                    <a class="nav-link text-dark" load="userBookedProduct-index">My Bookings</a>
                                     <a class="nav-link text-dark" load="userMessage-index">New Messages</a>
 
                             </div>
                         </li>
                   
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle text-dark"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a show.bind="state.token != null" class="nav-link dropdown-toggle text-dark"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             My Product
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -91,7 +100,7 @@
 
                     
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle text-dark" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a show.bind="state.token != null" class="nav-link dropdown-toggle text-dark" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Search
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
