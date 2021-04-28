@@ -25,7 +25,7 @@
                                 >Find a Product</a
                             >
                         </li>
-                        <li class="nav-item dropdown">
+                        <li v-if="token != null" class="nav-item dropdown">
                             <a
                                 class="nav-link dropdown-toggle text-dark"
                                 id="navbarDropdown"
@@ -43,11 +43,11 @@
                                 <router-link
                                     to="/pictures/index"
                                     class="nav-link text-dark"
-                                >Pictures</router-link
+                                    >Pictures</router-link
                                 >
                             </div>
                         </li>
-                        <li class="nav-item dropdown">
+                        <li v-if="token != null" class="nav-item dropdown">
                             <a
                                 class="nav-link dropdown-toggle text-dark"
                                 id="navbarDropdown"
@@ -65,13 +65,13 @@
                                 <router-link
                                     to="/city/index"
                                     class="nav-link text-dark"
-                                >City</router-link
-                            >
+                                    >City</router-link
+                                >
                                 <router-link
                                     to="/county/index"
                                     class="nav-link text-dark"
-                                >County</router-link
-                            >
+                                    >County</router-link
+                                >
                             </div>
                         </li>
                     </ul>
@@ -111,13 +111,12 @@
         </nav>
     </header>
     <div class="container">
-        <main role="main" class="pb-3">
+        <main role="main">
             <router-view />
         </main>
     </div>
-
     <footer class="border-top footer text-muted">
-        <div class="container">Vue demo</div>
+        <div class="container">Vue</div>
     </footer>
 </template>
 <script lang="ts">
@@ -209,5 +208,10 @@ body {
     width: 100%;
     white-space: nowrap;
     line-height: 60px; /* Vertically center the text there */
+}
+
+#button {
+    padding-top: 2rem;
+    padding-left: 0.5rem;
 }
 </style>

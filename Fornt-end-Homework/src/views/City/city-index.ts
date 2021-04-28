@@ -18,7 +18,6 @@ export class CityIndex {
 
     async attached() {
         console.log("attached");
-
         let response = await this.service.getAll();
         if (response.data) {
             this.data = response.data;

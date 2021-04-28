@@ -51,5 +51,11 @@ export default class Home extends Vue {
     unmounted(): void {
         console.log("unmounted");
     }
+
+    data() {
+        return {
+            posts: null,
+        };
+    }
 }
 </script>

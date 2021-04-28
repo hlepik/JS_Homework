@@ -2,9 +2,8 @@
     <div class="row">
         <div class="col-sm-1 col-md-3"></div>
         <div class="col-sm-10 col-md-6">
-            <h1>Login</h1>
             <h4>Use a local account to log in.</h4>
-            <hr />
+            <div v-if="error" style="color: crimson">{{ error }}</div>
             <div class="form-group">
                 <label for="Input_Email">Email</label>
                 <input
@@ -33,28 +32,43 @@
                 </button>
             </div>
         </div>
-        <div class="col-sm-1 col-md-3"></div>
     </div>
 </template>
 <script lang="ts">
 import { Options, Vue } from "vue-class-component";
 import store from "@/store/index";
+import router from "../../router";
 
 @Options({
     components: {},
     props: {},
 })
-
 export default class Login extends Vue {
     email: string = "";
     password: string = "";
+    error: string = "";
 
     async loginClicked(event: Event): Promise<void> {
         console.log(this.email, this.password, event);
+        var regexEmail = /\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/;
+
+        if (!regexEmail.test(this.email)) {
+            this.error = "Email is not valid!";
+            return;
+        }
+        if (this.password.length < 4) {
+            this.error = "Password inncorrect!";
+            return;
+        }
 
         store.dispatch("logIn", { email: this.email, password: this.password });
-        var result = await this.axios.get("https://localhost:5001/api/v1/Bookings");
-        console.log(result);
+
+        router.push("/");
+        if (store.state.token != null) {
+            router.push("/");
+        } else {
+            this.error = "Email or password inncorrect!";
+        }
     }
 }
 </script>

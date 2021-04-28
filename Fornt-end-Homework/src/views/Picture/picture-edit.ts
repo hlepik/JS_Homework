@@ -20,18 +20,12 @@ export class PictureEdit implements IRouteViewModel  {
     private products: IProduct[] = [];
     private errorMessage: string | null;
     
-
-
-   
-
     constructor(protected httpClient: HttpClient, private state: AppState, @IRouter private router: IRouter) {
     }
 
     async attached() {
         console.log("attached");
     }
-
-    
 
     async load(parameters){
         console.log("load", parameters);

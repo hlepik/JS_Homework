@@ -3,8 +3,18 @@ import Home from '../views/Home.vue'
 import Login from '../views/identity/Login.vue';
 import Register from '../views/identity/Register.vue';
 import City from '../views/City/Index.vue';
+import CityEdit from '../views/City/Edit.vue';
+import CityCreate from '../views/City/Create.vue';
+import CityDetails from '../views/City/Details.vue';
 import County from '../views/County/Index.vue';
+import CountyEdit from '../views/County/Edit.vue';
+import CountyCreate from '../views/County/Create.vue';
+import CountyDetails from '../views/County/Details.vue';
 import Picture from '../views/Pictures/Index.vue';
+import PictureEdit from '../views/Pictures/Edit.vue';
+import PictureCreate from '../views/Pictures/Create.vue';
+import PictureDetails from '../views/Pictures/Details.vue';
+import PictureDelete from '../views/Pictures/Delete.vue';
 
 const routes: Array<RouteRecordRaw> = [
     {
@@ -31,11 +41,33 @@ const routes: Array<RouteRecordRaw> = [
         name: 'identity-register',
         component: Register,
     },
-
     {
-        path: '/pictures/index',
+        path: '/Pictures/Index',
         name: 'picture-index',
         component: Picture,
+    },
+    {
+        path: '/Pictures/Edit/:id?',
+        name: 'PictureEdit',
+        component: PictureEdit,
+        props: true
+    },
+    {
+        path: '/Pictures/Create',
+        name: 'PictureCreate',
+        component: PictureCreate,
+    },
+    {
+        path: '/Pictures/Details/:id?',
+        name: 'PictureDetails',
+        component: PictureDetails,
+        props: true
+    },
+    {
+        path: '/Pictures/Delete/:id?',
+        name: 'PictureDelete',
+        component: PictureDelete,
+        props: true
     },
     {
         path: '/city/index',
@@ -43,11 +75,44 @@ const routes: Array<RouteRecordRaw> = [
         component: City,
     },
     {
+        path: '/City/Edit/:id?',
+        name: 'CityEdit',
+        component: CityEdit,
+        props: true
+    },
+    {
+        path: '/City/Details/:id?',
+        name: 'CityDetails',
+        component: CityDetails,
+        props: true
+    },
+    {
+        path: '/City/Create',
+        name: 'CityCreate',
+        component: CityCreate
+    },
+    {
         path: '/county/index',
         name: 'county-index',
         component: County,
+    },
+    {
+        path: '/County/Edit/:id?',
+        name: 'CountyEdit',
+        component: CountyEdit,
+        props: true
+    },
+    {
+        path: '/County/Details/:id?',
+        name: 'CountyDetails',
+        component: CountyDetails,
+        props: true
+    },
+    {
+        path: '/County/Create',
+        name: 'CountyCreate',
+        component: CountyCreate,
     }
-
 ]
 
 const router = createRouter({
