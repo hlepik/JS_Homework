@@ -197,6 +197,9 @@ html {
     position: relative;
     min-height: 100%;
 }
+.pb-3 {
+    margin-bottom: 5rem;
+}
 
 body {
     /* Margin bottom by footer height */

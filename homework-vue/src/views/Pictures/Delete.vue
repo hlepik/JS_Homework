@@ -1,7 +1,8 @@
 <template>
     <div>
         <h1>Delete</h1>
-        <h2>Picture</h2>
+        <h2>Are you sure you want to delete this?</h2>
+        <h3>Picture</h3>
         <hr />
         <dl class="row">
             <dt class="col-sm-2">Url</dt>
