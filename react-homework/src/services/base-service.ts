@@ -1,5 +1,4 @@
 import Axios, { AxiosError, AxiosRequestConfig } from 'axios';
-import { data } from 'jquery';
 import { ApiBaseUrl } from '../configuration';
 import { IFetchResponse } from '../types/IFetchResponse';
 import { IMessages } from '../types/IMessages';
@@ -18,18 +17,20 @@ export abstract class BaseService {
             headers: {
                 Authorization: 'Bearer ' + token
             }
-        };  
-        return config;      
+        };
+        return config;
     }
 
     static async getAll<TEntity>(apiEndpoint: string, token?: string): Promise<IFetchResponse<TEntity[]>> {
+
+        console.log(apiEndpoint)
         try {
             let response = await this.axios.get<TEntity[]>(apiEndpoint, BaseService.getAxiosConfiguration(token));
             return {
                 ok: response.status <= 299,
                 statusCode: response.status,
                 data: response.data
-            };    
+            };
         }
         catch (err) {
             let error = err as AxiosError;
@@ -41,6 +42,35 @@ export abstract class BaseService {
         }
 
     }
+    static async getFour<TEntity>(apiEndpoint: string): Promise<IFetchResponse<TEntity[]>> {
+
+        console.log(apiEndpoint)
+        try {
+            let response = await this.axios.get<TEntity[]>(apiEndpoint);
+
+            console.log(response)
+            return {
+                ok: response.status <= 299,
+                statusCode: response.status,
+                data: response.data
+            };
+        }
+        catch (err) {
+            let error = err as AxiosError;
+            return {
+                ok: false,
+                statusCode: error.response?.status ?? 500,
+                messages: (error.response?.data as IMessages).messages,
+            }
+        }
+
+    }
+
+
+
+
+
+
     static async get<TEntity>(apiEndpoint: string, token?: string): Promise<IFetchResponse<TEntity>> {
         try {
             let response = await this.axios.get<TEntity>(apiEndpoint, BaseService.getAxiosConfiguration(token));
@@ -48,7 +78,7 @@ export abstract class BaseService {
                 ok: response.status <= 299,
                 statusCode: response.status,
                 data: response.data
-            };    
+            };
         }
         catch (err) {
             let error = err as AxiosError;
@@ -70,7 +100,7 @@ export abstract class BaseService {
                 ok: response.status <= 299,
                 statusCode: response.status,
                 data: response.data
-            };    
+            };
         }
         catch (err) {
             let error = err as AxiosError;
@@ -90,7 +120,7 @@ export abstract class BaseService {
                 ok: response.status <= 299,
                 statusCode: response.status,
                 data: response.data
-            };    
+            };
         }
         catch (err) {
             let error = err as AxiosError;
@@ -109,7 +139,7 @@ export abstract class BaseService {
                 ok: response.status <= 299,
                 statusCode: response.status,
                 data: response.data
-            };    
+            };
         }
         catch (err) {
             let error = err as AxiosError;

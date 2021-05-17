@@ -17,8 +17,9 @@ import { BrowserRouter as Router } from 'react-router-dom';
 
 // import reportWebVitals from './reportWebVitals';
 
+
 ReactDOM.render(
-    <Router>
+    <Router basename={process.env.PUBLIC_URL}>
         <React.StrictMode>
             <App />
         </React.StrictMode>

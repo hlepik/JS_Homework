@@ -5,8 +5,10 @@ import { EPageStatus } from "../../types/EPageStatus";
 import { Link } from "react-router-dom";
 import { IPicture } from "../../dto/IPicture";
 import { useContext, useEffect, useState } from "react";
-import { AppContext, IAppState, initialAppState } from "../../context/AppContext";
+import { AppContext } from "../../context/AppContext";
 import { useHistory } from "react-router-dom";
+import Loader from "../../components/Loader";
+import React, { useCallback } from 'react';
 
 
 const PictureDetails = () => {
@@ -18,7 +20,7 @@ const PictureDetails = () => {
     const [picture, setPicture] = useState({} as IPicture);
     let history = useHistory();
 
-    const loadData = async () => {
+    const loadData = useCallback(async () => {
         console.log(id)
 
         let result = await BaseService.get<IPicture>('/Pictures/' + id, appState.token!);
@@ -31,7 +33,7 @@ const PictureDetails = () => {
             setPageStatus({ pageStatus: EPageStatus.Error, statusCode: result.statusCode });
         }
 
-    }
+    }, [appState, id])
 
     const editClicked = async (e: Event) => {
 
@@ -42,19 +44,19 @@ const PictureDetails = () => {
 
     useEffect(() => {
         loadData();
-    }, []);
+    }, [loadData]);
     return (
         <div>
-            <h3>Details</h3>
-            <h4>Picture</h4>
+            <h3>{appState.langResources.crud.details}</h3>
+            <h4>{appState.langResources.bllAppDTO.pictures.picture}</h4>
             <hr />
             <dl className="row">
-                <dt className="col-sm-2">Url</dt>
+                <dt className="col-sm-2">{appState.langResources.bllAppDTO.pictures.url}</dt>
 
                 <dd className="col-sm-10">
-                    {picture.url}
+                    <img src={picture.url} className='picture' alt='Pilt' />
                 </dd>
-                <dt className="col-sm-2">Product name</dt>
+                <dt className="col-sm-2">{appState.langResources.bllAppDTO.pictures.productName}</dt>
 
                 <dd className="col-sm-10">
                     {picture.productName}
@@ -62,13 +64,14 @@ const PictureDetails = () => {
                 <hr />
 
                 <div id="button">
-                    <button onClick={(e) => editClicked(e.nativeEvent)} type="submit" className="btn btn-primary">Edit</button>
+                    <button onClick={(e) => editClicked(e.nativeEvent)} type="submit" className="btn btn-primary">{appState.langResources.crud.edit}</button>
                     <p id='backToList'>
-                        <Link to={'/pictures'}>Back to List</Link>
+                        <Link to={'/pictures'}>{appState.langResources.crud.index}</Link>
                     </p>
                 </div>
 
             </dl>
+            <Loader {...pageStatus} />
         </div >
     );
 }

@@ -5,8 +5,10 @@ import { EPageStatus } from "../../types/EPageStatus";
 import { Link } from "react-router-dom";
 import { IPicture } from "../../dto/IPicture";
 import { useContext, useEffect, useState } from "react";
-import { AppContext, IAppState, initialAppState } from "../../context/AppContext";
+import { AppContext } from "../../context/AppContext";
 import { useHistory } from "react-router-dom";
+import Loader from "../../components/Loader";
+import React, { useCallback } from 'react';
 
 
 const PictureDelete = () => {
@@ -18,7 +20,7 @@ const PictureDelete = () => {
     const [picture, setPicture] = useState({} as IPicture);
     let history = useHistory();
 
-    const loadData = async () => {
+    const loadData = useCallback(async () => {
         console.log(id)
 
         let result = await BaseService.get<IPicture>('/Pictures/' + id, appState.token!);
@@ -31,7 +33,7 @@ const PictureDelete = () => {
             setPageStatus({ pageStatus: EPageStatus.Error, statusCode: result.statusCode });
         }
 
-    }
+    }, [appState, id])
 
     const deleteClicked = async (e: Event) => {
 
@@ -50,20 +52,20 @@ const PictureDelete = () => {
 
     useEffect(() => {
         loadData();
-    }, []);
+    }, [loadData]);
     return (
         <div>
-            <h3>Details</h3>
-            <h2>Are you sure you want to delete this?</h2>
-            <h3>Picture</h3>
+            <h3>{appState.langResources.crud.delete}</h3>
+            <h2>{appState.langResources.crud.delete}</h2>
+            <h3>{appState.langResources.bllAppDTO.pictures.picture}</h3>
             <hr />
             <dl className="row">
-                <dt className="col-sm-2">Url</dt>
+                <dt className="col-sm-2">{appState.langResources.bllAppDTO.pictures.url}</dt>
 
                 <dd className="col-sm-10">
-                    {picture.url}
+                    <img src={picture.url} className='picture' alt='Pilt'/>
                 </dd>
-                <dt className="col-sm-2">Product name</dt>
+                <dt className="col-sm-2">{appState.langResources.bllAppDTO.pictures.productName}</dt>
 
                 <dd className="col-sm-10">
                     {picture.productName}
@@ -72,15 +74,16 @@ const PictureDelete = () => {
 
                 <div className="form-group" >
                     <div id="button">
-                        <button onClick={(e) => deleteClicked(e.nativeEvent)} type="submit" className="btn btn-danger">Delete</button>
+                        <button onClick={(e) => deleteClicked(e.nativeEvent)} type="submit" className="btn btn-danger">{appState.langResources.crud.delete}</button>
                         <p id="backToList">
-                            <Link to={'/pictures'}>Back to List</Link>
+                            <Link to={'/pictures'}>{appState.langResources.crud.index}</Link>
                         </p>
                     </div>
 
                 </div>
 
             </dl>
+            <Loader {...pageStatus} />
         </div>
     );
 }

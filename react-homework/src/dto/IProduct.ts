@@ -10,10 +10,12 @@ export interface IProduct {
     unit: string;
     productAge: number;
     material?: [];
+    pictureUrls?: [];
     height?: number;
     width?: number;
     depth?: number;
     color?: string;
     category?: string;
     condition?: string;
+    appUserId: string;
 }

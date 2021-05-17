@@ -4,19 +4,19 @@ import { Link } from "react-router-dom";
 import Loader from "../../components/Loader";
 import { ICity } from "../../dto/ICity";
 import { useContext, useEffect, useState } from "react";
-import { AppContext, IAppState, initialAppState } from "../../context/AppContext";
+import { AppContext, IAppState} from "../../context/AppContext";
+import React, { useCallback } from 'react';
 
-
-const RowDisplay = (props: { city: ICity, role: string }, appState: any) => (
+const RowDisplay = (props: { city: ICity, role: string, appState: IAppState }) => (
     <tr>
         <td>
             {props.city.name}
         </td>
 
         <td>
-            <Link to={'/city/edit/' + props.city.id}>Edit</Link> |
+            <Link to={'/city/edit/' + props.city.id}>{props.appState.langResources.crud.edit}</Link> |
 
-            <Link to={'/city/' + props.city.id}>Details</Link>
+            <Link to={'/city/' + props.city.id}>{props.appState.langResources.crud.details}</Link>
         </td>
     </tr>
 );
@@ -30,7 +30,7 @@ const CityIndex = () => {
 
 
 
-    const loadData = async () => {
+    const loadData = useCallback(async () => {
         let result = await BaseService.getAll<ICity>('/Cities', appState.token!);
         console.log(result);
         console.log(appState)
@@ -42,10 +42,11 @@ const CityIndex = () => {
             setPageStatus({ pageStatus: EPageStatus.Error, statusCode: result.statusCode });
         }
 
-    }
+    }, [appState])
+
     useEffect(() => {
         loadData();
-    }, []);
+    }, [loadData]);
     let role: string = '';
     if (appState.token != null) {
         const info = JSON.parse(atob(appState.token!.split('.')[1]));
@@ -54,12 +55,12 @@ const CityIndex = () => {
 
     return (
         <>
-            <h1>Cities</h1>
+            <h1>{appState.langResources.bllAppDTO.cities.city}</h1>
 
             {role === 'Admin' ?
 
                 <p>
-                    <Link to={'/city/create'}>Create</Link>
+                    <Link to={'/city/create'}>{appState.langResources.crud.create}</Link>
                 </p>
 
                 :
@@ -70,14 +71,14 @@ const CityIndex = () => {
                 <thead>
                     <tr>
                         <th>
-                            Name
+                        {appState.langResources.bllAppDTO.cities.name}
                     </th>
 
                     </tr>
                 </thead>
                 <tbody>
                     {cities.map(city =>
-                        <RowDisplay city={city} key={city.id} role={role} />)
+                        <RowDisplay city={city} key={city.id} role={role} appState={appState} />)
                     }
                 </tbody>
             </table>

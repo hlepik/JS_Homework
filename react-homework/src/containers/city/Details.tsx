@@ -5,9 +5,10 @@ import { EPageStatus } from "../../types/EPageStatus";
 import { Link } from "react-router-dom";
 import { ICity } from "../../dto/ICity";
 import { useContext, useEffect, useState } from "react";
-import { AppContext, IAppState, initialAppState } from "../../context/AppContext";
+import { AppContext} from "../../context/AppContext";
 import { useHistory } from "react-router-dom";
-
+import Loader from "../../components/Loader";
+import React, { useCallback } from 'react';
 
 const CityDetails = () => {
 
@@ -18,7 +19,7 @@ const CityDetails = () => {
     const [city, setCity] = useState({} as ICity || '');
     let history = useHistory();
 
-    const loadData = async () => {
+    const loadData = useCallback(async () => {
         console.log(id)
 
         let result = await BaseService.get<ICity>('/Cities/' + id, appState.token!);
@@ -31,7 +32,7 @@ const CityDetails = () => {
             setPageStatus({ pageStatus: EPageStatus.Error, statusCode: result.statusCode });
         }
 
-    }
+    }, [appState, id])
 
     const editClicked = async (e: Event) => {
 
@@ -42,14 +43,14 @@ const CityDetails = () => {
 
     useEffect(() => {
         loadData();
-    }, []);
+    }, [loadData]);
     return (
         <div>
-            <h3>Details</h3>
-            <h4>City</h4>
+            <h3>{appState.langResources.crud.details}</h3>
+            <h4>{appState.langResources.bllAppDTO.cities.city}</h4>
             <hr />
             <dl className="row">
-                <dt className="col-sm-2">Name</dt>
+                <dt className="col-sm-2">{appState.langResources.bllAppDTO.cities.name}</dt>
 
                 <dd className="col-sm-10">
                     {city.name || ''}
@@ -58,15 +59,16 @@ const CityDetails = () => {
 
                 <div className="form-group" >
                 <div id="button">
-                        <button onClick={(e) => editClicked(e.nativeEvent)} type="submit" className="btn btn-primary">Edit</button>
+                        <button onClick={(e) => editClicked(e.nativeEvent)} type="submit" className="btn btn-primary">{appState.langResources.crud.edit}</button>
                         <p id='backToList'>
-                        <Link to={'/city'}>Back to List</Link> 
+                        <Link to={'/city'}>{appState.langResources.crud.index}</Link> 
                         </p>
                     </div>
 
                 </div>
 
             </dl>
+            <Loader {...pageStatus} />
         </div>
     );
 }

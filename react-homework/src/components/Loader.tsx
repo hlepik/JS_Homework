@@ -7,6 +7,7 @@ const Loader = (props: {pageStatus:EPageStatus, statusCode:  number}) => {
     if (props.pageStatus === EPageStatus.Error) {
         return <div className="alert alert-danger" role="alert">Error... {props.statusCode}</div>
     }
+    
     return <></>;
 }
 

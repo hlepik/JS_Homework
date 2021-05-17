@@ -23,7 +23,7 @@ const Register = () => {
         }
         else if (registerData.firstName === '' || registerData.lastName === '') {
             setAlertMessage('First name or Last name can not be empty');
-        } else if (registerData.password != confirm.confirmPassword){
+        } else if (registerData.password !== confirm.confirmPassword){
             setAlertMessage('Passwords do not match!');
         }else {
             let response = await IdentityService.register('account/register', registerData);

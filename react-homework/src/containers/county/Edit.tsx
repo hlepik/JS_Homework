@@ -5,12 +5,11 @@ import { EPageStatus } from "../../types/EPageStatus";
 import { Link } from "react-router-dom";
 import { ICounty } from "../../dto/ICounty";
 import { useContext, useEffect, useState } from "react";
-import { AppContext, IAppState, initialAppState } from "../../context/AppContext";
+import { AppContext } from "../../context/AppContext";
 import Alert, { EAlertClass } from "../../components/Alert";
 import { useHistory } from "react-router-dom";
-
-
-
+import Loader from "../../components/Loader";
+import React, { useCallback } from 'react';
 
 const CountyEdit = () => {
 
@@ -22,7 +21,7 @@ const CountyEdit = () => {
     let history = useHistory();
 
 
-    const loadData = async () => {
+    const loadData = useCallback(async () => {
         console.log(id)
 
         let result = await BaseService.get<ICounty>('/Counties/' + id, appState.token!);
@@ -36,7 +35,7 @@ const CountyEdit = () => {
             setPageStatus({ pageStatus: EPageStatus.Error, statusCode: result.statusCode });
         }
 
-    }
+    }, [appState, id])
     const submitClicked = async (e: Event) => {
 
         e.preventDefault();
@@ -66,13 +65,13 @@ const CountyEdit = () => {
 
     useEffect(() => {
         loadData();
-    }, []);
+    }, [loadData]);
 
 
     return (
         <>
-            <h2> Edit</h2 >
-            <h3>County</h3>
+            <h2>{appState.langResources.crud.edit}</h2 >
+            <h3>{appState.langResources.bllAppDTO.counties.county}</h3>
             <form onSubmit={(e) => submitClicked(e.nativeEvent)}>
                 <div className="row">
                     <div className="col-md-6">
@@ -80,19 +79,20 @@ const CountyEdit = () => {
                             <hr />
                             <Alert show={alertMessage !== ''} message={alertMessage} alertClass={EAlertClass.Danger} />
                             <div className="form-group">
-                                <label>Name</label>
+                                <label>{appState.langResources.bllAppDTO.counties.name}</label>
                                 <input value={editData.name || ''} onChange={e => setCounty({ ...editData, name: e.target.value })} className="form-control" type="text" id="Input_CountyName" name="Input.CountyName" placeholder={editData.name} autoComplete="current-name" />
                             </div>
                             <div className="form-group">
-                                <button onClick={(e) => submitClicked(e.nativeEvent)} type="submit" className="btn btn-primary">Save</button>
+                                <button onClick={(e) => submitClicked(e.nativeEvent)} type="submit" className="btn btn-primary">{appState.langResources.views.shared.buttons.save}</button>
                             </div>
                             <p>
-                                <Link to={'/county'}>Back to List</Link>
+                                <Link to={'/county'}>{appState.langResources.crud.index}</Link>
                             </p>
                         </section>
                     </div>
                 </div>
             </form>
+            <Loader {...pageStatus} />
         </>
     );
 }

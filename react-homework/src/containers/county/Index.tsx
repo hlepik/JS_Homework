@@ -4,24 +4,22 @@ import { Link } from "react-router-dom";
 import Loader from "../../components/Loader";
 import { ICounty } from "../../dto/ICounty";
 import { useContext, useEffect, useState } from "react";
-import { count } from "console";
-import { AppContext, IAppState, initialAppState } from "../../context/AppContext";
+import { AppContext, IAppState } from "../../context/AppContext";
+import React, { useCallback } from 'react';
 
 
-
-const RowDisplay = (props: { county: ICounty, role: string }) => (
+const RowDisplay = (props: { county: ICounty, role: string , appState: IAppState}) => (
 
     <tr>
         <td>
             {props.county.name}
         </td>
 
-
         { props.role === 'Admin' ?
             <>
                 <td>
-                    <Link to={'/county/edit/' + props.county.id}>Edit</Link> |
-                    <Link to={'/county/' + props.county.id}>Details</Link>
+                    <Link to={'/county/edit/' + props.county.id}>{props.appState.langResources.crud.edit}</Link> |
+                    <Link to={'/county/' + props.county.id}>{props.appState.langResources.crud.details}</Link>
                 </td>
 
             </>
@@ -45,7 +43,7 @@ const CountyIndex = () => {
 
 
 
-    const loadData = async () => {
+    const loadData = useCallback(async () => {
         let result = await BaseService.getAll<ICounty>('/Counties', appState.token!);
         console.log(appState);
 
@@ -57,10 +55,11 @@ const CountyIndex = () => {
             setPageStatus({ pageStatus: EPageStatus.Error, statusCode: result.statusCode });
         }
 
-    }
+    }, [appState])
+
     useEffect(() => {
         loadData();
-    }, []);
+    }, [loadData]);
 
     let role: string = '';
     if (appState.token != null) {
@@ -71,11 +70,11 @@ const CountyIndex = () => {
 
     return (
         <>
-            <h1>Counties</h1>
+            <h1>{appState.langResources.bllAppDTO.counties.county}</h1>
             {appState.token != null && role === 'Admin' ?
 
                 <p>
-                    <Link to={'/county/create'}>Create</Link>
+                    <Link to={'/county/create'}>{appState.langResources.crud.create}</Link>
                 </p>
 
                 :
@@ -86,14 +85,14 @@ const CountyIndex = () => {
                 <thead>
                     <tr>
                         <th>
-                            Name
+                        {appState.langResources.bllAppDTO.counties.name}
                         </th>
 
                     </tr>
                 </thead>
                 <tbody>
                     {counties.map(county =>
-                        <RowDisplay county={county} key={county.id} role={role} />)
+                        <RowDisplay county={county} key={county.id} role={role} appState={appState} />)
                     }
                 </tbody>
             </table>

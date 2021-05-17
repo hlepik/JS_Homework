@@ -5,6 +5,7 @@ const {BundleAnalyzerPlugin} = require('webpack-bundle-analyzer');
 
 const cssLoader = 'css-loader';
 
+const baseUrl = '/au/';
 
 const postcssLoader = {
   loader: 'postcss-loader',
@@ -26,6 +27,7 @@ module.exports = function(env, { analyze }) {
     },
     output: {
       path: path.resolve(__dirname, 'dist'),
+      publicPath: baseUrl,
       filename: production ? '[name].[contenthash].bundle.js' : '[name].bundle.js'
     },
     resolve: {

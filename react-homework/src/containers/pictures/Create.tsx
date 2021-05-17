@@ -4,18 +4,18 @@ import { BaseService } from "../../services/base-service";
 import { EPageStatus } from "../../types/EPageStatus";
 import { Link } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
-import { AppContext, IAppState, initialAppState } from "../../context/AppContext";
+import { AppContext } from "../../context/AppContext";
 import Alert, { EAlertClass } from "../../components/Alert";
 import { useHistory } from "react-router-dom";
 import { IPicture } from "../../dto/IPicture";
 import { IProduct } from "../../dto/IProduct";
+import React, { useCallback } from 'react';
 
 
 const PictureCreate = () => {
 
     let { id } = useParams() as IRouteId;
     const appState = useContext(AppContext);
-    const [pageStatus, setPageStatus] = useState({ pageStatus: EPageStatus.Loading, statusCode: -1 });
     const [editData, setPicture] = useState({} as IPicture);
     const [alertMessage, setAlertMessage] = useState('');
     const [productData, setProduct] = useState([] as IProduct[]);
@@ -24,18 +24,16 @@ const PictureCreate = () => {
    
    
 
-    const loadData = async () => {
+    const loadData = useCallback(async () => {
         console.log(id)
 
         let productResult = await BaseService.getAll<IProduct>('/Products', appState.token!);
         if (productResult.ok && productResult.data) {
             setProduct(productResult.data);
         }
-        else {
-            setPageStatus({ pageStatus: EPageStatus.Error, statusCode: productResult.statusCode });
-        }
+        
 
-    }
+    }, [appState, id])
 
     const submitClicked = async (e: Event) => {
 
@@ -69,12 +67,12 @@ const PictureCreate = () => {
     useEffect(() => {
         loadData();
 
-    }, []);
+    }, [loadData]);
 
     return (
         <>
-            <h2>Create</h2 >
-            <h3>Picture</h3>
+            <h2>{appState.langResources.crud.create}</h2 >
+            <h3>{appState.langResources.bllAppDTO.pictures.picture}</h3>
             <form onSubmit={(e) => submitClicked(e.nativeEvent)}>
                 <div className="row">
                     <div className="col-md-6">
@@ -82,13 +80,13 @@ const PictureCreate = () => {
                             <hr />
                             <Alert show={alertMessage !== ''} message={alertMessage} alertClass={EAlertClass.Danger} />
                             <div className="form-group">
-                                <label>Url</label>
+                                <label>{appState.langResources.bllAppDTO.pictures.url}</label>
                                 <input value={editData.url} onChange={e => setPicture({ ...editData, url: e.target.value })} className="form-control" type="text" id="Input_CityName" name="Input.CityName" autoComplete="current-name" />
                             </div>
                             <div className="form-group">
-                                <label htmlFor="formSelect">Product name</label>
+                                <label htmlFor="formSelect">{appState.langResources.bllAppDTO.pictures.productName}</label>
                                 <select value={editData.productName} onChange={e => setPicture({ ...editData, productId: e.target.value })} className="form-control" id="formSelect">
-                                    <option>---Please select---</option>
+                                    <option>---{appState.langResources.dropDown.select}---</option>
                                     {productData.map(product =>
                                         <option key={product.id} value={product.id}>{product.description}</option>
                                     )};
@@ -96,10 +94,10 @@ const PictureCreate = () => {
                                 </select>
                             </div>
                             <div className="form-group">
-                                <button onClick={(e) => submitClicked(e.nativeEvent)} type="submit" className="btn btn-primary">Save</button>
+                                <button onClick={(e) => submitClicked(e.nativeEvent)} type="submit" className="btn btn-primary">{appState.langResources.views.shared.buttons.save}</button>
                             </div>
                             <p>
-                                <Link to={'/pictures'}>Back to List</Link>
+                                <Link to={'/pictures'}>{appState.langResources.crud.index}</Link>
                             </p>
                         </section>
                     </div>
