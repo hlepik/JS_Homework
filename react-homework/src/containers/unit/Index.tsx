@@ -32,9 +32,8 @@ const UnitIndex = () => {
 
 
     const loadData = useCallback(async () => {
-        let result = await BaseService.getAll<IUnit>('/Units', appState.token!);
-        console.log(result);
-        console.log(appState)
+        let result = await BaseService.getAll<IUnit>('/Units?culture=' + appState.currentLanguage.name, appState.token!);
+     
 
         if (result.ok && result.data) {
             setPageStatus({ pageStatus: EPageStatus.OK, statusCode: 0 });

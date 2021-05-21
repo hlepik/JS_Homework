@@ -22,8 +22,9 @@ const CategoryEdit = () => {
 
     const loadData = useCallback(async () => {
         console.log(id)
+        console.log(appState.currentLanguage.name)
 
-        let result = await BaseService.get<ICategory>('/Categories/' + id, appState.token!);
+        let result = await BaseService.get<ICategory>('/Categories/' + id + '?culture=' + appState.currentLanguage.name, appState.token!);
 
         console.log(result.data)
         if (result.ok && result.data) {
@@ -40,13 +41,12 @@ const CategoryEdit = () => {
 
         console.log(editData)
         if (editData.name.length < 2 || editData.name.length > 128) {
-            setAlertMessage('The field Name must be a string or array type with a minimum length of 2.');
-
+            setAlertMessage(appState.langResources.common.minLength);
         } else {
             setAlertMessage('');
             console.log(editData)
 
-            const url = '/Categories/' + id;
+            const url = '/Categories/' + id + '?culture=' + appState.currentLanguage.name;
             let response = await BaseService.edit(url, editData, appState.token!);
 
             console.log(response)
@@ -70,7 +70,7 @@ const CategoryEdit = () => {
             <h3>{appState.langResources.bllAppDTO.categories.category}</h3>
             <form onSubmit={(e) => submitClicked(e.nativeEvent)}>
                 <div className="row">
-                    <div className="col-md-6">
+                    <div className="col-md-4">
                         <section>
                             <hr />
                             <Alert show={alertMessage !== ''} message={alertMessage} alertClass={EAlertClass.Danger} />

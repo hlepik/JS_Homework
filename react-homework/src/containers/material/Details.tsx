@@ -22,7 +22,7 @@ const MaterialDetails = () => {
     const loadData = useCallback(async () => {
         console.log(id)
 
-        let result = await BaseService.get<IMaterial>('/Materials/' + id, appState.token!);
+        let result = await BaseService.get<IMaterial>('/Materials/' + id + '?culture=' + appState.currentLanguage.name, appState.token!);
 
 
         if (result.ok && result.data) {

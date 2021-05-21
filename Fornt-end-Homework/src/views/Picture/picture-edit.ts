@@ -1,4 +1,4 @@
-import { HttpClient, IRouteViewModel , IRouter, Router } from "aurelia";
+import { HttpClient, IRouteViewModel } from "aurelia";
 import { IPicture } from "../../domain/IPicture";
 import { IPictureEdit } from "../../domain/IPictureEdit";
 import { BaseService } from "../../services/base-service";
@@ -6,6 +6,8 @@ import { AppState } from "../../state/app-state";
 import { IProduct } from "../../domain/IProduct";
 import { IMessage } from "../../types/IMessage";
 import { IJwt } from "../../types/IJwt";
+import {IRouter, Router } from 'aurelia-direct-router';
+
 
 export class PictureEdit implements IRouteViewModel  {
  

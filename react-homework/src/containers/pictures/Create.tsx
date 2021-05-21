@@ -1,7 +1,6 @@
 import { useParams } from "react-router-dom";
 import { IRouteId } from "../../types/IRouteId";
 import { BaseService } from "../../services/base-service";
-import { EPageStatus } from "../../types/EPageStatus";
 import { Link } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import { AppContext } from "../../context/AppContext";
@@ -38,16 +37,14 @@ const PictureCreate = () => {
     const submitClicked = async (e: Event) => {
 
         e.preventDefault();
-        if(typeof(editData.url) === 'undefined'){
-            setAlertMessage('url can not be empty!')
-        }
+        
+        if (editData.url === "" || editData.url === undefined) {
+           
+            setAlertMessage(appState.langResources.bllAppDTO.pictures.url +" "+ appState.langResources.common.required);        
+        } else if (editData.productId === "" ||  editData.productId === undefined){
+            setAlertMessage(appState.langResources.bllAppDTO.pictures.productName +" "+ appState.langResources.common.required);        
 
-        else if (editData.url.length < 2) {
-            setAlertMessage('The field Url must be a string or array type with a minimum length of 2.');
-        }
-        else if (typeof(editData.productName) === 'undefined') {
-            setAlertMessage('Product name can not be empty!');
-        } else {
+        }else {
             setAlertMessage('');
             console.log(editData)
 
@@ -75,7 +72,7 @@ const PictureCreate = () => {
             <h3>{appState.langResources.bllAppDTO.pictures.picture}</h3>
             <form onSubmit={(e) => submitClicked(e.nativeEvent)}>
                 <div className="row">
-                    <div className="col-md-6">
+                    <div className="col-md-4">
                         <section>
                             <hr />
                             <Alert show={alertMessage !== ''} message={alertMessage} alertClass={EAlertClass.Danger} />

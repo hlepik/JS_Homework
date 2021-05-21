@@ -1,5 +1,4 @@
 import { BaseService } from "../../services/base-service";
-import { EPageStatus } from "../../types/EPageStatus";
 import { Link } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import { AppContext } from "../../context/AppContext";
@@ -19,9 +18,11 @@ const MessageFormCreate = () => {
         e.preventDefault();
 
 
-        if(editData.email.length < 2 || editData.email.length > 128){
-            setAlertMessage('Email is not valid!');
-     
+        if(editData.subject === "" ){
+            setAlertMessage(appState.langResources.bllAppDTO.messageForms.subject +" "+ appState.langResources.common.required);
+        
+        }else if (editData.message === "" ){
+                setAlertMessage(appState.langResources.bllAppDTO.messageForms.message +" "+ appState.langResources.common.required);
         } else {
             setAlertMessage('');
             console.log(editData)
@@ -34,7 +35,7 @@ const MessageFormCreate = () => {
             if (response.statusCode >= 200 && response.statusCode < 400) {
                 history.push('/messageForm')
             } else {
-                setAlertMessage(response.messages![0]);
+                setAlertMessage(appState.langResources.common.emailNotFound);
             }
 
         }
@@ -67,10 +68,10 @@ const MessageFormCreate = () => {
                             </div>
                             <div className="form-group">
                                 <label>{appState.langResources.bllAppDTO.messageForms.message}</label>
-                                <input value={editData.message} onChange={e => setMessageForm({ ...editData, message: e.target.value })} className="form-control" type="text" id="Input_MessageFormMessage" name="Input.MessageFormMessage" placeholder={editData.message} autoComplete="current-name" minLength={2}/>
+                                <textarea value={editData.message} onChange={e => setMessageForm({ ...editData, message: e.target.value })} className="form-control" id="Input_MessageFormMessage" name="Input.MessageFormMessage" placeholder={editData.message} autoComplete="current-name" minLength={2}/>
                             </div>
                             <div className="form-group">
-                                <button onClick={(e) => submitClicked(e.nativeEvent)} type="submit" className="btn btn-primary">{appState.langResources.views.shared.buttons.save}</button>
+                                <button onClick={(e) => submitClicked(e.nativeEvent)} type="submit" className="btn btn-primary">{appState.langResources.views.shared.buttons.send}</button>
                             </div>
                             <p>
                                 <Link to={'/messageForm'}>{appState.langResources.crud.index}</Link>

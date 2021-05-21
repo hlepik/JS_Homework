@@ -31,7 +31,7 @@ const CityIndex = () => {
 
 
     const loadData = useCallback(async () => {
-        let result = await BaseService.getAll<ICity>('/Cities', appState.token!);
+        let result = await BaseService.getAll<ICity>('/Cities?culture=' + appState.currentLanguage.name, appState.token!);
         console.log(result);
         console.log(appState)
 

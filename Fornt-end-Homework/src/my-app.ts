@@ -1,4 +1,4 @@
-import { IRouter } from "aurelia";
+import { IRouter } from 'aurelia-direct-router';
 import { AppState } from "./state/app-state";
 
 

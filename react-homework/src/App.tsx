@@ -3,7 +3,6 @@ import { Route, Switch } from 'react-router-dom';
 import Footer from './components/Footer';
 import Header from './components/Header';
 import PictureCreate from './containers/pictures/Create';
-import PictureDelete from './containers/pictures/Delete';
 import PictureDetails from './containers/pictures/Details';
 import PictureEdit from './containers/pictures/Edit';
 import PictureIndex from './containers/pictures/Index';
@@ -39,19 +38,16 @@ import MaterialIndex from './containers/material/Index';
 
 import MessageFormCreate from './containers/messageForm/Create';
 import MessageFormDetails from './containers/messageForm/Details';
-import MessageFormDelete from './containers/messageForm/Delete';
 import MessageFormIndex from './containers/messageForm/Index';
 
 import ProductMaterialCreate from './containers/productMaterial/Create';
 import ProductMaterialDetails from './containers/productMaterial/Details';
-import ProductMaterialDelete from './containers/productMaterial/Delete';
 import ProductMaterialIndex from './containers/productMaterial/Index';
 import ProductMaterialEdit from './containers/productMaterial/Edit';
 
 
 import ProductCreate from './containers/products/Create';
 import ProductDetails from './containers/products/Details';
-import ProductDelete from './containers/products/Delete';
 import ProductIndex from './containers/products/Index';
 import ProductEdit from './containers/products/Edit';
 
@@ -60,11 +56,9 @@ import UnitDetails from './containers/unit/Details';
 import UnitEdit from './containers/unit/Edit';
 import UnitIndex from './containers/unit/Index';
 
-import UserBookedProductsDelete from './containers/userBooked-Products/Delete';
 import UserBookedProductsDetails from './containers/userBooked-Products/Details';
 import UserBookedProductsIndex from './containers/userBooked-Products/Index';
 
-import UserMessagesDelete from './containers/userMessages/Delete';
 import UserMessagesDetails from './containers/userMessages/Details';
 import UserMessagesIndex from './containers/userMessages/Index';
 
@@ -117,7 +111,6 @@ function App() {
 
                             <Route path="/pictures/create" component={PictureCreate} />
                             <Route path="/pictures/edit/:id" component={PictureEdit} />
-                            <Route path="/pictures/delete/:id" component={PictureDelete} />
                             <Route path="/pictures/:id" component={PictureDetails} />
                             <Route path="/pictures" component={PictureIndex} />
 
@@ -151,19 +144,16 @@ function App() {
                             <Route path="/material" component={MaterialIndex} />
 
                             <Route path="/messageForm/create" component={MessageFormCreate} />
-                            <Route path="/messageForm/delete/:id" component={MessageFormDelete} />
                             <Route path="/messageForm/:id" component={MessageFormDetails} />
                             <Route path="/messageForm" component={MessageFormIndex} />
 
                             <Route path="/productMaterial/create" component={ProductMaterialCreate} />
                             <Route path="/productMaterial/edit/:id" component={ProductMaterialEdit} />
-                            <Route path="/productMaterial/delete/:id" component={ProductMaterialDelete} />
                             <Route path="/productMaterial/:id" component={ProductMaterialDetails} />
                             <Route path="/productMaterial" component={ProductMaterialIndex} />
 
                             <Route path="/products/create" component={ProductCreate} />
                             <Route path="/products/edit/:id" component={ProductEdit} />
-                            <Route path="/products/delete/:id" component={ProductDelete} />
                             <Route path="/products/:id" component={ProductDetails} />
                             <Route path="/products" component={ProductIndex} />
 
@@ -172,11 +162,9 @@ function App() {
                             <Route path="/unit/:id" component={UnitDetails} />
                             <Route path="/unit" component={UnitIndex} />
 
-                            <Route path="/userBooked-Products/delete/:id" component={UserBookedProductsDelete} />
                             <Route path="/userBooked-Products/:id" component={UserBookedProductsDetails} />
                             <Route path="/userBooked-Products" component={UserBookedProductsIndex} />
 
-                            <Route path="/userMessages/delete/:id" component={UserMessagesDelete} />
                             <Route path="/userMessages/:id" component={UserMessagesDetails} />
                             <Route path="/userMessages" component={UserMessagesIndex} />
 

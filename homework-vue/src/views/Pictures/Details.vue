@@ -5,7 +5,7 @@
         <dl class="row">
             <dt class="col-sm-2">Url</dt>
             <dd class="col-sm-10">
-                {{ this.pictureUrl }}
+                <img :src="this.pictureUrl" />
             </dd>
             <dt class="col-sm-2">Product Name</dt>
             <dd class="col-sm-10">
@@ -70,3 +70,9 @@ export default class PictureDetails extends Vue {
     }
 }
 </script>
+<style >
+img {
+    width: 10rem;
+    height: 16rem;
+}
+</style>

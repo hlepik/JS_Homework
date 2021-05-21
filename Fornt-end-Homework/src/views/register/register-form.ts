@@ -1,7 +1,8 @@
-import { HttpClient, IRouter} from "aurelia";
+import { HttpClient} from "aurelia";
 import { AccountService } from "../../services/account-service";
 import { AppState } from "../../state/app-state";
 import { IJwt } from "../../types/IJwt";
+import {IRouter, Router } from 'aurelia-direct-router';
 
 
 

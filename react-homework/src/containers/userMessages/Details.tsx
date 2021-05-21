@@ -9,6 +9,7 @@ import { AppContext } from "../../context/AppContext";
 import { useHistory } from "react-router-dom";
 import Loader from "../../components/Loader";
 import React, { useCallback } from 'react'
+import Moment from 'moment';
 
 
 const UserMessagesDetails = () => {
@@ -68,7 +69,18 @@ const UserMessagesDetails = () => {
                 <dt className="col-sm-2">{appState.langResources.bllAppDTO.userMessage.dateSent}</dt>
 
                 <dd className="col-sm-10">
-                    {userMessage.dateSent || ''}
+                    {appState.currentLanguage.name === "en" ?
+
+                        <>
+                            {Moment(userMessage.dateSent).format("YYYY.MM.DD HH:mm:ss")}
+                        </>
+                        :
+                        <>
+                            {Moment(userMessage.dateSent).format('DD.MM.YYYY HH:mm:ss')}
+                        </>
+
+
+                    }
                 </dd>
                 <hr />
 
@@ -85,7 +97,7 @@ const UserMessagesDetails = () => {
             </dl>
             <Loader {...pageStatus} />
         </div>
-        
+
     );
 }
 

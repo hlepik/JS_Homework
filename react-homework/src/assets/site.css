@@ -85,9 +85,13 @@ a.navbar-brand {
     background-color: RoyalBlue;
   }
   #deleteButton{
-    color: red; 
+    color: blue; 
+    padding-left: 0.5rem;
   }
   
+  #alert{
+    background-color: lightpink;
+  }
   
   #userLayout {
     padding-right: 2rem;
@@ -99,29 +103,31 @@ a.navbar-brand {
     padding-right: 1rem;
     color: #117a8b;
   }
+  
   .boxLayout {
     display: inline-block;
     border-radius: 15px;
-    border:3px solid #117a8b;
+    border:2px solid #117a8b;
     vertical-align:top;
     padding: 1rem;
     font-size: small;
     box-sizing: content-box;
     box-shadow: 1px 1px 1px #999;
     background-color: white;
-    flex: auto;
 
-  
   }
-  
+ 
   .mainBox{
-    padding-bottom: 1.5rem;
+    padding-top: 1.5rem;
   }
   #reserveButton {
-    padding-left: 1.5rem;
+   
     vertical-align: bottom;
 
   
+  }
+  #pictureElement {
+    padding-left: 2rem;
   }
   .mainView{
     padding-left: 3rem;
@@ -185,8 +191,19 @@ a.navbar-brand {
    
   }
   #alignCentre{
-    padding-top: 3rem;
+
     padding-right: 1rem;
+   
+  }
+  #pictureLayout{
+    padding-top: 3rem;
+    padding-bottom: 2rem;
+  }
+  #padding{
+    padding-bottom: 2rem;
+  }
+  #alignCentre{
+    padding-left: 1rem;
   }
 
   #but{
@@ -197,4 +214,10 @@ a.navbar-brand {
     width: 150px;
     height: 100px;
     float: centre;
+  }
+  .pictureIndex{
+    width: 250px;
+    height: 200px;
+    float: centre;
+
   }

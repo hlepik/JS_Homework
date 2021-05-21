@@ -181,9 +181,29 @@ export const initialAppState: IAppState = {
             "index": "Back to List",
             "reply": "Reply",
             "view": "View",
-            "changeUserRoles": "Change User Role"
+            "changeUserRoles": "Change User Role",
+            "deleteConfirm": "Are sure you wish to delete this item?"
         },
+        "account": {
+            "email": "Email",
+            "password": "Password",
+            "logIn": "Log In",
+            "confirmPassword": "Confirm Password",
+            "firstName": "First name",
+            "lastName": "Last name",
+            "register": "register",
+            "passwordDontMatch": "Passwords don't match!",
 
+        },
+        "common": {
+            "minLength": "The input is too short",
+            "maxLength": "The input is too long",
+            "required": "The value is required",
+            "loginProblem": "User/Password problem!",
+            "alreadyRegistered": "User already registered!",
+            "emailNotFound": "Email not found!"
+           
+        }
 
     },
 

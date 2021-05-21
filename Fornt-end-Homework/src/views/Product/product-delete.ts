@@ -1,8 +1,10 @@
 
-import { HttpClient, IRouteViewModel , IRouter, Router } from "aurelia";
+import { HttpClient, IRouteViewModel } from "aurelia";
 import { AppState } from "../../state/app-state";
 import { IProduct } from "../../domain/IProduct";
 import { BaseService } from "../../services/base-service";
+import {IRouter, Router } from 'aurelia-direct-router';
+
 
 export class ProductDelete implements IRouteViewModel  {
 

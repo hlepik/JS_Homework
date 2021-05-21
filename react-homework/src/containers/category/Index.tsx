@@ -31,7 +31,9 @@ const CategoryIndex = () => {
 
 
     const loadData = useCallback(async () => {
-        let result = await BaseService.getAll<ICategory>('/Categories', appState.token!);
+
+       
+        let result = await BaseService.getAll<ICategory>('/Categories?culture=' + appState.currentLanguage.name, appState.token!);
         console.log(result);
         console.log(appState)
 

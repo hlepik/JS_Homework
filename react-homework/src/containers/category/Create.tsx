@@ -1,5 +1,4 @@
 import { BaseService } from "../../services/base-service";
-import { EPageStatus } from "../../types/EPageStatus";
 import { Link } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import { AppContext } from "../../context/AppContext";
@@ -20,13 +19,13 @@ const CategoryCreate = () => {
         e.preventDefault();
 
         if (editData.name.length < 2 || editData.name.length > 128) {
-            setAlertMessage('The field Name must be a string or array type with a minimum length of 2.');
+            setAlertMessage(appState.langResources.common.minLength);
 
         } else {
             setAlertMessage('');
             console.log(editData)
 
-            const url = '/Categories';
+            const url = '/Categories?culture=' + appState.currentLanguage.name;
             let response = await BaseService.post(url, editData, appState.token!);
 
             console.log(response)
@@ -50,7 +49,7 @@ const CategoryCreate = () => {
             <h3>{appState.langResources.bllAppDTO.categories.category}</h3>
             <form onSubmit={(e) => submitClicked(e.nativeEvent)}>
                 <div className="row">
-                    <div className="col-md-6">
+                    <div className="col-md-4">
                         <section>
                             <hr />
                             <Alert show={alertMessage !== ''} message={alertMessage} alertClass={EAlertClass.Danger} />

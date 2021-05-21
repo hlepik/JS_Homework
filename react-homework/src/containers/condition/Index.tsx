@@ -31,7 +31,7 @@ const ConditionIndex = () => {
 
 
     const loadData = useCallback(async () => {
-        let result = await BaseService.getAll<ICondition>('/Conditions', appState.token!);
+        let result = await BaseService.getAll<ICondition>('/Conditions?culture=' + appState.currentLanguage.name, appState.token!);
         console.log(result);
         console.log(appState)
 

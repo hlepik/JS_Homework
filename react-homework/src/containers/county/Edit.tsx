@@ -43,8 +43,7 @@ const CountyEdit = () => {
         console.log(editData.nameId)
 
         if (editData.name.length < 2 || editData.name.length > 128) {
-            setAlertMessage('The field Name must be a string or array type with a minimum length of 2.');
-
+            setAlertMessage(appState.langResources.common.minLength);
         } else {
             setAlertMessage('');
             console.log(editData)
@@ -74,7 +73,7 @@ const CountyEdit = () => {
             <h3>{appState.langResources.bllAppDTO.counties.county}</h3>
             <form onSubmit={(e) => submitClicked(e.nativeEvent)}>
                 <div className="row">
-                    <div className="col-md-6">
+                    <div className="col-md-4">
                         <section>
                             <hr />
                             <Alert show={alertMessage !== ''} message={alertMessage} alertClass={EAlertClass.Danger} />

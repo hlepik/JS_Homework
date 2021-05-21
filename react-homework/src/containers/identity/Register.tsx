@@ -11,24 +11,18 @@ const Register = () => {
     const [alertMessage, setAlertMessage] = useState('');
     const [confirm, setConfirm] = useState({confirmPassword: ''});
 
-    const regexEmail = /\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/;
-
-
     const registerClicked = async (e: Event) => {
         e.preventDefault();
 
 
-        if (registerData.email === '' || !regexEmail.test(registerData.email)) {
-            setAlertMessage('Email not valid!');
-        }
-        else if (registerData.firstName === '' || registerData.lastName === '') {
-            setAlertMessage('First name or Last name can not be empty');
-        } else if (registerData.password !== confirm.confirmPassword){
-            setAlertMessage('Passwords do not match!');
+        if (registerData.firstName === '' || registerData.lastName === '') {
+            setAlertMessage(appState.langResources.common.minLength);
+        } else if (registerData.password !== confirm.confirmPassword || registerData.password.length === 0){
+            setAlertMessage(appState.langResources.account.passwordDontMatch);
         }else {
             let response = await IdentityService.register('account/register', registerData);
             if (!response.ok) {
-                setAlertMessage(response.messages![0]);
+                setAlertMessage(appState.langResources.common.alreadyRegistered);
             } else {
                 setAlertMessage('');
 
@@ -41,35 +35,35 @@ const Register = () => {
     return (
         <>
             { appState.token !== null ? <Redirect to="/" /> : null}
-            <h1>Register</h1>
+            <h1>{appState.langResources.account.register}</h1>
             <form onSubmit={(e) => registerClicked(e.nativeEvent)}>
                 <div className="row">
-                    <div className="col-md-6">
+                    <div className="col-md-4">
                         <section>
                             <hr />
                             <Alert show={alertMessage !== ''} message={alertMessage} alertClass={EAlertClass.Danger} />
                             <div className="form-group">
-                                <label htmlFor="Input_FirstName">First name</label>
-                                <input value={registerData.firstName} onChange={e => setRegisterData({ ...registerData, firstName: e.target.value })} className="form-control" type="text" id="Input_FirstName" name="Input.FirstName" placeholder="First name..." autoComplete="current-firstName" />
+                                <label htmlFor="Input_FirstName">{appState.langResources.account.firstName}</label>
+                                <input value={registerData.firstName} onChange={e => setRegisterData({ ...registerData, firstName: e.target.value })} className="form-control" type="text" id="Input_FirstName" name="Input.FirstName"  autoComplete="current-firstName" />
                             </div>
                             <div className="form-group">
-                                <label htmlFor="Input_LastName">Last name</label>
-                                <input value={registerData.lastName} onChange={e => setRegisterData({ ...registerData, lastName: e.target.value })} className="form-control" type="text" id="Input_LastName" name="Input.LastName" placeholder="Last name..." autoComplete="current-lastName" />
+                                <label htmlFor="Input_LastName">{appState.langResources.account.lastName}</label>
+                                <input value={registerData.lastName} onChange={e => setRegisterData({ ...registerData, lastName: e.target.value })} className="form-control" type="text" id="Input_LastName" name="Input.LastName"  autoComplete="current-lastName" />
                             </div>
                             <div className="form-group">
-                                <label htmlFor="Input_Email">Email</label>
-                                <input value={registerData.email} onChange={e => setRegisterData({ ...registerData, email: e.target.value })} className="form-control" type="email" id="Input_Email" name="Input.Email" placeholder="user@example.com" autoComplete="username" />
+                                <label htmlFor="Input_Email">{appState.langResources.account.email}</label>
+                                <input value={registerData.email} onChange={e => setRegisterData({ ...registerData, email: e.target.value })} className="form-control" type="email" id="Input_Email" name="Input.Email"  autoComplete="username" />
                             </div>
                             <div className="form-group">
-                                <label htmlFor="Input_Password">Password</label>
-                                <input value={registerData.password} onChange={e => setRegisterData({ ...registerData, password: e.target.value })} className="form-control" type="password" id="Input_Password" name="Input.Password" placeholder="Insert your password..." autoComplete="current-password" />
+                                <label htmlFor="Input_Password">{appState.langResources.account.password}</label>
+                                <input value={registerData.password} onChange={e => setRegisterData({ ...registerData, password: e.target.value })} className="form-control" type="password" id="Input_Password" name="Input.Password"  autoComplete="current-password" />
                             </div>
                             <div className="form-group">
-                                <label htmlFor="Input_ConfirmPassword">Confirm Password</label>
-                                <input value={confirm.confirmPassword} onChange={e => setConfirm({ ...registerData, confirmPassword: e.target.value })} className="form-control" type="password" id="Input_ConfirmPassword" name="Input.ConfirmPassword" placeholder="Confirm your password..." autoComplete="current-password" />
+                                <label htmlFor="Input_ConfirmPassword">{appState.langResources.account.confirmPassword}</label>
+                                <input value={confirm.confirmPassword} onChange={e => setConfirm({ ...registerData, confirmPassword: e.target.value })} className="form-control" type="password" id="Input_ConfirmPassword" name="Input.ConfirmPassword"  autoComplete="current-password" />
                             </div>
                             <div className="form-group">
-                                <button onClick={(e) => registerClicked(e.nativeEvent)} type="submit" className="btn btn-primary">Register</button>
+                                <button onClick={(e) => registerClicked(e.nativeEvent)} type="submit" className="btn btn-primary">{appState.langResources.account.register}</button>
                             </div>
                         </section>
                     </div>

@@ -51,25 +51,27 @@ const PictureEdit = () => {
 
         e.preventDefault();
 
-        if (editData.url.length < 2) {
-            setAlertMessage('The field Url must be a string or array type with a minimum length of 2.');
-        }
-        if (editData.productName?.length! < 1) {
-            setAlertMessage('Product name is empty!');
-        }
-        setAlertMessage('');
-        console.log(editData)
+        if (editData.url === "" || editData.url === undefined) {
 
-        const url = '/Pictures/' + id;
-        let response = await BaseService.edit(url, editData, appState.token!);
+            setAlertMessage(appState.langResources.bllAppDTO.pictures.url + " " + appState.langResources.common.required);
+        } else if (editData.productId === "" || editData.productId === undefined) {
+            setAlertMessage(appState.langResources.bllAppDTO.pictures.productName + " " + appState.langResources.common.required);   
+        }else {
+            setAlertMessage('');
+            console.log(editData)
 
-        console.log(response)
-        if (response.statusCode >= 200 && response.statusCode < 400) {
-            history.push('/pictures')
-        } else {
-            setAlertMessage(response.messages![0]);
-       
+            const url = '/Pictures/' + id;
+            let response = await BaseService.edit(url, editData, appState.token!);
+
+            console.log(response)
+            if (response.statusCode >= 200 && response.statusCode < 400) {
+                history.push('/pictures')
+            } else {
+                setAlertMessage(response.messages![0]);
+
+            }
         }
+
     }
 
 
@@ -84,7 +86,7 @@ const PictureEdit = () => {
             <h3>{appState.langResources.bllAppDTO.pictures.picture}</h3>
             <form onSubmit={(e) => submitClicked(e.nativeEvent)}>
                 <div className="row">
-                    <div className="col-md-6">
+                    <div className="col-md-4">
                         <section>
                             <hr />
                             <Alert show={alertMessage !== ''} message={alertMessage} alertClass={EAlertClass.Danger} />

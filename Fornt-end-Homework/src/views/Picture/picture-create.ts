@@ -1,4 +1,5 @@
-import { HttpClient, IRouteViewModel , IRouter, Router } from "aurelia";
+import { HttpClient, IRouteViewModel } from "aurelia";
+import {IRouter, Router } from 'aurelia-direct-router';
 import { AppState } from "../../state/app-state";
 import { IPicture } from "../../domain/IPicture";
 import { IProduct } from "../../domain/IProduct";

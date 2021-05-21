@@ -3,19 +3,25 @@ export interface IProduct {
     description: string;
     isBooked: boolean,
     hasTransport: boolean;
-    city?: string;
-    county: string;
+    cityId?: string;
+    countyId: string;
     locationDescription?: string;
-    dateAdded?: string;
-    unit: string;
-    productAge: number;
+    dateAdded: string;
+    unitName?: string;
+    productAge?: number;
     material?: [];
     pictureUrls?: [];
     height?: number;
     width?: number;
     depth?: number;
     color?: string;
-    category?: string;
-    condition?: string;
+    categoryId: string;
+    conditionId: string;
     appUserId: string;
+    countyName?: string;
+    cityName?: string;
+    conditionName?: string;
+    categoryName?: string;
+    unitId?: string;
+
 }

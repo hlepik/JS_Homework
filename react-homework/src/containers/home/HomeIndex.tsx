@@ -24,7 +24,7 @@ const HomeIndex = () => {
 
     const loadData = useCallback(async () => {
 
-        let result = await BaseService.getFour<IProduct>('/Products/four/lastFour');
+        let result = await BaseService.getFour<IProduct>('/Products/four/lastFour?culture=' + appState.currentLanguage.name);
 
         if (result.ok && result.data) {
             setPageStatus({ pageStatus: EPageStatus.OK, statusCode: 0 });
@@ -34,7 +34,7 @@ const HomeIndex = () => {
         }
 
 
-        let cityResult = await BaseService.getAll<ICity>('/Cities');
+        let cityResult = await BaseService.getAll<ICity>('/Cities?culture=' + appState.currentLanguage.name);
 
         if (cityResult.ok && cityResult.data) {
             setCity(cityResult.data);
@@ -43,7 +43,7 @@ const HomeIndex = () => {
             setPageStatus({ pageStatus: EPageStatus.Error, statusCode: cityResult.statusCode });
         }
 
-        let countyResult = await BaseService.getAll<ICounty>('/Counties');
+        let countyResult = await BaseService.getAll<ICounty>('/Counties?culture=' + appState.currentLanguage.name);
         if (countyResult.ok && countyResult.data) {
             setCounty(countyResult.data);
         }
@@ -51,14 +51,14 @@ const HomeIndex = () => {
             setPageStatus({ pageStatus: EPageStatus.Error, statusCode: countyResult.statusCode });
         }
 
-        let categoryResult = await BaseService.getAll<ICategory>('/Categories');
+        let categoryResult = await BaseService.getAll<ICategory>('/Categories?culture=' + appState.currentLanguage.name);
         if (categoryResult.ok && categoryResult.data) {
             setCategory(categoryResult.data);
         }
         else {
             setPageStatus({ pageStatus: EPageStatus.Error, statusCode: categoryResult.statusCode });
         }
-    }, []);
+    }, [appState.currentLanguage.name]);
 
     useEffect(() => {
 
@@ -70,6 +70,7 @@ const HomeIndex = () => {
 
             <div className="mainBox" >
                 <h2>{appState.langResources.views.shared.buttons.search}</h2>
+
                 <div className="boxLayout">
                     <React.Fragment>
                         <form asp-action="Search">
@@ -128,65 +129,73 @@ const HomeIndex = () => {
             </div>
             <h2>{appState.langResources.bllAppDTO.products.recentlyAddedProducts}</h2>
             <>
+    
                 {productData.map(product =>
 
-                    <div key={product.id} className="boxLayout" id="box1">
-                        <table>
-                            <tbody>
-                                <tr>
-                                    <th>
+                        <div key={product.id} className="boxLayout" id="box1">
+                            
+                            <table>
+                        
+                                <tbody>
+                                    <tr>
+                                        <th id='pictureElement'>
 
-                                        {product.pictureUrls ?
+                                            {product.pictureUrls ?
 
-                                            <>
-                                                {product.pictureUrls?.map((picture) =>
-                                                    <img src={picture} key={picture} id='picture' alt='Pilt' />
+                                                <>
+                                                    {product.pictureUrls?.slice(product.pictureUrls.length - 1).map((picture) =>
+                                                        <img src={picture} key={picture} id='picture' alt='Pilt' />
 
-                                                )}
+                                                    )}
 
-                                            </>
-                                            :
-                                            <>
-                                            </>
-                                        }
+                                                </>
 
-                                    </th>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <table>
-                            <tbody>
-                                <tr>
-                                    <td>{appState.langResources.bllAppDTO.products.description}:</td>
-                                    <td >{product.description}</td>
-                                </tr>
-                                <tr>
-                                    <td>{appState.langResources.bllAppDTO.products.county}:</td>
-                                    <td>{product.county}</td>
-                                </tr>
-                                <tr>
-                                    <td>{appState.langResources.bllAppDTO.products.category}:</td>
-                                    <td>{product.category}</td>
-                                </tr>
-                                <tr>
-                                    <td>{appState.langResources.bllAppDTO.products.isBooked}:</td>
-
-                                    <td>
-                                        <input type="checkbox" defaultChecked={product.isBooked} disabled={true} />
-                                    </td>
-                                </tr>
-
-                            </tbody>
-                        </table>
+                                                :
+                                                <>
+                                                </>
+                                            }
 
 
-                    </div>
+                                        </th>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td>{appState.langResources.bllAppDTO.products.description}:</td>
+                                        <td >{product.description}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{appState.langResources.bllAppDTO.products.county}:</td>
+                                        <td>{product.countyName}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{appState.langResources.bllAppDTO.products.category}:</td>
+                                        <td>{product.categoryName}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{appState.langResources.bllAppDTO.products.isBooked}:</td>
+
+                                        <td>
+                                            <input type="checkbox" defaultChecked={product.isBooked} disabled={true} />
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                                   
+                            </table>
+                      
+
+                        </div>
 
                 )}
+
             </>
 
 
             <Loader {...pageStatus} />
+
         </>
     )
 }

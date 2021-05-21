@@ -64,16 +64,25 @@ const ProductMaterialEdit = () => {
         setAlertMessage('');
         console.log(editData)
 
-        const url = '/ProductMaterials/' + id;
-        let response = await BaseService.edit(url, editData, appState.token!);
+        if (editData.productId === undefined || editData.productId === "") {
 
-        console.log(response)
-        if (response.statusCode >= 200 && response.statusCode < 400) {
-            history.push('/productMaterial')
+            setAlertMessage(appState.langResources.bllAppDTO.products.product + " " + appState.langResources.common.required);
+        } else if (editData.materialId === undefined || editData.materialId === "") {
+            setAlertMessage(appState.langResources.bllAppDTO.productMaterials.productMaterial + " " + appState.langResources.common.required);
         } else {
-            setAlertMessage(response.messages![0]);
-       
+            const url = '/ProductMaterials/' + id;
+            let response = await BaseService.edit(url, editData, appState.token!);
+
+            console.log(response)
+            if (response.statusCode >= 200 && response.statusCode < 400) {
+                history.push('/productMaterial')
+            } else {
+                setAlertMessage(response.messages![0]);
+
+            }
+
         }
+
     }
 
 
@@ -88,14 +97,14 @@ const ProductMaterialEdit = () => {
             <h3>{appState.langResources.bllAppDTO.productMaterials.productMaterial}</h3>
             <form onSubmit={(e) => submitClicked(e.nativeEvent)}>
                 <div className="row">
-                    <div className="col-md-6">
+                    <div className="col-md-4">
                         <section>
                             <hr />
                             <Alert show={alertMessage !== ''} message={alertMessage} alertClass={EAlertClass.Danger} />
-                            
+
                             <div className="form-group">
                                 <label htmlFor="formSelect">{appState.langResources.bllAppDTO.materials.material}</label>
-                                <select value={editData.materialId|| ''} onChange={e => setProductMaterial({ ...editData, materialId: e.target.value })} className="form-control" id="formSelect">
+                                <select value={editData.materialId || ''} onChange={e => setProductMaterial({ ...editData, materialId: e.target.value })} className="form-control" id="formSelect">
                                     {materialData.map(material =>
                                         <option key={material.id} value={material.id || ''}>{material.name}</option>
                                     )};

@@ -67,7 +67,7 @@ const Header = () => {
 
         <header>
 
-            <nav className="navbar navbar-expand-sm  navbar-toggleable-sm navbar-dark  bg-dark border-bottom box-shadow mb-3">
+            <nav className="navbar navbar-expand-sm  navbar-toggleable-sm navbar-light  bg-light border-bottom box-shadow mb-3">
                 <div className="container">
                     <NavLink className="fa fa-home text-gray" id="homeButton" to="/">Home</NavLink>
                     <button className="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -80,13 +80,13 @@ const Header = () => {
                             {appState.token === null ?
                                 <>
                                     <li className="nav-item">
-                                        <NavLink className="nav-link text-gray" to="/booking" >{appState.langResources.bllAppDTO.bookings.findAProduct}</NavLink>
+                                        <NavLink  className="nav-link text-dark" to="/booking" >{appState.langResources.bllAppDTO.bookings.findAProduct}</NavLink>
                                     </li>
                                 </>
                                 :
                                 <>
                                     <li className="nav-item">
-                                        <NavLink className="nav-link text-gray" to="/booking">{appState.langResources.bllAppDTO.bookings.findAProduct}</NavLink>
+                                        <NavLink  className="nav-link text-dark" to="/booking">{appState.langResources.bllAppDTO.bookings.findAProduct}</NavLink>
                                     </li>
                                     <div className="nav-item dropdown">
                                         <a className="nav-link dropdown-toggle text-gray" href="/#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

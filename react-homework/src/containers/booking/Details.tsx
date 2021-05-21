@@ -1,5 +1,3 @@
-import { useParams } from "react-router-dom";
-import { IRouteId } from "../../types/IRouteId";
 import { BaseService } from "../../services/base-service";
 import { EPageStatus } from "../../types/EPageStatus";
 import { Link } from "react-router-dom";
@@ -13,7 +11,6 @@ import Loader from "../../components/Loader";
 const BookingDetails = (props: any) => {
 
     //get the router params
-    let { id } = useParams() as IRouteId;
     const appState = useContext(AppContext);
     const [pageStatus, setPageStatus] = useState({ pageStatus: EPageStatus.Loading, statusCode: -1 });
     const [products, setProduct] = useState({} as IProduct || '');
@@ -22,7 +19,7 @@ const BookingDetails = (props: any) => {
     const loadData = useCallback(async () => {
         console.log(productId)
 
-        let result = await BaseService.get<IProduct>('/Products/' + productId);
+        let result = await BaseService.get<IProduct>('/Products/' + productId + '?culture=' + appState.currentLanguage.name);
 
 
         if (result.ok && result.data) {
@@ -32,7 +29,7 @@ const BookingDetails = (props: any) => {
             setPageStatus({ pageStatus: EPageStatus.Error, statusCode: result.statusCode });
         }
 
-    }, [productId])
+    }, [productId, appState.currentLanguage.name])
 
 
 
@@ -42,15 +39,14 @@ const BookingDetails = (props: any) => {
     return (
         <>
 
-
             <dt className="col-sm-2">
-            {appState.langResources.bllAppDTO.pictures.picture}
+            <h2>{appState.langResources.bllAppDTO.pictures.picture}</h2>
                 </dt>
-            <th id="alignCentre">
+            <th id='pictureLayout'>
                 {products.pictureUrls?.map(picture =>
 
-                    <div >
-                        <img src={picture} className='picture' alt='Pilt'/>
+                    <div key={products.id}>
+                        <img src={picture} className='pictureIndex' key={picture} alt='Pilt' />
 
                     </div>
 

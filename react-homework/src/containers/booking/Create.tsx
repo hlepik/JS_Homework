@@ -1,23 +1,20 @@
 import { BaseService } from "../../services/base-service";
-import { EPageStatus } from "../../types/EPageStatus";
 import { Link } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import { AppContext } from "../../context/AppContext";
 import Alert, { EAlertClass } from "../../components/Alert";
 import { useHistory } from "react-router-dom";
-import { useParams } from "react-router-dom";
-import { IRouteId } from "../../types/IRouteId";
+import { IBooking } from "../../dto/IBooking";
 
 
 const BookingCreate =  (props: any) => {  
-    let { id } = useParams() as IRouteId;
 
     const appState = useContext(AppContext);
-    const [editData, setBooking] = useState({ until: new Date(), productId: '', appUserId: '', timeBooked: new Date() });
+    const [editData, setBooking] = useState({} as IBooking);
     const [alertMessage, setAlertMessage] = useState('');
     let history = useHistory();
     const productName = props.location.state.data;
-    const productId = id;
+    const productId = props.location.state.id;
 
 
     const submitClicked = async (e: Event) => {
@@ -29,12 +26,13 @@ const BookingCreate =  (props: any) => {
         const info = JSON.parse(atob(appState.token!.split('.')[1]));
         let appUserId = info["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"];
       
-        console.log(appUserId)
         setAlertMessage('');
         console.log(editData)
+      
+        editData.productId = productId;
         editData.appUserId = appUserId;
 
-        const url = '/Bookings';
+        const url = '/Bookings?culture=' + appState.currentLanguage.name;
         let response = await BaseService.post(url, editData, appState.token!);
 
         console.log(response)
@@ -54,12 +52,13 @@ const BookingCreate =  (props: any) => {
 
     return (
         <>
+        <div id='alignCentre'>
             <h2>{appState.langResources.bllAppDTO.bookings.reserve}</h2 >
      
 
-            <form onSubmit={(e) => submitClicked(e.nativeEvent)}>
-                <div className="row">
-                    <div className="col-sm-6">
+            <form onSubmit={(e) => submitClicked(e.nativeEvent)} >
+                <div className="row" >
+                    <div className="col-sm-4">
                         <section>
                             <hr />
                             <Alert show={alertMessage !== ''} message={alertMessage} alertClass={EAlertClass.Danger} />
@@ -69,9 +68,11 @@ const BookingCreate =  (props: any) => {
                             </div>
                             <dt className="col-sm-10">{appState.langResources.bllAppDTO.products.description}</dt>
 
-                            <dd className="col-sm-10">
+                            <dd className="col-sm-10" id='padding'>
                                 {productName}
+                        
                             </dd>
+                            
                             <div className="form-group">
                                 <button onClick={(e) => submitClicked(e.nativeEvent)} type="submit" className="btn btn-primary">{appState.langResources.bllAppDTO.bookings.reserve}</button>
                             </div>
@@ -82,6 +83,7 @@ const BookingCreate =  (props: any) => {
                     </div>
                 </div>
             </form>
+            </div>
         </>
     );
 }

@@ -9,6 +9,7 @@
   "license": "UNLICENSED",
   "dependencies": {
     "aurelia": "^2.0.0-alpha.2",
+    "aurelia-direct-router": "^2.0.0-alpha.3.1",
     "aurelia-validation": "^2.0.0-rc2",
     "bootstrap": "^4.6.0",
     "font-awesome": "^4.7.0",

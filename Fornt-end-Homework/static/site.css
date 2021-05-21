@@ -81,3 +81,8 @@ body {
   /* Vertically center the text there */
 }
 
+#pictureEdit {
+
+  width: 8rem;
+  height: 6rem;
+}

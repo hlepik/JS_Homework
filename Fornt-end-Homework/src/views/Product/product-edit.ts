@@ -1,4 +1,4 @@
-import { HttpClient, IRouteViewModel , IRouter, Router } from "aurelia";
+import { HttpClient, IRouteViewModel  } from "aurelia";
 import { IProduct } from "../../domain/IProduct";
 import { BaseService } from "../../services/base-service";
 import { AppState } from "../../state/app-state";
@@ -7,6 +7,8 @@ import { ICounty } from "../../domain/ICounty";
 import { ICity } from "../../domain/ICity";
 import { ICategory } from "../../domain/ICategory";
 import { ICondition } from "../../domain/ICondition";
+import {IRouter, Router } from 'aurelia-direct-router';
+
 
 export class ProductEdit implements IRouteViewModel  {
 

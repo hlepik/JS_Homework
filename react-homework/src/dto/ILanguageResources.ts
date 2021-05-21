@@ -152,6 +152,25 @@ export interface ILanguageResources {
         "reply": string;
         "view": string;
         "changeUserRoles": string;
+        "deleteConfirm": string;
+    },
+    "account": {
+        "email": string;
+        "password": string;
+        "logIn": string;
+        "confirmPassword": string;
+        "firstName": string;
+        "lastName": string;
+        "register": string;
+        "passwordDontMatch": string;
+    },
+    "common": {
+        "minLength": string;
+        "maxLength": string;
+        "required": string;
+        "loginProblem": string;
+        "alreadyRegistered": string;
+        "emailNotFound": string;
     }
 
 }

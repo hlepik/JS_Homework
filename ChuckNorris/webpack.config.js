@@ -26,6 +26,7 @@ module.exports = function(env, { analyze }) {
     },
     output: {
       path: path.resolve(__dirname, 'dist'),
+      publicPath: production ? '/chuck/' : '/',
       filename: production ? '[name].[contenthash].bundle.js' : '[name].bundle.js'
     },
     resolve: {

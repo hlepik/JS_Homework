@@ -4,52 +4,38 @@ import { Link } from "react-router-dom";
 import Loader from "../../components/Loader";
 import { IMessageForm } from "../../dto/IMessageForm";
 import { useContext, useEffect, useState } from "react";
-import { AppContext, IAppState } from "../../context/AppContext";
+import { AppContext } from "../../context/AppContext";
 import React, { useCallback } from 'react';
-
-
-const RowDisplay = (props: { messageForm: IMessageForm, appState: IAppState}) => (
-
-    <tr>
-        <td>
-            {props.messageForm.email}
-        </td>
-        <td>
-            {props.messageForm.subject}
-        </td>
-        <td>
-            {props.messageForm.message}
-        </td>
-        <td>
-            {props.messageForm.dateSent}
-        </td>
-
-
-
-        <td>
-            <Link to={'/messageForm/' + props.messageForm.id}>{props.appState.langResources.crud.details}</Link> |
-            <Link to={'/messageForm/delete/' + props.messageForm.id}>Delete</Link>
-        </td>
-
-
-
-    </tr>
-);
-
-
+import { faTrash } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import swal from 'sweetalert';
+import Moment from 'moment';
 
 const MessageFormIndex = () => {
 
     const appState = useContext(AppContext);
     const [messageForms, setMessageForm] = useState([] as IMessageForm[]);
     const [pageStatus, setPageStatus] = useState({ pageStatus: EPageStatus.Loading, statusCode: -1 });
-
-
+    const element = <FontAwesomeIcon icon={faTrash} />
 
     const loadData = useCallback(async () => {
-        let result = await BaseService.getAll<IMessageForm>('/MessageForms', appState.token!);
-        console.log(result);
+    
 
+        let data = window.localStorage.getItem('state');
+        window.localStorage.clear();
+
+        if (data != null) {
+            let state = JSON.parse(data);
+            console.log(state)
+            appState.currentLanguage = state.currentLanguage;
+            appState.supportedLanguages = state.supportedLanguages;
+            appState.langResources = state.langResources;
+            console.log(appState)
+            appState.setAuthInfo(state.token, state.firstName, state.lastName);
+        }
+        let result = await BaseService.getAll<IMessageForm>('/MessageForms', appState.token!);
+
+        console.log(result)
 
         if (result.ok && result.data) {
             setPageStatus({ pageStatus: EPageStatus.OK, statusCode: 0 });
@@ -60,6 +46,23 @@ const MessageFormIndex = () => {
 
     }, [appState])
 
+    const deleteClicked = async (e: Event, id: string) => {
+
+        e.preventDefault();
+
+        console.log(id)
+        let result = await BaseService.delete<IMessageForm>('/MessageForms/' + id, appState.token!);
+
+
+        if (result.ok) {
+            window.localStorage.setItem('state', JSON.stringify(appState));
+            window.location.reload();
+        } else {
+            setPageStatus({ pageStatus: EPageStatus.Error, statusCode: result.statusCode });
+        }
+    }
+  
+
     useEffect(() => {
         loadData();
     }, [loadData]);
@@ -68,7 +71,7 @@ const MessageFormIndex = () => {
 
     return (
         <>
-            <h1>{appState.langResources.bllAppDTO.messageForms.messageForm}</h1>
+            <h1>{appState.langResources.bllAppDTO.messageForms.message}</h1>
 
             <p>
                 <Link to={'/messageForm/create'}>{appState.langResources.crud.create}</Link>
@@ -94,8 +97,45 @@ const MessageFormIndex = () => {
                 </thead>
                 <tbody>
                     {messageForms.map(messageForm =>
-                        <RowDisplay messageForm={messageForm} key={messageForm.id} appState={appState} />)
-                    }
+                        <tr key={messageForm.id}>
+                            <td>
+                                {messageForm.email}
+                            </td>
+                            <td>
+                                {messageForm.subject}
+                            </td>
+                            <td>
+                                {messageForm.message}
+                            </td>
+                            <td >
+                              {appState.currentLanguage.name === "en" ?
+
+                                <>
+                                  {Moment(messageForm.dateSent).format("YYYY.MM.DD HH:mm:ss")}
+                                  </>
+                                  :
+                                  <>
+                                    {Moment(messageForm.dateSent).format('DD.MM.YYYY HH:mm:ss')}
+                                  </>
+
+
+                            }
+                            
+                            </td>
+
+                            <td>
+                                <Link to={'/messageForm/' + messageForm.id}>{appState.langResources.crud.details}</Link> |
+                                <span  onClick={(e) => swal({text: appState.langResources.crud.deleteConfirm, dangerMode: true}).then(willDelete => {if(willDelete){deleteClicked(e.nativeEvent, messageForm.id!)}})}>
+
+                                   <span id="deleteButton" >
+                                    {element}
+                                    </span>
+                                </span>
+                            </td>
+
+
+
+                        </tr>)}
                 </tbody>
             </table>
             <Loader {...pageStatus} />

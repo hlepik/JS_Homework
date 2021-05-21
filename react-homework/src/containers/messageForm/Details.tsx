@@ -6,9 +6,10 @@ import { Link } from "react-router-dom";
 import { IMessageForm } from "../../dto/IMessageForm";
 import { useContext, useEffect, useState } from "react";
 import { AppContext } from "../../context/AppContext";
-import { useHistory } from "react-router-dom";
 import Loader from "../../components/Loader";
 import React, { useCallback } from 'react';
+import Moment from 'moment';
+
 
 const MessageFormDetails = () => {
 
@@ -17,7 +18,6 @@ const MessageFormDetails = () => {
     const appState = useContext(AppContext);
     const [pageStatus, setPageStatus] = useState({ pageStatus: EPageStatus.Loading, statusCode: -1 });
     const [messageForm, setMessageForm] = useState({} as IMessageForm);
-    let history = useHistory();
 
     const loadData = useCallback(async () => {
         console.log(id)
@@ -41,8 +41,8 @@ const MessageFormDetails = () => {
     }, [loadData]);
     return (
         <div>
-            <h3>Details</h3>
-            <h4>{appState.langResources.bllAppDTO.messageForms.messageForm}</h4>
+
+            <h4>{appState.langResources.bllAppDTO.messageForms.message}</h4>
             <hr />
             <dl className="row">
                 <dt className="col-sm-2">{appState.langResources.bllAppDTO.messageForms.email}</dt>
@@ -63,7 +63,18 @@ const MessageFormDetails = () => {
                 <dt className="col-sm-2">{appState.langResources.bllAppDTO.messageForms.dateSent}</dt>
 
                 <dd className="col-sm-10">
-                    {messageForm.dateSent}
+                    {appState.currentLanguage.name === "en" ?
+
+                        <>
+                            {Moment(messageForm.dateSent).format("YYYY.MM.DD HH:mm:ss")}
+                        </>
+                        :
+                        <>
+                            {Moment(messageForm.dateSent).format('DD.MM.YYYY HH:mm:ss')}
+                        </>
+
+
+                    }
                 </dd>
                 <hr />
 

@@ -45,8 +45,7 @@ const MaterialIndex = () => {
 
 
     const loadData = useCallback(async () => {
-        let result = await BaseService.getAll<IMaterial>('/Materials', appState.token!);
-        console.log(appState);
+        let result = await BaseService.getAll<IMaterial>('/Materials?culture=' + appState.currentLanguage.name, appState.token!);
 
 
         if (result.ok && result.data) {

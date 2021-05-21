@@ -6,7 +6,6 @@ import { useContext, useEffect, useState } from "react";
 import { AppContext } from "../../context/AppContext";
 import Alert, { EAlertClass } from "../../components/Alert";
 import { useHistory } from "react-router-dom";
-import { IProductMaterial } from "../../dto/IProductMaterial";
 import { IProduct } from "../../dto/IProduct";
 import { IMaterial } from "../../dto/IMaterial";
 import React, { useCallback } from 'react';
@@ -42,12 +41,11 @@ const ProductMaterialCreate = () => {
     const submitClicked = async (e: Event) => {
 
         e.preventDefault();
-        if(typeof(editData.materialId) === 'undefined'){
-            setAlertMessage('material can not be empty!')
-        }
-
-        else if (typeof(editData.productId) === 'undefined') {
-            setAlertMessage('Product name can not be empty!');
+        if (editData.productId === undefined || editData.productId === "") {
+        
+            setAlertMessage(appState.langResources.bllAppDTO.products.product +" "+ appState.langResources.common.required);        
+        } else if (editData.materialId ===  undefined ||  editData.materialId === ""){
+            setAlertMessage(appState.langResources.bllAppDTO.productMaterials.productMaterial +" "+ appState.langResources.common.required);    
         } else {
             setAlertMessage('');
             console.log(editData)
@@ -76,7 +74,7 @@ const ProductMaterialCreate = () => {
             <h3>{appState.langResources.bllAppDTO.productMaterials.productMaterial}</h3>
             <form onSubmit={(e) => submitClicked(e.nativeEvent)}>
                 <div className="row">
-                    <div className="col-md-6">
+                    <div className="col-md-4">
                         <section>
                             <hr />
                             <Alert show={alertMessage !== ''} message={alertMessage} alertClass={EAlertClass.Danger} />

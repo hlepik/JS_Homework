@@ -1,5 +1,4 @@
 import { BaseService } from "../../services/base-service";
-import { EPageStatus } from "../../types/EPageStatus";
 import { Link } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import { AppContext } from "../../context/AppContext";
@@ -9,7 +8,6 @@ import { useHistory } from "react-router-dom";
 const ConditionCreate = () => {
 
     const appState = useContext(AppContext);
-    const [pageStatus] = useState({ pageStatus: EPageStatus.Loading, statusCode: -1 });
     const [editData, setCondition] = useState({ description: ''});
     const [alertMessage, setAlertMessage] = useState('');
     let history = useHistory();
@@ -21,13 +19,12 @@ const ConditionCreate = () => {
         e.preventDefault();
 
         if (editData.description.length < 2 || editData.description.length > 128) {
-            setAlertMessage('The field Name must be a string or array type with a minimum length of 2.');
-
+            setAlertMessage(appState.langResources.common.minLength);
         } else {
             setAlertMessage('');
             console.log(editData)
 
-            const url = '/Conditions';
+            const url = '/Conditions?culture=' + appState.currentLanguage.name;
             let response = await BaseService.post(url, editData, appState.token!);
 
             console.log(response)
@@ -51,7 +48,7 @@ const ConditionCreate = () => {
             <h3>{appState.langResources.bllAppDTO.conditions.condition}</h3>
             <form onSubmit={(e) => submitClicked(e.nativeEvent)}>
                 <div className="row">
-                    <div className="col-md-6">
+                    <div className="col-md-4">
                         <section>
                             <hr />
                             <Alert show={alertMessage !== ''} message={alertMessage} alertClass={EAlertClass.Danger} />

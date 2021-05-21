@@ -1,135 +1,58 @@
 import { BaseService } from "../../services/base-service";
-import { EPageStatus } from "../../types/EPageStatus";
 import { Link } from "react-router-dom";
-import Loader from "../../components/Loader";
 import { IProduct } from "../../dto/IProduct";
-import { useContext, useEffect, useState } from "react";
-import { AppContext, IAppState } from "../../context/AppContext";
+import {  useContext, useEffect, useState } from "react";
+import { AppContext } from "../../context/AppContext";
 import React, { useCallback } from 'react';
-
-
-const RowDisplay = (props: { product: IProduct, appState: IAppState }) => (
-    <tr>
-        <td>
-            {props.product.description}
-        </td>
-        <td>
-            {props.product.color}
-        </td>
-        <td>
-            <input type="checkbox" defaultChecked={props.product.hasTransport} disabled={true} />
-        </td>
-        <td>
-
-            <input type="checkbox" defaultChecked={props.product.isBooked} disabled={true} />
-        </td>
-        <td>
-
-            {props.product.county}
-
-            {props.product.city !== null && props.product.city !== "null" ?
-                <>
-                    , {props.product.city}
-                </>
-                :
-                <>
-                </>
-            }
-            {props.product.locationDescription !== null ?
-                <>
-                    , {props.product.locationDescription}
-                </>
-                :
-                <>
-                </>
-            }
-
-        </td>
-        <td>
-
-            {props.product.height !== null ?
-                <>
-                    {props.appState.langResources.bllAppDTO.products.height}: {props.product.height}{props.product.unit}
-                </>
-                :
-                <>
-                </>
-            }
-            {props.product.width !== null ?
-                <>
-                    , {props.appState.langResources.bllAppDTO.products.width}: {props.product.width}{props.product.unit}
-                </>
-                :
-                <>
-                </>
-            }
-            {props.product.depth !== null ?
-                <>
-                    , {props.appState.langResources.bllAppDTO.products.depth}:  {props.product.depth}{props.product.unit}
-                </>
-                :
-                <>
-                </>
-            }
-
-        </td>
-        <td>
-            {props.product.condition}
-        </td>
-        <td>
-
-            {props.product.material?.length! > 1 ?
-                <>
-
-                    {props.product.material!.map(mat =>
-
-                        <div key={mat}>
-                           {mat}
-
-                        </div>
-                    )}
-                </>
-                :
-                <>
-                    {props.product.material}
-                </>
-            }
-
-        </td>
-
-        <td>
-            <Link to={'/products/edit/' + props.product.id}>{props.appState.langResources.crud.edit}</Link> |
-
-            <Link to={'/products/' + props.product.id}>{props.appState.langResources.crud.details}</Link>|
-            <Link to={'/products/delete/' + props.product.id}>Delete</Link>
-        </td>
-    </tr>
-);
+import { faTrash } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import swal from 'sweetalert';
 
 
 const ProductIndex = () => {
 
     const appState = useContext(AppContext);
     const [products, setProduct] = useState([] as IProduct[] || '');
-    const [pageStatus, setPageStatus] = useState({ pageStatus: EPageStatus.Loading, statusCode: -1 });
+    const element = <FontAwesomeIcon icon={faTrash} />
 
 
     const loadData = useCallback(async () => {
-        let result = await BaseService.getAll<IProduct>('/Products', appState.token!);
+
+        let data = window.localStorage.getItem('state');
+        window.localStorage.clear();
+
+        if (data != null) {
+            let state = JSON.parse(data);
+            console.log(state)
+            appState.currentLanguage = state.currentLanguage;
+            appState.supportedLanguages = state.supportedLanguages;
+            appState.langResources = state.langResources;
+            console.log(appState)
+            appState.setAuthInfo(state.token, state.firstName, state.lastName);
+        }
+        let result = await BaseService.getAll<IProduct>('/Products?culture=' + appState.currentLanguage.name, appState.token!);
         console.log(result);
         console.log(appState)
 
         if (result.ok && result.data) {
-            setPageStatus({ pageStatus: EPageStatus.OK, statusCode: 0 });
             setProduct(result.data);
-        } else {
-            setPageStatus({ pageStatus: EPageStatus.Error, statusCode: result.statusCode });
         }
 
 
     }, [appState])
 
+    const deleteClicked = async (e: Event, id: string) => {
 
+        e.preventDefault();
+
+        console.log(id)
+        let result = await BaseService.delete<IProduct>('/Products/' + id, appState.token!);
+
+        if (result.ok) {
+            window.localStorage.setItem('state', JSON.stringify(appState));
+            window.location.reload();
+        }
+    }
     useEffect(() => {
         loadData();
     }, [loadData]);
@@ -137,8 +60,6 @@ const ProductIndex = () => {
     return (
         <>
             <h1>{appState.langResources.bllAppDTO.products.product}</h1>
-
-
 
             <p>
                 <Link to={'/products/create'}>{appState.langResources.crud.create}</Link>
@@ -176,12 +97,115 @@ const ProductIndex = () => {
                 </thead>
                 <tbody>
                     {products.map(product =>
-                        <RowDisplay product={product} key={product.id} appState={appState} />)
-                    }
+
+                        <tr key={product.id}>
+                            <td>
+                                {product.description}
+                            </td>
+                            <td>
+                                {product.color}
+                            </td>
+                            <td>
+                                <input type="checkbox" defaultChecked={product.hasTransport} disabled={true} />
+                            </td>
+                            <td>
+
+                                <input type="checkbox" defaultChecked={product.isBooked} disabled={true} />
+                            </td>
+                            <td>
+
+                                {product.countyName}
+
+                                {product.cityName !== null && product.cityName !== "null" ?
+                                    <>
+                                        , {product.cityName}
+                                    </>
+                                    :
+                                    <>
+                                    </>
+                                }
+                                {product.locationDescription !== null ?
+                                    <>
+                                        , {product.locationDescription}
+                                    </>
+                                    :
+                                    <>
+                                    </>
+                                }
+
+                            </td>
+                            <td>
+
+                                {product.height !== null ?
+                                    <>
+                                        {appState.langResources.bllAppDTO.products.height}: {product.height}{product.unitName}
+                                    </>
+                                    :
+                                    <>
+                                    </>
+                                }
+                                {product.width !== null ?
+                                    <>
+                                        , {appState.langResources.bllAppDTO.products.width}: {product.width}{product.unitName}
+                                    </>
+                                    :
+                                    <>
+                                    </>
+                                }
+                                {product.depth !== null ?
+                                    <>
+                                        , {appState.langResources.bllAppDTO.products.depth}:  {product.depth}{product.unitName}
+                                    </>
+                                    :
+                                    <>
+                                    </>
+                                }
+
+                            </td>
+                            <td>
+                                {product.conditionName}
+                            </td>
+                            <td>
+
+                                {product.material?.length! > 1 ?
+                                    <>
+
+                                        {product.material!.map(mat =>
+
+                                            <div key={mat}>
+                                                {mat}
+
+                                            </div>
+                                        )}
+                                    </>
+                                    :
+                                    <>
+                                        {product.material}
+                                    </>
+                                }
+
+                            </td>
+
+                            <td>
+                                <Link to={'/products/edit/' + product.id}>{appState.langResources.crud.edit}</Link>
+
+                                <br/>
+                                    <Link to={'/products/' + product.id}>{appState.langResources.crud.details}</Link>
+                              
+                                <span onClick={(e) => swal({ text: appState.langResources.crud.deleteConfirm, dangerMode: true }).then(willDelete => { if (willDelete) { deleteClicked(e.nativeEvent, product.id!) } })}>
+
+                                    <span id="deleteButton" >
+                                        {element}
+                                    </span>
+                                </span>
+
+
+                            </td>
+                        </tr>
+                    )}
                 </tbody>
             </table>
 
-            <Loader {...pageStatus} />
         </>
 
     );

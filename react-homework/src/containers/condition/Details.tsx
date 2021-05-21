@@ -22,7 +22,7 @@ const ConditionDetails = () => {
     const loadData = useCallback(async () => {
         console.log(id)
 
-        let result = await BaseService.get<ICondition>('/Conditions/' + id, appState.token!);
+        let result = await BaseService.get<ICondition>('/Conditions/' + id+ '?culture=' + appState.currentLanguage.name, appState.token!);
 
 
         if (result.ok && result.data) {

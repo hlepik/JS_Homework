@@ -24,7 +24,7 @@ const MaterialEdit = () => {
     const loadData = useCallback(async () => {
         console.log(id)
 
-        let result = await BaseService.get<IMaterial>('/Materials/' + id, appState.token!);
+        let result = await BaseService.get<IMaterial>('/Materials/' + id + '?culture=' + appState.currentLanguage.name, appState.token!);
 
 
         console.log(result.data)
@@ -42,13 +42,12 @@ const MaterialEdit = () => {
 
 
         if (editData.name.length < 2 || editData.name.length > 128) {
-            setAlertMessage('The field Name must be a string or array type with a minimum length of 2.');
-
+            setAlertMessage(appState.langResources.common.minLength);
         } else {
             setAlertMessage('');
             console.log(editData)
 
-            const url = '/Materials/' + id;
+            const url = '/Materials/' + id + '?culture=' + appState.currentLanguage.name;
             let response = await BaseService.edit(url, editData, appState.token!);
 
             console.log(response)
@@ -73,7 +72,7 @@ const MaterialEdit = () => {
             <h3>{appState.langResources.bllAppDTO.materials.material}</h3>
             <form onSubmit={(e) => submitClicked(e.nativeEvent)}>
                 <div className="row">
-                    <div className="col-md-6">
+                    <div className="col-md-4">
                         <section>
                             <hr />
                             <Alert show={alertMessage !== ''} message={alertMessage} alertClass={EAlertClass.Danger} />

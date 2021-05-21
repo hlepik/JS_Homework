@@ -4,32 +4,12 @@ import { Link } from "react-router-dom";
 import Loader from "../../components/Loader";
 import { IUserBookedProducts } from "../../dto/IUserBookedProducts";
 import { useContext, useEffect, useState } from "react";
-import { AppContext, IAppState } from "../../context/AppContext";
+import { AppContext } from "../../context/AppContext";
 import React, { useCallback } from 'react'
-
-
-const RowDisplay = (props: { userBookings: IUserBookedProducts, appState: IAppState }) => (
-    <tr>
-        <td>
-            {props.userBookings.description}
-        </td>
-        <td>
-            {props.userBookings.timeBooked}
-        </td>
-        <td>
-            {props.userBookings.until}
-        </td>
-        <td>
-            {props.userBookings.email}
-        </td>
-
-        <td>
-
-            <Link to={'/userBooked-Products/' + props.userBookings.id}>{props.appState.langResources.crud.details}</Link> |
-            <Link to={'/userBooked-Products/delete/' + props.userBookings.id}>Delete</Link>
-        </td>
-    </tr>
-);
+import { faTrash } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import swal from 'sweetalert';
+import Moment from 'moment';
 
 
 const UserBookedProductsIndex = () => {
@@ -37,13 +17,26 @@ const UserBookedProductsIndex = () => {
     const appState = useContext(AppContext);
     const [userBookings, setUserBookedProducts] = useState([] as IUserBookedProducts[] || '');
     const [pageStatus, setPageStatus] = useState({ pageStatus: EPageStatus.Loading, statusCode: -1 });
-
+    const element = <FontAwesomeIcon icon={faTrash} />
 
 
     const loadData = useCallback(async () => {
+
+        let data = window.localStorage.getItem('state');
+        window.localStorage.clear();
+
+        if (data != null) {
+            let state = JSON.parse(data);
+            console.log(state)
+            appState.currentLanguage = state.currentLanguage;
+            appState.supportedLanguages = state.supportedLanguages;
+            appState.langResources = state.langResources;
+            console.log(appState)
+            appState.setAuthInfo(state.token, state.firstName, state.lastName);
+        }
         let result = await BaseService.getAll<IUserBookedProducts>('/UserBookedProducts', appState.token!);
         console.log(result);
-     
+
         if (result.ok && result.data) {
             setPageStatus({ pageStatus: EPageStatus.OK, statusCode: 0 });
             setUserBookedProducts(result.data);
@@ -52,7 +45,21 @@ const UserBookedProductsIndex = () => {
         }
 
     }, [appState])
-    
+
+    const deleteClicked = async (e: Event, id: string) => {
+
+        e.preventDefault();
+
+        console.log(id)
+
+        let result = await BaseService.delete<IUserBookedProducts>('/UserBookedProducts/' + id, appState.token!);
+
+        if (result.ok) {
+            window.localStorage.setItem('state', JSON.stringify(appState));
+            window.location.reload();
+        }
+    }
+
     useEffect(() => {
         loadData();
     }, [loadData]);
@@ -81,8 +88,54 @@ const UserBookedProductsIndex = () => {
                 </thead>
                 <tbody>
                     {userBookings.map(userBookings =>
-                        <RowDisplay userBookings={userBookings} key={userBookings.id} appState={appState} />)
-                    }
+                        <tr key={userBookings.id}>
+                            <td>
+                                {userBookings.description}
+                            </td>
+                            <td>
+                                {appState.currentLanguage.name === "en" ?
+
+                                    <>
+                                        {Moment(userBookings.timeBooked).format("YYYY.MM.DD HH:mm:ss")}
+                                    </>
+                                    :
+                                    <>
+                                        {Moment(userBookings.timeBooked).format('DD.MM.YYYY HH:mm:ss')}
+                                    </>
+
+
+                                }
+                            </td>
+                            <td>
+                                {appState.currentLanguage.name === "en" ?
+
+                                    <>
+                                        {Moment(userBookings.until).format("YYYY.MM.DD")}
+                                    </>
+                                    :
+                                    <>
+                                        {Moment(userBookings.until).format('DD.MM.YYYY')}
+                                    </>
+
+
+                                }
+                            </td>
+                            <td>
+                                {userBookings.email}
+                            </td>
+
+                            <td>
+
+                                <Link to={'/userBooked-Products/' + userBookings.id}>{appState.langResources.crud.details}</Link> |
+                                <span onClick={(e) => swal({ text: appState.langResources.crud.deleteConfirm, dangerMode: true }).then(willDelete => { if (willDelete) { deleteClicked(e.nativeEvent, userBookings.id!) } })}>
+
+                                    <span id="deleteButton" >
+                                        {element}
+                                    </span>
+                                </span>
+                            </td>
+                        </tr>
+                    )}
                 </tbody>
             </table>
             <Loader {...pageStatus} />

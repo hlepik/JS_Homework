@@ -22,7 +22,7 @@ const CategoryDetails = () => {
     const loadData = useCallback(async () => {
         console.log(id)
 
-        let result = await BaseService.get<ICategory>('/Categories/' + id, appState.token!);
+        let result = await BaseService.get<ICategory>('/Categories/' + id + '?culture=' + appState.currentLanguage.name, appState.token!);
 
 
         if (result.ok && result.data) {

@@ -12,7 +12,9 @@
         </thead>
         <tbody>
             <tr v-for="picture in entity" :key="picture.id">
-                <td>{{ picture.url }}</td>
+                <td>
+                    <img :src="picture.url" />
+                </td>
                 <td>{{ picture.productName }}</td>
                 <div class="col s6 text-right">
                     <td>
@@ -48,7 +50,6 @@
 import { IPicture } from "../../domain/IPicture";
 import { Vue } from "vue-class-component";
 import { Service } from "../../service/Service";
-import router from "../../router";
 
 export default class Picture extends Vue {
     service: Service<IPicture> = new Service<IPicture>();
@@ -82,3 +83,9 @@ export default class Picture extends Vue {
     }
 }
 </script>
+<style >
+img {
+    width: 10rem;
+    height: 16rem;
+}
+</style>

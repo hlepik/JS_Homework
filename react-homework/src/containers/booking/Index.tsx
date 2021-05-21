@@ -20,7 +20,7 @@ const BookingIndex = (props: any) => {
 
     const loadData = useCallback(async () => {
 
-        let result = await BaseService.getAll<IProduct>('/Search');
+        let result = await BaseService.getAll<IProduct>('/Search?culture=' + appState.currentLanguage.name);
 
         if (result.ok && result.data) {
             setPageStatus({ pageStatus: EPageStatus.OK, statusCode: 0 });
@@ -31,7 +31,7 @@ const BookingIndex = (props: any) => {
 
         }
 
-    }, [])
+    }, [appState.currentLanguage.name])
 
     useEffect(() => {
         loadData();
@@ -44,14 +44,14 @@ const BookingIndex = (props: any) => {
             {products.map(product =>
 
                 <div key={product.id} className="mainView">
-                    <div className="boxLayout">
+                    <div  className="boxLayout">
                         <table>
                             <tbody>
 
 
                                 <tr>
                                     <th id="alignCentre">
-                                        {product.pictureUrls?.map(picture =>
+                                        {product.pictureUrls?.slice(product.pictureUrls.length - 1).map(picture =>
 
                                             <div >
                                                 <img src={picture} key={picture} className='picture' alt='Pilt' />
@@ -65,7 +65,7 @@ const BookingIndex = (props: any) => {
                                     {product.pictureUrls?.length !== 0 ?
 
                                         <>
-                                            <p style={{ verticalAlign: 'top', alignItems: 'right' }}>
+                                            <div style={{ verticalAlign: 'top', alignItems: 'right' }}>
 
                                                 <Link to={{
                                                     pathname: '/booking/details',
@@ -74,7 +74,7 @@ const BookingIndex = (props: any) => {
                                                     },
                                                 }}>{element}</Link>
 
-                                            </p>
+                                            </div>
 
                                         </>
                                         :
@@ -83,20 +83,21 @@ const BookingIndex = (props: any) => {
 
                                     }
 
+
                                     <div className="boxLayout" id="box4">
                                         <table>
-                                            <tbody>
+                                            <tbody key={product.id}>
                                                 <tr>
                                                     <td>{appState.langResources.bllAppDTO.products.description}:</td>
                                                     <td>{product.description}</td>
                                                 </tr>
                                                 <tr>
                                                     <td>{appState.langResources.bllAppDTO.products.county}:</td>
-                                                    <td>{product.county}</td>
+                                                    <td>{product.countyName}</td>
                                                 </tr>
                                                 <tr>
                                                     <td>{appState.langResources.bllAppDTO.products.city}:</td>
-                                                    <td>{product.city}</td>
+                                                    <td>{product.cityName}</td>
                                                 </tr>
                                                 <tr>
                                                     <td>{appState.langResources.bllAppDTO.products.locationDescription}:</td>
@@ -107,33 +108,35 @@ const BookingIndex = (props: any) => {
                                     </div>
                                     <div className="boxLayout" id="box2">
                                         <table>
-                                            <tr>
-                                                <td>{appState.langResources.bllAppDTO.products.category}:</td>
-                                                <td>{product.category}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>{appState.langResources.bllAppDTO.products.color}:</td>
-                                                <td>{product.color}</td>
-                                            </tr>
+                                            <tbody key={product.id}>
+                                                <tr>
+                                                    <td>{appState.langResources.bllAppDTO.products.category}:</td>
+                                                    <td>{product.categoryName}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>{appState.langResources.bllAppDTO.products.color}:</td>
+                                                    <td>{product.color}</td>
+                                                </tr>
 
-                                            <tr>
-                                                <td>{appState.langResources.bllAppDTO.products.width}:</td>
-                                                <td>{product.width}{product.unit}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>{appState.langResources.bllAppDTO.products.height}:</td>
-                                                <td>{product.height}{product.unit}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>{appState.langResources.bllAppDTO.products.depth}:</td>
-                                                <td>{product.depth}{product.unit}</td>
-                                            </tr>
+                                                <tr>
+                                                    <td>{appState.langResources.bllAppDTO.products.width}:</td>
+                                                    <td>{product.width}{product.unitName}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>{appState.langResources.bllAppDTO.products.height}:</td>
+                                                    <td>{product.height}{product.unitName}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>{appState.langResources.bllAppDTO.products.depth}:</td>
+                                                    <td>{product.depth}{product.unitName}</td>
+                                                </tr>
+                                            </tbody>
                                         </table>
                                     </div>
 
                                     <div className="boxLayout" id="box3">
                                         <table>
-                                            <tbody>
+                                            <tbody key={product.id}>
                                                 <tr>
                                                     <td>{appState.langResources.bllAppDTO.products.hasTransport}: </td>
                                                     <td>
@@ -151,7 +154,7 @@ const BookingIndex = (props: any) => {
 
                                                 <tr>
                                                     <td>{appState.langResources.bllAppDTO.products.condition}:</td>
-                                                    <td>{product.condition}</td>
+                                                    <td>{product.conditionName}</td>
                                                 </tr>
 
                                                 <tr>
@@ -162,7 +165,7 @@ const BookingIndex = (props: any) => {
                                                     <td>{appState.langResources.bllAppDTO.products.material}:</td>
                                                     {product.material?.map(material =>
 
-                                                        <td>{material}</td>
+                                                        <td key={material}>{material}</td>
                                                     )}
 
                                                 </tr>
@@ -171,37 +174,34 @@ const BookingIndex = (props: any) => {
 
                                     </div>
 
-
-                                    {appState.token != null && !product.isBooked ?
-                                        <>
-
-                                            <td id="reserveButton">
-                                                <button className="btn btn-primary" style={{ verticalAlign: 'centre' }} >
-                                                    <Link
-                                                        to={{
-                                                            pathname: '/booking/create',
-                                                            state: {
-                                                                data: product.description,
-                                                                id: product.id
-                                                            },
-                                                        }}
-                                                    >{appState.langResources.bllAppDTO.bookings.reserve}</Link>
-                                                </button>
-                                            </td>
-                                        </>
-                                        :
-                                        <>
-
-                                        </>
-
-                                    }
-                                    <div >
-                                    </div>
                                 </tr>
                             </tbody>
                         </table>
 
                     </div>
+                    {appState.token != null && !product.isBooked ?
+                        <>
+
+                            <div id="reserveButton">
+                                <button className="btn btn-primary" style={{ verticalAlign: 'centre' }} >
+                                    <Link
+                                        to={{
+                                            pathname: '/booking/create',
+                                            state: {
+                                                data: product.description,
+                                                id: product.id
+                                            },
+                                        }}
+                                    >{appState.langResources.bllAppDTO.bookings.reserve}</Link>
+                                </button>
+                            </div>
+                        </>
+                        :
+                        <>
+
+                        </>
+
+                    }
                 </div>
 
 

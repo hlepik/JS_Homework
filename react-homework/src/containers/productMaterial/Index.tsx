@@ -4,35 +4,34 @@ import { Link } from "react-router-dom";
 import Loader from "../../components/Loader";
 import { IProductMaterial } from "../../dto/IProductMaterial";
 import { useContext, useEffect, useState } from "react";
-import { AppContext, IAppState } from "../../context/AppContext";
+import { AppContext } from "../../context/AppContext";
 import React, { useCallback } from 'react';
+import { faTrash } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import swal from 'sweetalert';
 
-const RowDisplay = (props: { productMaterial: IProductMaterial, appState: IAppState }) => (
-    <tr>
-        <td>
-            {props.productMaterial.materialName}
-        </td>
-        <td>
-            {props.productMaterial.productName}
-        </td>
-        <td>
-            <Link to={'/productMaterial/' + props.productMaterial.id}>{props.appState.langResources.crud.details}</Link> |
-            <Link to={'/productMaterial/edit/' + props.productMaterial.id}>{props.appState.langResources.crud.edit}</Link> |
-            <Link to={'/productMaterial/delete/' + props.productMaterial.id}>{props.appState.langResources.crud.delete}</Link>
-        </td>
-    </tr>
-);
 
 
 const ProductMaterialIndex = () => {
     const appState = useContext(AppContext);
     const [productMaterials, setProductMaterial] = useState([] as IProductMaterial[]);
     const [pageStatus, setPageStatus] = useState({ pageStatus: EPageStatus.Loading, statusCode: -1 });
-
-
+    const element = <FontAwesomeIcon icon={faTrash} />
 
     const loadData = useCallback(async () => {
 
+        let data = window.localStorage.getItem('state');
+        window.localStorage.clear();
+
+        if (data != null) {
+            let state = JSON.parse(data);
+            console.log(state)
+            appState.currentLanguage = state.currentLanguage;
+            appState.supportedLanguages = state.supportedLanguages;
+            appState.langResources = state.langResources;
+            console.log(appState)
+            appState.setAuthInfo(state.token, state.firstName, state.lastName);
+        }
         console.log(appState)
         let result = await BaseService.getAll<IProductMaterial>('/ProductMaterials', appState.token!);
 
@@ -47,6 +46,19 @@ const ProductMaterialIndex = () => {
         }
 
     }, [appState])
+
+    const deleteClicked = async (e: Event, id: string) => {
+
+        e.preventDefault();
+
+        console.log(id)
+        let result = await BaseService.delete<IProductMaterial>('/ProductMaterials/' + id, appState.token!);
+
+        if (result.ok) {
+            window.localStorage.setItem('state', JSON.stringify(appState));
+            window.location.reload();
+        }
+    }
 
     useEffect(() => {
         loadData();
@@ -65,19 +77,35 @@ const ProductMaterialIndex = () => {
                 <thead>
                     <tr>
                         <th>
-                        {appState.langResources.bllAppDTO.materials.material}
-                    </th>
+                            {appState.langResources.bllAppDTO.materials.material}
+                        </th>
                         <th>
-                        {appState.langResources.bllAppDTO.products.product}
-                    </th>
+                            {appState.langResources.bllAppDTO.products.product}
+                        </th>
 
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     {productMaterials.map(productMaterial =>
-                        <RowDisplay productMaterial={productMaterial} key={productMaterial.id} appState={appState} />)
-                    }
+                        <tr>
+                            <td>
+                                {productMaterial.materialName}
+                            </td>
+                            <td>
+                                {productMaterial.productName}
+                            </td>
+                            <td>
+                                <Link to={'/productMaterial/' + productMaterial.id}>{appState.langResources.crud.details}</Link> |
+                                 <Link to={'/productMaterial/edit/' + productMaterial.id}>{appState.langResources.crud.edit}</Link> |
+                                 <span onClick={(e) => swal({ text: appState.langResources.crud.deleteConfirm, dangerMode: true }).then(willDelete => { if (willDelete) { deleteClicked(e.nativeEvent, productMaterial.id!) } })}>
+
+                                    <span id="deleteButton" >
+                                        {element}
+                                    </span>
+                                </span>
+                            </td>
+                        </tr>)}
                 </tbody>
             </table>
             <Loader {...pageStatus} />

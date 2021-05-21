@@ -44,7 +44,10 @@ const CountyIndex = () => {
 
 
     const loadData = useCallback(async () => {
-        let result = await BaseService.getAll<ICounty>('/Counties', appState.token!);
+
+        console.log(appState.currentLanguage.name)
+
+        let result = await BaseService.getAll<ICounty>('/Counties?culture=' + appState.currentLanguage.name, appState.token!);
         console.log(appState);
 
 
@@ -92,6 +95,7 @@ const CountyIndex = () => {
                 </thead>
                 <tbody>
                     {counties.map(county =>
+                    
                         <RowDisplay county={county} key={county.id} role={role} appState={appState} />)
                     }
                 </tbody>

@@ -23,7 +23,7 @@ const ConditionEdit = () => {
     const loadData = useCallback(async () => {
         console.log(id)
 
-        let result = await BaseService.get<ICondition>('/Condition/' + id, appState.token!);
+        let result = await BaseService.get<ICondition>('/Conditions/' + id + '?culture=' + appState.currentLanguage.name, appState.token!);
 
         console.log(result.data)
         if (result.ok && result.data) {
@@ -40,8 +40,7 @@ const ConditionEdit = () => {
 
         console.log(editData)
         if (editData.description.length < 2 || editData.description.length > 128) {
-            setAlertMessage('The field Name must be a string or array type with a minimum length of 2.');
-
+            setAlertMessage(appState.langResources.common.minLength);
         } else {
             setAlertMessage('');
             console.log(editData)
@@ -70,7 +69,7 @@ const ConditionEdit = () => {
             <h3>{appState.langResources.bllAppDTO.conditions.condition}</h3>
             <form onSubmit={(e) => submitClicked(e.nativeEvent)}>
                 <div className="row">
-                    <div className="col-md-6">
+                    <div className="col-md-4">
                         <section>
                             <hr />
                             <Alert show={alertMessage !== ''} message={alertMessage} alertClass={EAlertClass.Danger} />
