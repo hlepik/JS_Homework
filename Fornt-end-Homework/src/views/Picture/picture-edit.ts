@@ -13,10 +13,10 @@ export class PictureEdit implements IRouteViewModel  {
  
 
     private service: BaseService<IPictureEdit> =
-        new BaseService<IPictureEdit>("https://hlepik.azurewebsites.net/Pictures", this.httpClient, this.state.token);
+        new BaseService<IPictureEdit>("https://hlepik.azurewebsites.net/api/v1/Pictures", this.httpClient, this.state.token);
       
         private productService: BaseService<IProduct> =
-        new BaseService<IProduct>("https://hlepik.azurewebsites.net/Products", this.httpClient, this.state.token);
+        new BaseService<IProduct>("https://hlepik.azurewebsites.net/api/v1/Products", this.httpClient, this.state.token);
         
     private data: IPictureEdit;
     private products: IProduct[] = [];

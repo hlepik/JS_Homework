@@ -7,7 +7,7 @@ export class ContactTypesDetail implements IRouteViewModel  {
 
 
     private service: BaseService<IBooking> =
-        new BaseService<IBooking>("https://localhost:5001/api/v1/Bookings", this.httpClient, this.state.token);
+        new BaseService<IBooking>("https://hlepik.azurewebsites.net/api/v1/Bookings", this.httpClient, this.state.token);
 
 
     private data: IBooking;

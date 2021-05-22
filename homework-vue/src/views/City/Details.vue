@@ -38,7 +38,7 @@ import router from "../../router";
 export default class CityDetails extends Vue {
     service: Service<ICity> = new Service<ICity>();
 
-    protected url: string = "https://hlepik.azurewebsites.net/Cities";
+    protected url: string = "https://hlepik.azurewebsites.net/api/v1/Cities";
 
     name: string = "";
     private entity: ICity | null = null;

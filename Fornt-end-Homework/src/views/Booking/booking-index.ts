@@ -4,7 +4,7 @@ import { HttpClient } from "aurelia";
 
 export class BookingIndex {
     private service: BaseService<IBooking> = 
-        new BaseService<IBooking>("https://localhost:5001/api/v1/Bookings", this.httpClient);
+        new BaseService<IBooking>("https://hlepik.azurewebsites.net/api/v1/Bookings", this.httpClient);
 
     
     private data: IBooking[] = [];

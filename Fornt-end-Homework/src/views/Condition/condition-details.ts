@@ -7,7 +7,7 @@ export class ConditionDetail implements IRouteViewModel  {
 
 
     private service: BaseService<ICondition> =
-        new BaseService<ICondition>("https://hlepik.azurewebsites.net/Condition", this.httpClient, this.state.token);
+        new BaseService<ICondition>("https://hlepik.azurewebsites.net/api/v1/Condition", this.httpClient, this.state.token);
 
 
     private data: ICondition;

@@ -7,7 +7,7 @@ export class UnitDetail implements IRouteViewModel  {
 
 
     private service: BaseService<IUnit> =
-        new BaseService<IUnit>("https://hlepik.azurewebsites.net/Unit", this.httpClient, this.state.token);
+        new BaseService<IUnit>("https://hlepik.azurewebsites.net/api/v1/Unit", this.httpClient, this.state.token);
 
 
     private data: IUnit;

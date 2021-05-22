@@ -59,8 +59,8 @@ export default class PictureEdit extends Vue {
     productService: Service<IProduct> = new Service<IProduct>();
     entity: any;
     products: IProduct[] | null = null;
-    protected url: string = "https://hlepik.azurewebsites.net/Pictures/";
-    protected productUrl: string = "https://hlepik.azurewebsites.net/Products";
+    protected url: string = "https://hlepik.azurewebsites.net/api/v1/Pictures/";
+    protected productUrl: string = "https://hlepik.azurewebsites.net/api/v1/Products";
     pictureUrl: string = "";
     productId: any;
     productName: string = "";

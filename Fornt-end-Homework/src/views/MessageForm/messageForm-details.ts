@@ -7,7 +7,7 @@ export class MessageFormDetail implements IRouteViewModel  {
 
 
     private service: BaseService<IMessageForm> =
-        new BaseService<IMessageForm>("https://hlepik.azurewebsites.net/MessageForm", this.httpClient, this.state.token);
+        new BaseService<IMessageForm>("https://hlepik.azurewebsites.net/api/v1/MessageForm", this.httpClient, this.state.token);
 
 
     private data: IMessageForm;

@@ -10,9 +10,9 @@ export class PictureCreate implements IRouteViewModel  {
 
 
     private service: BaseService<IPicture> =
-    new BaseService<IPicture>("https://hlepik.azurewebsites.net/Pictures", this.httpClient, this.state.token);
+    new BaseService<IPicture>("https://hlepik.azurewebsites.net/api/v1/Pictures", this.httpClient, this.state.token);
     private productService: BaseService<IProduct> =
-    new BaseService<IProduct>("https://hlepik.azurewebsites.net/Products", this.httpClient, this.state.token);
+    new BaseService<IProduct>("https://hlepik.azurewebsites.net/api/v1/Products", this.httpClient, this.state.token);
   
     private data: IPicture;
     private products: IProduct[] = [];

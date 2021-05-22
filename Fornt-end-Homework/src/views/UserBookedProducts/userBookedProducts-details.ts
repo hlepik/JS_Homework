@@ -7,7 +7,7 @@ export class UserBookedProductsDetail implements IRouteViewModel  {
 
 
     private service: BaseService<IUserBookedProducts> =
-        new BaseService<IUserBookedProducts>("https://hlepik.azurewebsites.net/UserBookedProducts", this.httpClient, this.state.token);
+        new BaseService<IUserBookedProducts>("https://hlepik.azurewebsites.net/api/v1/UserBookedProducts", this.httpClient, this.state.token);
 
 
     private data: IUserBookedProducts;

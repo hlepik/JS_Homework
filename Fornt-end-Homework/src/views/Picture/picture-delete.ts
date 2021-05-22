@@ -9,7 +9,7 @@ export class PictureDelete implements IRouteViewModel  {
 
 
     private service: BaseService<IPictureEdit> =
-    new BaseService<IPictureEdit>("https://hlepik.azurewebsites.net/Pictures", this.httpClient, this.state.token);
+    new BaseService<IPictureEdit>("https://hlepik.azurewebsites.net/api/v1/Pictures", this.httpClient, this.state.token);
 
     private data: IPictureEdit;
 

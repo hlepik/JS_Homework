@@ -63,8 +63,8 @@ export default class PictureCreate extends Vue {
     entity: IPicture | null = null;
     products: IProduct[] | null = null;
     pictureUrl: string = "";
-    protected url: string = "https://hlepik.azurewebsites.net/Pictures";
-    protected productUrl: string = "https://hlepik.azurewebsites.net/Products";
+    protected url: string = "https://hlepik.azurewebsites.net/api/v1/Pictures";
+    protected productUrl: string = "https://hlepik.azurewebsites.net/api/v1/Products";
     productId: string = "";
     productName: string = "";
     selectedProduct: any;

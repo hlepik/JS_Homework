@@ -5,6 +5,7 @@ import { ILanguageResources } from '../dto/ILanguageResources';
 import { ISupportedLanguage } from '../dto/ISupportedLanguage';
 import { LangService } from "../services/lang-service";
 import { useEffect } from "react";
+import { ApiBaseUrl } from "../configuration";
 
 
 const Header = () => {
@@ -27,7 +28,7 @@ const Header = () => {
             appState.setAuthInfo(state.token, state.firstName, state.lastName);
         }
 
-        let result = await LangService.getLanguageResources('https://localhost:5001/api/v1/lang/GetLangResources', appState.currentLanguage.name);
+        let result = await LangService.getLanguageResources(ApiBaseUrl + '/lang/GetLangResources', appState.currentLanguage.name);
 
         if (result.ok && result.data) {
             appState.langResources = result.data as ILanguageResources;
@@ -39,8 +40,9 @@ const Header = () => {
 
 
     const changeLanguage = async (lang: ISupportedLanguage, e: Event) => {
+        e.preventDefault();
         appState.currentLanguage = lang;
-        let result = await LangService.getLanguageResources('https://localhost:5001/api/v1/lang/GetLangResources', appState.currentLanguage.name);
+        let result = await LangService.getLanguageResources(ApiBaseUrl + '/lang/GetLangResources', appState.currentLanguage.name);
 
         if (result.ok && result.data) {
 

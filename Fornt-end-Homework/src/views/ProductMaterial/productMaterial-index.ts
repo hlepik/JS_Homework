@@ -6,7 +6,7 @@ import { HttpClient } from "aurelia";
 export class ProductMaterialIndex {
 
     private service: BaseService<IProductMaterial> = 
-        new BaseService<IProductMaterial>("https://hlepik.azurewebsites.net/ProductMaterial", this.httpClient);
+        new BaseService<IProductMaterial>("https://hlepik.azurewebsites.net/api/v1/ProductMaterial", this.httpClient);
 
     
     private data: IProductMaterial[] = [];

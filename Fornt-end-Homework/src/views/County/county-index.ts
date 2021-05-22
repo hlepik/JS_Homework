@@ -6,7 +6,7 @@ import { HttpClient } from "aurelia";
 export class CountyIndex {
 
     private service: BaseService<ICounty> = 
-        new BaseService<ICounty>("https://hlepik.azurewebsites.net/Counties", this.httpClient);
+        new BaseService<ICounty>("https://hlepik.azurewebsites.net/api/v1/Counties", this.httpClient);
 
     
     private data: ICounty[] = [];

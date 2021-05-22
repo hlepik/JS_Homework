@@ -14,22 +14,22 @@ export class ProductEdit implements IRouteViewModel  {
 
 
     private service: BaseService<IProduct> =
-        new BaseService<IProduct>("https://hlepik.azurewebsites.net/Products", this.httpClient, this.state.token);
+        new BaseService<IProduct>("https://hlepik.azurewebsites.net/api/v1/Products", this.httpClient, this.state.token);
       
         private unitService: BaseService<IUnit> =
-        new BaseService<IUnit>("https://hlepik.azurewebsites.net/Units", this.httpClient, this.state.token);
+        new BaseService<IUnit>("https://hlepik.azurewebsites.net/api/v1/Units", this.httpClient, this.state.token);
 
         private countyService: BaseService<ICounty> =
-        new BaseService<ICounty>("https://hlepik.azurewebsites.net/Counties", this.httpClient, this.state.token);
+        new BaseService<ICounty>("https://hlepik.azurewebsites.net/api/v1/Counties", this.httpClient, this.state.token);
 
         private cityService: BaseService<ICity> =
-        new BaseService<ICity>("https://hlepik.azurewebsites.net/Cities", this.httpClient, this.state.token);
+        new BaseService<ICity>("https://hlepik.azurewebsites.net/api/v1/Cities", this.httpClient, this.state.token);
 
         private categoryService: BaseService<ICategory> =
-        new BaseService<ICategory>("https://hlepik.azurewebsites.net/Categories", this.httpClient, this.state.token);
+        new BaseService<ICategory>("https://hlepik.azurewebsites.net/api/v1/Categories", this.httpClient, this.state.token);
 
         private conditionService: BaseService<ICondition> =
-        new BaseService<ICondition>("https://hlepik.azurewebsites.net/Conditions", this.httpClient, this.state.token);
+        new BaseService<ICondition>("https://hlepik.azurewebsites.net/api/v1/Conditions", this.httpClient, this.state.token);
 
         
     private data: IProduct;

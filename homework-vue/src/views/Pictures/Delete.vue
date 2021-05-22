@@ -43,7 +43,7 @@ import router from "../../router";
 export default class PictureDelete extends Vue {
     service: Service<IPicture> = new Service<IPicture>();
 
-    protected url: string = "https://hlepik.azurewebsites.net/Pictures";
+    protected url: string = "https://hlepik.azurewebsites.net/api/v1/Pictures";
     productName: string = "";
     pictureUrl: string = "";
     private entity: IPicture | null = null;

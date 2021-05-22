@@ -7,7 +7,7 @@ import { AppState } from "../../state/app-state";
 export class UnitIndex {
 
     private service: BaseService<IUnit> = 
-        new BaseService<IUnit>("https://hlepik.azurewebsites.net/Units", this.httpClient,  this.state.token);
+        new BaseService<IUnit>("https://hlepik.azurewebsites.net/api/v1/Units", this.httpClient,  this.state.token);
 
     
     private data: IUnit[] = [];

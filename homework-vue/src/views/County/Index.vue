@@ -44,7 +44,7 @@ import store from "@/store";
 export default class County extends Vue {
     service: Service<ICounty> = new Service<ICounty>();
     entity: ICounty[] | null = null;
-    protected readonly url: string = "https://hlepik.azurewebsites.net/Counties";
+    protected readonly url: string = "https://hlepik.azurewebsites.net/api/v1/Counties";
     role: string | null = "";
 
     async created(): Promise<void> {

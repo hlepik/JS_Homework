@@ -6,7 +6,7 @@ import { HttpClient } from "aurelia";
 export class UserMessagesIndex {
 
     private service: BaseService<IUserMessages> = 
-        new BaseService<IUserMessages>("https://hlepik.azurewebsites.net/UserMessages", this.httpClient);
+        new BaseService<IUserMessages>("https://hlepik.azurewebsites.net/api/v1/UserMessages", this.httpClient);
 
     
     private data: IUserMessages[] = [];

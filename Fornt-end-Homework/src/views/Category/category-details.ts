@@ -7,7 +7,7 @@ export class CategoryDetail implements IRouteViewModel  {
 
 
     private service: BaseService<ICategory> =
-        new BaseService<ICategory>("https://localhost:5001/api/v1/Category", this.httpClient, this.state.token);
+        new BaseService<ICategory>("https://hlepik.azurewebsites.net/api/v1/Category", this.httpClient, this.state.token);
 
 
     private data: ICategory;

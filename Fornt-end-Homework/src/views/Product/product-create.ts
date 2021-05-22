@@ -10,7 +10,7 @@ export class ProductCreate implements IRouteViewModel  {
 
   
     private service: BaseService<IProduct> =
-    new BaseService<IProduct>("https://hlepik.azurewebsites.net/Pictures", this.httpClient, this.state.token);
+    new BaseService<IProduct>("https://hlepik.azurewebsites.net/api/v1/Pictures", this.httpClient, this.state.token);
 
     private description: string;
     private color: string;

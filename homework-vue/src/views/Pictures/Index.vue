@@ -54,7 +54,7 @@ import { Service } from "../../service/Service";
 export default class Picture extends Vue {
     service: Service<IPicture> = new Service<IPicture>();
     entity: IPicture[] | null = null;
-    protected url: string = "https://hlepik.azurewebsites.net/Pictures";
+    protected url: string = "https://hlepik.azurewebsites.net/api/v1/Pictures";
 
     async created(): Promise<void> {
         console.log("attached");

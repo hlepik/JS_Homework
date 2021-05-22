@@ -7,7 +7,7 @@ import { AppState } from "../../state/app-state";
 export class ConditionIndex {
 
     private service: BaseService<ICondition> = 
-        new BaseService<ICondition>("https://hlepik.azurewebsites.net/Conditions", this.httpClient, this.state.token);
+        new BaseService<ICondition>("https://hlepik.azurewebsites.net/api/v1/Conditions", this.httpClient, this.state.token);
 
     
     private data: ICondition[] = [];
