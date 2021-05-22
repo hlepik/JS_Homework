@@ -7,7 +7,7 @@ import { AppState } from "../../state/app-state";
 export class PictureIndex {
 
     private service: BaseService<IPictureEdit> = 
-        new BaseService<IPictureEdit>("https://localhost:5001/api/v1/Pictures", this.httpClient, this.state.token);
+        new BaseService<IPictureEdit>("https://hlepik.azurewebsites.net/Pictures", this.httpClient, this.state.token);
 
     
     private data: IPictureEdit[] = [];

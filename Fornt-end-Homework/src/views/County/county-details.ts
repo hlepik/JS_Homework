@@ -7,7 +7,7 @@ export class CountyDetail implements IRouteViewModel  {
 
 
     private service: BaseService<ICounty> =
-        new BaseService<ICounty>("https://localhost:5001/api/v1/County", this.httpClient, this.state.token);
+        new BaseService<ICounty>("https://hlepik.azurewebsites.net/County", this.httpClient, this.state.token);
 
 
     private data: ICounty;

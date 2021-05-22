@@ -56,7 +56,7 @@ export default createStore({
         async logIn(context, login: ILoginInfo): Promise<void> {
             const loginDataStr = JSON.stringify(login);
             const response = await axios.post(
-                'https://localhost:5001/api/v1/Account/login',
+                'https://hlepik.azurewebsites.net/identity/login',
                 loginDataStr,
                 { headers: { 'Content-type': 'application/json' } }
             );
@@ -76,7 +76,7 @@ export default createStore({
         async register(context, register: IRegisterInfo): Promise<void> {
             const loginDataStr = JSON.stringify(register);
             const response = await axios.post(
-                'https://localhost:5001/api/v1/Account/Register',
+                'https://hlepik.azurewebsites.net/identity/register',
                 loginDataStr,
                 { headers: { 'Content-type': 'application/json' } }
             );

@@ -42,7 +42,7 @@ import router from "../../router";
 export default class CityCreate extends Vue {
     service: Service<ICity> = new Service<ICity>();
     name: string = "";
-    protected url: string = "https://localhost:5001/api/v1/Cities";
+    protected url: string = "https://hlepik.azurewebsites.net/Cities";
     message: string = "";
     error: any;
 

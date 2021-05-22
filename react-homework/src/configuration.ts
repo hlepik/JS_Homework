@@ -1,1 +1,1 @@
-export const ApiBaseUrl = "https://localhost:5001/api/v1";
+export const ApiBaseUrl = "https://hlepik.azurewebsites.net";

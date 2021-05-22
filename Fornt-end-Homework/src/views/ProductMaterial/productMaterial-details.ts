@@ -7,7 +7,7 @@ export class ProductMaterialDetail implements IRouteViewModel  {
 
 
     private service: BaseService<IProductMaterial> =
-        new BaseService<IProductMaterial >("https://localhost:5001/api/v1/ProductMaterial", this.httpClient, this.state.token);
+        new BaseService<IProductMaterial >("https://hlepik.azurewebsites.net/ProductMaterial", this.httpClient, this.state.token);
 
 
     private data: IProductMaterial;

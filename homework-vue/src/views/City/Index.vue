@@ -44,7 +44,7 @@ import store from "@/store/index";
 export default class City extends Vue {
     service: Service<ICity> = new Service<ICity>();
     entity: ICity[] | null = null;
-    protected readonly url: string = "https://localhost:5001/api/v1/Cities";
+    protected readonly url: string = "https://hlepik.azurewebsites.net/Cities";
     role: string | null = "";
 
     async created() {

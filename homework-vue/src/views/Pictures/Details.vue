@@ -41,7 +41,7 @@ import router from "../../router";
 export default class PictureDetails extends Vue {
     service: Service<IPicture> = new Service<IPicture>();
 
-    protected url: string = "https://localhost:5001/api/v1/Pictures";
+    protected url: string = "https://hlepik.azurewebsites.net/Pictures";
     pictureUrl: string = "";
     productName: string = "";
     private entity: IPicture | null = null;

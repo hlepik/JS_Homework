@@ -7,7 +7,7 @@ import { AppState } from "../../state/app-state";
 export class CityIndex {
 
     private service: BaseService<ICity> = 
-        new BaseService<ICity>("https://localhost:5001/api/v1/Cities", this.httpClient, this.state.token);
+        new BaseService<ICity>("https://hlepik.azurewebsites.net/Cities", this.httpClient, this.state.token);
 
     
     private data: ICity[] = [];

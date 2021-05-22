@@ -11,7 +11,7 @@ export class RegisterForm {
 
   
       private service: AccountService =
-          new AccountService("https://localhost:5001/api/v1/Account/Register", this.httpClient);
+          new AccountService("https://hlepik.azurewebsites.net/Account/Register", this.httpClient);
   
       private email: string ="";
       private password: string = "";

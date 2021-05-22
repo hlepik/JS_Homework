@@ -41,7 +41,7 @@ import router from "../../router";
 
 export default class CityEdit extends Vue {
     service: Service<ICity> = new Service<ICity>();
-    url: string = "https://localhost:5001/api/v1/Cities/";
+    url: string = "https://hlepik.azurewebsites.net/Cities/";
     name: string = "";
     entity: any;
     message: string = "";

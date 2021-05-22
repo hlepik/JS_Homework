@@ -9,7 +9,7 @@ export class PictureDetails implements IRouteViewModel  {
 
 
     private service: BaseService<IPicture> =
-        new BaseService<IPicture>("https://localhost:5001/api/v1/Pictures", this.httpClient, this.state.token);
+        new BaseService<IPicture>("https://hlepik.azurewebsites.net/Pictures", this.httpClient, this.state.token);
 
 
     private data: IPicture;

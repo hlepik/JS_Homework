@@ -7,7 +7,7 @@ export class UserMessagesDetail implements IRouteViewModel  {
 
 
     private service: BaseService<IUserMessages> =
-        new BaseService<IUserMessages>("https://localhost:5001/api/v1/UserMessages", this.httpClient, this.state.token);
+        new BaseService<IUserMessages>("https://hlepik.azurewebsites.net/UserMessages", this.httpClient, this.state.token);
 
 
     private data: IUserMessages;

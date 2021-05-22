@@ -9,7 +9,7 @@ export class IdentityLogin {
   //AccountService
 
     private service: AccountService =
-        new AccountService("https://localhost:5001/api/v1/Account/login", this.httpClient);
+        new AccountService("https://hlepik.azurewebsites.net/Account/login", this.httpClient);
 
     private email: string = "";
     private password: string = "";
