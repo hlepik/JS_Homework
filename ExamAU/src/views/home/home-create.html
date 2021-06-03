@@ -1,0 +1,45 @@
+<hr />
+<div class="row" id="questions">
+    <div class="col-md-8">
+        <form asp-action="Create">
+
+            <h3 id="titleQuiz">Quiz</h3>
+
+
+            <a repeat.for="item of data.allQuestions">
+                <br>
+                <h6>${item.questionText}</h6>
+               
+         
+                    <div  class="form-group" if.bind="!item.multipleChoice" >
+                        <span repeat.for="each of item.allAnswers">
+
+                        <input type="radio" id="item.questionText"  
+                        model.bind="true" checked.bind="selectedItems[each.id]">
+                   
+                        ${each.questionAnswer}<br>
+                        </span>
+                    </div>
+                    
+       
+                    <div class="form-group" if.bind="item.multipleChoice" >
+                        <span repeat.for="each of item.allAnswers">
+                       
+                            <input  type="checkbox" value.bind="each" checked.bind="selectedItems[each.id]"/>
+                         
+                            ${count.questionAnswer}
+                        ${each.questionAnswer}<br>
+                        </span>
+                    </div>
+           
+                </a>
+                <br>
+            <div class="form-group">
+                <input click.delegate="submitClicked($event)" type="submit" value="Submit" class="btn btn-primary" />
+            </div>
+        
+        </form>
+
+    </div>
+</div>
+

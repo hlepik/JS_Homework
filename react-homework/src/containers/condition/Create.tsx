@@ -12,7 +12,7 @@ const ConditionCreate = () => {
     const [alertMessage, setAlertMessage] = useState('');
     let history = useHistory();
 
-
+  
 
     const submitClicked = async (e: Event) => {
 

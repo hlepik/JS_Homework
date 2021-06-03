@@ -1,0 +1,65 @@
+
+<div class="text-center">
+    <h1 class="display-4" id="titleQuiz">Quizzes</h1>
+   <br>
+    
+<form>
+    <p>
+   
+        <input  type="text" value.bind="query" />
+        <input  click.delegate="submitClicked($event)" type="submit" value="Submit" class="btn btn-outline-info" />
+
+    </p>
+</form>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>
+                Quiz name
+            </th>
+            <th>
+                Created at
+            </th>
+            <th>
+                Questions
+            </th>
+            <th>
+                Percentage
+            </th>
+            <th>
+                Tested people
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+
+        <tr repeat.for="item of data">
+            <td>
+                ${item.quizName}
+            </td>
+            <td>
+                ${item.createdAt}
+            </td>
+            <td>
+                ${item.questionsCount}
+            </td>
+            <td>
+                ${item.percentage}%
+            </td>
+            <td>
+                ${item.peopleCount}
+            </td>
+
+            <td>
+                <a load="/home-create(${item.id})" class="btn btn-outline-info">Start a quize</a> 
+
+
+            </td>
+        </tr>
+
+    </tbody>
+</table>
+</div>

@@ -1,0 +1,36 @@
+<h1>Edit</h1>
+<h2>Answer</h2>
+<hr />
+<div class="row">
+    <div class="col-md-4">       
+        <h4 if.bind="errorMessage != null" style=color:crimson>${errorMessage}</h4>
+
+            <div class="form-group">
+                <label >Question answer</label>
+                <input class="form-control" type="text" value.bind="data.questionAnswer" />
+            </div>
+            <br>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" type="checkbox" checked.bind="data.isAnswerCorrect">  Is answer correct?
+                </label>
+            </div>
+            <br>
+            <div class="form-group">
+                <label>Questions</label>
+                <select  value.bind="data.questionId" class="form-control" >
+                    <option value="">--- Please select ---</option>
+                    <option model.bind="question.id" repeat.for="question of questions">${question.questionText}</option>
+                </select >
+            </div>
+            <hr />
+            <div class="form-group">
+                <input click.delegate="editClicked($event)" type="submit" value="Save" class="btn btn-primary" />
+            </div>
+
+    </div>
+</div>
+<br>
+<div>
+    <a load="/answer-index">Back to List</a>
+</div>

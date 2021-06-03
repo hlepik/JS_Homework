@@ -1,0 +1,49 @@
+<h1 id="titleQuiz">Quizzes</h1>
+<table class="table table-striped">
+    <thead>
+        <a load="/quiz-create">Create new</a> 
+        <tr>
+            <hr />
+            <th>
+                Quiz name
+            </th>
+            <th>
+                Created at
+            </th>
+            <th>
+                Questions
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr repeat.for="item of data">
+            <td>
+                ${item.quizName}
+            </td>
+            <td>
+                ${item.createdAt}
+           
+            </td>
+            <td>
+                ${item.questionsCount}
+            </td>
+
+            <td>
+                <a load="/quiz-edit(${item.id})">Edit</a> |
+                <a load="/question-create(${item.id}, ${item.quizName})">Add question</a>
+                <a>
+                    <form click.delegate="delete($event, item.id)"
+                        onclick="return confirm('Are you sure you want to delete this quiz?')">
+
+                        <button class="deleteButton" type="submit">
+                            <a class="fa fa-trash"></a>
+                        </button>
+                    </form>
+                </a>
+            </td>
+        </tr>
+    
+    </tbody>
+</table>

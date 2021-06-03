@@ -6,6 +6,7 @@ import { ISupportedLanguage } from '../dto/ISupportedLanguage';
 import { LangService } from "../services/lang-service";
 import { useEffect } from "react";
 import { ApiBaseUrl } from "../configuration";
+import { type } from "jquery";
 
 
 const Header = () => {
@@ -13,8 +14,31 @@ const Header = () => {
     const appState = useContext(AppContext);
     let role: string = '';
 
+    function jobu(){
+    
+    }
+    console.log(typeof jobu)
+
     const loadData = useCallback(async () => {
 
+      console.log(Math.ceil(3.6))
+      console.log(Math.round(-1.6))
+
+      console.log(Math.floor(3.6))
+
+     
+        var a = document.querySelector('#homeButton');
+
+
+        a!.innerHTML = '<div>Hei</div>';
+       
+        a!.innerHTML = '<span>Hey2</span>';
+    
+
+  
+
+       
+          let m = undefined;
         let data = window.localStorage.getItem('state');
         window.localStorage.clear();
 
@@ -41,6 +65,9 @@ const Header = () => {
 
     const changeLanguage = async (lang: ISupportedLanguage, e: Event) => {
         e.preventDefault();
+
+
+        
         appState.currentLanguage = lang;
         let result = await LangService.getLanguageResources(ApiBaseUrl + '/lang/GetLangResources', appState.currentLanguage.name);
 
@@ -52,6 +79,7 @@ const Header = () => {
         window.localStorage.setItem('state', JSON.stringify(appState));
         window.location.reload();
     }
+  
 
 
     useEffect(() => {
@@ -67,8 +95,8 @@ const Header = () => {
 
     return (
 
+       
         <header>
-
             <nav className="navbar navbar-expand-sm  navbar-toggleable-sm navbar-light  bg-light border-bottom box-shadow mb-3">
                 <div className="container">
                     <NavLink className="fa fa-home text-gray" id="homeButton" to="/">Home</NavLink>

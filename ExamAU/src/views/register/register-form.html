@@ -1,0 +1,42 @@
+
+<h1 style="padding-top: 2rem;">Register</h1>
+
+<div class="row">
+    <div class="col-md-4">
+        <form  method="post">
+            <h4>Create a new account.</h4>
+            <hr />
+            <h4 if.bind="errorMessage != null" style=color:crimson>${errorMessage}</h4>
+                
+
+            <div class="form-group">
+                <label for="Input_FirstName" style="padding-bottom: 0.5rem;">First Name</label>
+                <input class="form-control" type="text" maxlength="128" value.bind="firstname"/>
+            </div>
+            <div class="form-group">
+                <label for="Input_LastName" style="padding-bottom: 0.5rem;">Last Name</label>
+                <input class="form-control" type="text" maxlength="128" value.bind="lastname"/>            
+            </div>
+           <div class="form-group">
+                <label for="Input_Email" style="padding-bottom: 0.5rem;">Email</label>
+                <input class="form-control" type="email"  value.bind="email" />
+            </div>
+            
+            <div class="form-group">
+                <label for="Input_Password" style="padding-bottom: 0.5rem;">Password</label>
+                <input class="form-control" type="password" id="Input_Password" maxlength="100" value.bind="password"/>
+            </div>
+            <div class="form-group">
+                <label for="Confirm_Password" style="padding-bottom: 0.5rem;"> Confirm Password</label>
+                <input class="form-control" type="password" id="Confirm_Password" maxlength="100" value.bind="confirmpassword"/>
+            </div>
+            <hr />
+            <button type="submit" click.delegate="registerClicked($event)" class="btn btn-primary">Register</button>
+        </form>
+     </div>
+   
+</div>
+
+
+
+

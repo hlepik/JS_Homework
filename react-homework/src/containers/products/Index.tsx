@@ -18,6 +18,8 @@ const ProductIndex = () => {
 
     const loadData = useCallback(async () => {
 
+       
+
         let data = window.localStorage.getItem('state');
         window.localStorage.clear();
 
@@ -37,6 +39,7 @@ const ProductIndex = () => {
         if (result.ok && result.data) {
             setProduct(result.data);
         }
+
 
 
     }, [appState])

@@ -1,0 +1,38 @@
+
+<h1 id="titleQuiz">Results</h1>
+
+
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <hr />
+        <th>
+            Quiz name
+        </th>
+        <th>
+            Correct answers count
+        </th>
+        <th>
+            Percentage
+        </th>
+
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+        <tr repeat.for="item of data">
+            <td>
+                ${item.quizName}
+            </td>
+            <td>
+                ${item.correctAnswersCount}
+            </td>
+            <td>
+                ${item.percentage}%
+            </td>
+
+
+        </tr>
+    
+    </tbody>
+</table>

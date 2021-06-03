@@ -1,0 +1,85 @@
+<import from="./views/register/register-form" />
+<import from="./views/identity/identity-login" />
+<import from="./views/home/home-index" />
+<import from="./views/home/home-details" />
+<import from="./views/home/home-create" />
+<import from="./views/home/home-router.html" />
+
+<import from="./views/answer/answer-index" />
+<import from="./views/answer/answer-edit" />
+<import from="./views/answer/answer-create" />
+<import from="./views/answer/answer-router.html" />
+
+<import from="./views/quiz/quiz-index" />
+<import from="./views/quiz/quiz-edit" />
+<import from="./views/quiz/quiz-create" />
+<import from="./views/quiz/quiz-router.html" />
+
+<import from="./views/question/question-index" />
+<import from="./views/question/question-edit" />
+<import from="./views/question/question-create" />
+<import from="./views/question/question-router.html" />
+
+<import from="./views/result/result-index" />
+<import from="./views/result/result-router.html" />
+
+<header>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-grey bg-dark border-bottom box-shadow mb-3">
+        <div class="container">
+            <a class="navbar-brand" load="home-index">Home</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+           
+            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                <ul class="navbar-nav flex-grow-1">
+                    <li class="nav-item" show.bind="state.role != undefined">
+                        <a class="nav-link text-gray" load="quiz-index">Quizzes</a>
+                    </li>
+                    <li class="nav-item" show.bind="state.role != undefined">
+                        <a class="nav-link text-gray" load="question-index">Questions</a>
+                    </li>
+                    <li class="nav-item" show.bind="state.role != undefined">
+                        <a class="nav-link text-gray" load="answer-index">Answers</a>
+                    </li>
+                  
+                    <li class="nav-item" show.bind="state.token != null">
+                        <a class="nav-link text-gray" load="result-index">Results</a>
+                    </li>
+                   
+                </ul>
+               
+              
+                <ul class="navbar-nav">
+                    <li show.bind="state.token == null" class="nav-item">
+                        <a class="nav-link text-gray" load="register-form" >Register</a>
+                    </li>
+                    <li show.bind="state.token == null" class="nav-item">
+                        <a  class="nav-link text-gray" load="identity-login">Login</a>
+                    </li>
+                    <li show.bind="state.token != null" class="nav-item">
+                        <a class="nav-link text-gray" click.delegate="logOut($event)">Logout</a>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+    </nav>
+</header>
+
+
+<div class="container">
+    <main role="main" class="pb-3">
+
+        <au-viewport default="home-index" name="my-app"></au-viewport>
+
+    </main>
+</div>
+
+
+<footer class="border-top footer text-muted">
+    <div class="container">
+        &copy; 2021 - Exam
+    </div>
+</footer>
+

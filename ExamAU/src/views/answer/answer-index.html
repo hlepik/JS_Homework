@@ -1,0 +1,46 @@
+<h1 id="titleQuiz">Answers</h1>
+
+
+<table class="table table-striped">
+    <thead>
+        <a load="/answer-create">Create new</a> 
+        <tr>
+            <hr />
+            <th>
+                Question answer
+            </th>
+            <th>
+                Is answer correct
+            </th>
+            <th>
+                Question
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+    <tr repeat.for="item of data">
+
+            <td>
+                ${item.questionAnswer}
+            </td>
+            <td>
+                <input type="checkbox" checked.bind="item.isAnswerCorrect" disabled />
+            </td>
+            <td>
+                ${item.questionName}
+            </td>
+         <td>
+                <a load="/answer-edit(${item.id})">Edit</a>
+                <form click.delegate="delete($event, item.id)"
+                      onclick="return confirm('Are you sure you want to delete this answer?')">
+
+                    <button class="deleteButton" type="submit">
+                        <a  class="fa fa-trash" ></a>
+                    </button>
+                </form>
+            </td>
+        </tr>
+
+    </tbody>
+</table>

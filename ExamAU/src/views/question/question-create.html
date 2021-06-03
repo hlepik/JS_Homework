@@ -1,0 +1,49 @@
+<h1>Create</h1>
+<h2>Question</h2>
+<hr />
+<div class="row">
+    <div class="col-md-4">       
+        <h4 if.bind="errorMessage != null" style=color:crimson>${errorMessage}</h4>
+
+            <div class="form-group">
+                <label style="padding-bottom: 0.5rem;">Question</label>
+                <input class="form-control" type="text" value.bind="questionText" />
+            </div>
+            <br>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input"  type="checkbox" checked.bind="multipleChoice">  Multiple Choice?
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input"  type="checkbox" checked.bind="isPoll">  Poll?
+                </label>
+            </div>
+            <br>
+            <a if.bind="quizId != '' ">
+                <dt class = "col-md-4">
+                    Quiz
+                </dt>
+                <dd class = "col-md-4">
+                    ${quizName}
+                </dd>
+            </a>
+            <div class="form-group" if.bind="quizId == '' ">
+                <label style="padding-bottom: 0.5rem;">Quiz</label>
+                <select  value.bind="newQuizId" class="form-control" >
+                    <option value="">--- Please select ---</option>
+                    <option model.bind="quiz.id" repeat.for="quiz of quizzes">${quiz.quizName}</option>
+                </select >
+            </div>
+            <hr />
+            <div class="form-group">
+                <input click.delegate="createClicked($event)" type="submit" value="Create" class="btn btn-primary" />
+            </div>
+
+    </div>
+</div>
+<br>
+<div>
+    <a load="/question-index">Back to List</a>
+</div>

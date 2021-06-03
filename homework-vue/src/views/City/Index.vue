@@ -38,18 +38,18 @@
 import { ICity } from "../../domain/ICity";
 import { Vue } from "vue-class-component";
 import { Service } from "../../service/Service";
-import router from "../../router";
 import store from "@/store/index";
 
 export default class City extends Vue {
     service: Service<ICity> = new Service<ICity>();
     entity: ICity[] | null = null;
-    protected readonly url: string =
-        "https://hlepik.azurewebsites.net/api/v1/Cities";
+
+    protected readonly url: string = "https://localhost:5001/api/v1/Cities";
     role: string | null = "";
 
     async created() {
         const response = await this.service.getAll(this.url);
+        console.log(response);
         this.entity = response;
         this.role = store.state.role;
     }

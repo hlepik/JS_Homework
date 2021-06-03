@@ -70,14 +70,14 @@ export default createStore({
                     name: info["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"]
                 }
                 console.log(jwtResponse.role)
-                
+
                 context.commit('logIn', jwtResponse);
             }
         },
         async register(context, register: IRegisterInfo): Promise<void> {
             const loginDataStr = JSON.stringify(register);
             const response = await axios.post(
-                'https://hlepik.azurewebsites.net/api/v1/Account/Register',
+                'https://localhost:5001/api/v1/Account/Register',
                 loginDataStr,
                 { headers: { 'Content-type': 'application/json' } }
             );

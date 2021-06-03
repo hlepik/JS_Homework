@@ -42,7 +42,7 @@ import router from "../../router";
 export default class CountyCreate extends Vue {
     service: Service<ICounty> = new Service<ICounty>();
     private name: string = "";
-    protected url: string = "https://hlepik.azurewebsites.net/api/v1/Counties";
+    protected url: string = "https://localhost:5001/api/v1/Counties";
     message: string = "";
 
     async saveClicked(): Promise<void> {

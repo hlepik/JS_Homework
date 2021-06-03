@@ -1,0 +1,55 @@
+<h1 id="titleQuiz">Questions</h1>
+<table class="table table-striped">
+
+    <thead>
+        <a load="/question-create">Create new</a> 
+        <tr>
+            <hr />
+            <th>
+               Question Text
+            </th>
+            <th>
+               Multiple Choice
+            </th>
+            <th>
+                Poll
+            </th>
+
+            <th>
+                Quiz name
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+
+    <tr repeat.for="item of data">
+            <td>
+                ${item.questionText}
+            </td>
+            <td>
+                <input type="checkbox" checked.bind="item.multipleChoice" disabled />
+
+            </td>
+            <td>
+                <input type="checkbox" checked.bind="item.isPoll" disabled />
+            </td>
+
+            <td>
+                ${item.quizName}
+            </td>
+          <td >
+                <a load="/question-edit(${item.id})">Edit</a> |
+                  <a load="/answer-create(${item.id}, ${item.quizName})">Add new answer</a>
+                  <form click.delegate="delete($event, item.id)"
+                      onclick="return confirm('Are you sure you want to delete this question?')">
+
+                    <button class="deleteButton" type="submit">
+                        <a  class="fa fa-trash" ></a>
+                    </button>
+                </form>
+            </td>
+        </tr>
+
+    </tbody>
+</table>

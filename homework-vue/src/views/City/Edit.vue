@@ -41,18 +41,21 @@ import router from "../../router";
 
 export default class CityEdit extends Vue {
     service: Service<ICity> = new Service<ICity>();
-    url: string = "https://hlepik.azurewebsites.net/api/v1/Cities/";
+    protected url: string = "https://localhost:5001/api/v1/Cities/";
     name: string = "";
     entity: any;
+    nameId: any;
     message: string = "";
 
     async created() {
         this.url = this.url + this.$route.query.id;
         const response = await this.service.get(this.url);
 
+        console.log(response);
         if (response.statusCode >= 200 && response.statusCode < 400) {
             this.entity = response.data;
             this.name = response.data!.name;
+            this.nameId = response.data!.nameId;
         }
         console.log(this.entity);
     }
@@ -65,17 +68,11 @@ export default class CityEdit extends Vue {
         const objToSave: ICity = {
             id: this.entity!.id,
             name: this.name,
+            nameId: this.nameId,
         };
-        if (this.name.length < 2) {
-            this.message = "Minimum name length is 2!";
-            return;
-        }
-        if (this.name.length > 128) {
-            this.message = "Maximum name length is 128!";
-            return;
-        }
 
         console.log(objToSave);
+        console.log(this.url);
 
         const response = await this.service.edit(objToSave, this.url);
 

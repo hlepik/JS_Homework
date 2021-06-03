@@ -60,6 +60,7 @@ const ProductCreate = () => {
             setCondition(conditionResult.data);
         }
 
+       
 
     }, [appState])
 
@@ -87,6 +88,7 @@ const ProductCreate = () => {
                 setAlertMessage(response.messages![0]);
             }
         }
+       
         
 
     }

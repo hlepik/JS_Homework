@@ -138,15 +138,17 @@ export default class Register extends Vue {
     lastname: string = "";
     message: string = "";
 
+  
+
     async registerClicked(): Promise<void> {
         console.log(this.email, this.password, this.firstname, this.lastname);
 
         var regexEmail = /\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/;
-        var passwordRegex = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,100}$/;
         if (this.firstname.length < 1) {
             this.message = "First name can't be empty!";
             return;
         }
+        
         if (this.lastname.length < 1) {
             this.message = "Last name can't be empty!";
             return;
@@ -155,11 +157,8 @@ export default class Register extends Vue {
             this.message = "Email is not valid!";
             return;
         }
-        if (!passwordRegex.test(this.password)) {
-            this.message = "Password is not valid!";
-            return;
-        }
 
+        console.log(this.password)
         store.dispatch("register", {
             email: this.email,
             password: this.password,

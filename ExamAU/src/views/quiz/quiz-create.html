@@ -1,0 +1,23 @@
+<h1>Create</h1>
+<h2>Quiz</h2>
+<hr />
+<div class="row">
+    <div class="col-md-4">       
+        <h4 if.bind="errorMessage != null" style=color:crimson>${errorMessage}</h4>
+
+            <div class="form-group">
+                <label style="padding-bottom: 0.5rem;">Quiz name</label>
+                <input class="form-control" type="text" value.bind="quizName" />
+            </div>
+           
+            <hr />
+            <div class="form-group">
+                <input click.delegate="createClicked($event)" type="submit" value="Create" class="btn btn-primary" />
+            </div>
+
+    </div>
+</div>
+<br>
+<div>
+    <a load="/quiz-index">Back to List</a>
+</div>
