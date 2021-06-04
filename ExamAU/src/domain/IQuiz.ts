@@ -9,6 +9,7 @@ export interface IQuiz {
     questionsCount?: number;
     allQuestions?: [];
   
+  
 
 
 } 

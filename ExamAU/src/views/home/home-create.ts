@@ -11,7 +11,9 @@ import { IQuizCount } from '../../domain/IQuizCount';
 export class HomeCreate{
 
     private service: BaseService<IQuiz> = 
-        new BaseService<IQuiz>("https://localhost:5001/api/v1/Quizzes", this.httpClient, this.state.token);
+    new BaseService<IQuiz>("https://localhost:5001/api/v1/Quizzes", this.httpClient, this.state.token);
+    private numberService: BaseService<number> = 
+        new BaseService<number>("https://localhost:5001/api/v1/Quizzes", this.httpClient, this.state.token);
         private answerService: BaseService<IAnswer> = 
         new BaseService<IAnswer>("https://localhost:5001/api/v1/Answers", this.httpClient, this.state.token);
         private resultService: BaseService<IResult> = 
@@ -50,9 +52,10 @@ export class HomeCreate{
 
         var points = 0;
         var id = "correctAnswers/" + this.data.id;
-        var correctAnswers = await this.service.get(id);
+        var correctAnswers = await this.numberService.get(id);
        
-        
+        console.log(correctAnswers, typeof(correctAnswers.data))
+
         for (const key in this.selectedItems) {
             console.log(key.length)
             if(this.selectedItems[key] == true){
@@ -79,44 +82,40 @@ export class HomeCreate{
             }
 
         }
-        var quizResult = 100;
-        console.log(correctAnswers.data[0] + "mata")
-        console.log(correctAnswers.data + 'polli')
-        var correctAnsw: number;
-
-        if (points != 0 && correctAnswers.data != undefined)
+        var quizResult: number = 100;
+       
+     
+        if (points != 0 && correctAnswers.data != 0)
         {
-            quizResult = (points * 100) /correctAnswers.data[0];
-
+            quizResult = Math.trunc((points * 100) / correctAnswers.data);
         }
-        var id = this.data.id;
-        this.totalAnswers = correctAnswers.data[0];
 
-        if(this.state.token != null){
+      
+        if(this.state.token != null && this.state.token != ''){
             let objToSave: IResult = {
-                totalAnswers: this.totalAnswers,
+                totalAnswers: correctAnswers.data,
                 correctAnswersCount: points,
                 percentage: quizResult,
-                quizId: id
+                quizId: this.data.id,
+                
                 
             };
             let resultResponse = await this.resultService.create(objToSave);
             console.log(resultResponse)
         }
-      
-        var percentage = (this.data.percentage+ quizResult) / 2;
+        var percentage: number;
+        percentage = Math.trunc((this.data.percentage + quizResult) / 2);
        
+
         let quizObjToSave: IQuiz = {
             peopleCount: this.data.peopleCount + 1,
             percentage: percentage,
             quizName: this.data.quizName,
-            id: this.data.id
+            id: this.data.id,
+            createdAt: this.data.createdAt,
+          
         }
-        let m: IResultId= {
-            percentage: percentage,
-            points: points
-
-        }
+      
 
         let response = await this.service.update(quizObjToSave);
       

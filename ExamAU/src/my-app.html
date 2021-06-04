@@ -33,17 +33,17 @@
            
             <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                 <ul class="navbar-nav flex-grow-1">
-                    <li class="nav-item" show.bind="state.role != undefined">
+                    <li class="nav-item" show.bind="state.role != undefined  && state.role  != ''">
                         <a class="nav-link text-gray" load="quiz-index">Quizzes</a>
                     </li>
-                    <li class="nav-item" show.bind="state.role != undefined">
+                    <li class="nav-item" show.bind="state.role != undefined && state.role  != ''">
                         <a class="nav-link text-gray" load="question-index">Questions</a>
                     </li>
-                    <li class="nav-item" show.bind="state.role != undefined">
+                    <li class="nav-item" show.bind="state.role != undefined  && state.role  != ''">
                         <a class="nav-link text-gray" load="answer-index">Answers</a>
                     </li>
                   
-                    <li class="nav-item" show.bind="state.token != null">
+                    <li class="nav-item" show.bind="state.token != null  && state.role  != ''">
                         <a class="nav-link text-gray" load="result-index">Results</a>
                     </li>
                    
